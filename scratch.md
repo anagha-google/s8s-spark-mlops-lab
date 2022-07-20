@@ -6,7 +6,7 @@ PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d'
 PROJECT_NAME=`gcloud projects describe ${PROJECT_ID} | grep name | cut -d':' -f2 | xargs`
 GCP_ACCOUNT_NAME=`gcloud auth list --filter=status:ACTIVE --format="value(account)"`
 ORG_ID=`gcloud organizations list --format="value(name)"`
-LOCATION=us-west1
+LOCATION=us-central1
 VPC_NM=VPC=s8s-vpc-$PROJECT_NBR
 SPARK_SERVERLESS_SUBNET=spark-snet
 PERSISTENT_HISTORY_SERVER_NM=s8s-sphs-${PROJECT_NBR}
@@ -40,5 +40,32 @@ terraform apply \
   -auto-approve
 
 
+
+gcloud dataproc batches submit pyspark \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-01-data-engineering-$RANDOM \
+gs://$CODE_BUCKET/pyspark/01-data-engineering.py \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+--files "gs://$CODE_BUCKET/pyspark/common-utils.py" \
+-- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "gs://s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering"
+
+
+
+gcloud dataproc batches submit pyspark \
+gs://$CODE_BUCKET/pyspark/data_engineering.py \
+--py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
+--deps-bucket="gs://$CODE_BUCKET/pyspark/" \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-01-data-engineering-$RANDOM \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+-- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "gs://s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering"
 
 ```
