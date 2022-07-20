@@ -45,13 +45,13 @@ gcloud dataproc batches submit pyspark \
 --project $PROJECT_ID \
 --region $LOCATION  \
 --batch customer-churn-01-data-engineering-$RANDOM \
-gs://$CODE_BUCKET/pyspark/01-data-engineering.py \
+gs://$CODE_BUCKET/pyspark/data_engineering.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 --files "gs://$CODE_BUCKET/pyspark/common-utils.py" \
--- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "gs://s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering"
+-- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "gs://s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" True
 
 
 
@@ -66,6 +66,6 @@ gs://$CODE_BUCKET/pyspark/data_engineering.py \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
--- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "gs://s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering"
+-- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" True
 
 ```
