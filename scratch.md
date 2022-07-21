@@ -70,5 +70,18 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 -- "02-model-training"  $PROJECT_ID "${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" "${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" "s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" "gs://$MODEL_BUCKET/customer-churn-model/" "${PROJECT_ID}.customer_churn_ds.customer_churn_model_feature_importance" True
 
+# BATCH SCORING
+gcloud dataproc batches submit pyspark \
+gs://$CODE_BUCKET/pyspark/batch_scoring.py \
+--py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
+--deps-bucket="gs://$CODE_BUCKET/pyspark/" \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-03-batch-scoring-$RANDOM \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+-- "03-batch-scoring"  $PROJECT_ID "gs://$MODEL_BUCKET/customer-churn-model/" "gs://$DATA_BUCKET/customer_churn_score_data.csv" "${PROJECT_ID}.customer_churn_ds.customer_churn_batch_scoring_results" "s8s-spark-bucket-${PROJECT_NBR}/03-batch-scoring/" True
 
 ```
