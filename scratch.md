@@ -68,7 +68,7 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
--- "02-model-training"  $PROJECT_ID "${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" "${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" "s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" "gs://$MODEL_BUCKET/customer-churn-model/" True
+-- "02-model-training"  $PROJECT_ID "${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" "${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" "s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" "gs://$MODEL_BUCKET/customer-churn-model/" "${PROJECT_ID}.customer_churn_ds.customer_churn_model_feature_importance" True
 
 
 ```
