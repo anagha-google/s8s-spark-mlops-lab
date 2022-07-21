@@ -29,7 +29,7 @@ PERSISTENT_HISTORY_SERVER_NM=s8s-sphs-${PROJECT_NBR}
 UMSA_FQN=s8s-lab-sa@$PROJECT_ID.iam.gserviceaccount.com
 DATA_BUCKET=s8s_data_bucket-${PROJECT_NBR}
 CODE_BUCKET=s8s_code_bucket-${PROJECT_NBR}
-MODEL_BUCKET=s8s_code_bucket-${PROJECT_NBR}
+MODEL_BUCKET=s8s_model_bucket-${PROJECT_NBR}
 
 echo "PROJECT_ID=$PROJECT_ID"
 echo "PROJECT_NBR=$PROJECT_NBR"
