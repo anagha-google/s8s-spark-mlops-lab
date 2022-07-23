@@ -142,7 +142,21 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 
 ================
 
-# BATCH SCORING
+# a) BATCH SCORING - vanilla
+gcloud dataproc batches submit pyspark \
+gs://$CODE_BUCKET/pyspark/batch_scoring.py \
+--py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
+--deps-bucket="gs://$CODE_BUCKET/pyspark/" \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-03-batch-scoring-$RANDOM \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+-- "03-batch-scoring"  $PROJECT_ID "gs://$MODEL_BUCKET/customer-churn-model/" "gs://$DATA_BUCKET/customer_churn_score_data.csv" "${PROJECT_ID}.customer_churn_ds.customer_churn_batch_scoring_results" "s8s-spark-bucket-${PROJECT_NBR}/03-batch-scoring/" True
+
+# b) BATCH SCORING - with container
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
@@ -156,5 +170,26 @@ gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 -- "03-batch-scoring"  $PROJECT_ID "gs://$MODEL_BUCKET/customer-churn-model/" "gs://$DATA_BUCKET/customer_churn_score_data.csv" "${PROJECT_ID}.customer_churn_ds.customer_churn_batch_scoring_results" "s8s-spark-bucket-${PROJECT_NBR}/03-batch-scoring/" True
+
+# c) BATCH SCORING - with arg parser
+gcloud dataproc batches submit pyspark \
+gs://$CODE_BUCKET/pyspark/batch_scoring.py \
+--py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
+--deps-bucket="gs://$CODE_BUCKET/pyspark/" \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-03-batch-scoring-$RANDOM \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+-- --appName="03-batch-scoring"  \
+   --projectID=$PROJECT_ID \
+   --sparkMlModelBucketUri="gs://$MODEL_BUCKET/customer-churn-model/" \
+   --scoreDatasetBucketFQN="gs://$DATA_BUCKET/customer_churn_score_data.csv" \
+   --bigQueryOutputTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_batch_scoring_results" \
+   --bigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/03-batch-scoring/" \
+   --enableDataframeDisplay=True
 
 ```
