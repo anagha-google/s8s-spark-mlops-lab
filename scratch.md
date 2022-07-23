@@ -49,7 +49,7 @@ echo "DATA_BUCKET=$DATA_BUCKET"
 echo "CODE_BUCKET=$CODE_BUCKET"
 
 
-# DATA ENGINEERING
+# a) DATA ENGINEERING - Vanilla
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/data_engineering.py \
 --py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
@@ -63,7 +63,7 @@ gs://$CODE_BUCKET/pyspark/data_engineering.py \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 -- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" True
 
-
+# b) DATA ENGINEERING - GCR image
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/data_engineering.py \
 --py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
@@ -78,7 +78,23 @@ gs://$CODE_BUCKET/pyspark/data_engineering.py \
 --container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
 -- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" True
 
-# MODEL TRAINING
+# c) DATA ENGINEERING - arg parser
+gcloud dataproc batches submit pyspark \
+gs://$CODE_BUCKET/pyspark/data_engineering.py \
+--py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
+--deps-bucket="gs://$CODE_BUCKET/pyspark/" \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-01-data-engineering-$RANDOM \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+--container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
+-- --appName="01-data-engineering"  --projectID=$PROJECT_ID --rawDatasetBucketFQN="gs://${DATA_BUCKET}/customer_churn_train_data.csv" --sparkBigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" --enableDataframeDisplay=True
+
+
+# a) MODEL TRAINING - Vanilla
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/model_training.py \
 --py-files="gs://$CODE_BUCKET/pyspark/" \
@@ -92,6 +108,7 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 -- "02-model-training"  $PROJECT_ID "${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" "${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" "s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" "gs://$MODEL_BUCKET/customer-churn-model/" "${PROJECT_ID}.customer_churn_ds.customer_churn_model_feature_importance" True
 
+# b) MODEL TRAINING - with a container image
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/model_training.py \
 --py-files="gs://$CODE_BUCKET/pyspark/" \
@@ -106,7 +123,24 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
 -- "02-model-training"  $PROJECT_ID "${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" "${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" "s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" "gs://$MODEL_BUCKET/customer-churn-model/" "${PROJECT_ID}.customer_churn_ds.customer_churn_model_feature_importance" True
 
+# c) MODEL TRAINING - with args parser
+gcloud dataproc batches submit pyspark \
+gs://$CODE_BUCKET/pyspark/model_training.py \
+--py-files="gs://$CODE_BUCKET/pyspark/" \
+--deps-bucket="gs://$CODE_BUCKET/pyspark/" \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-02-model-training-$RANDOM \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+--container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
+-- --appName="02-model-training"  --projectID=$PROJECT_ID --bigQuerySourceTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" --bigQueryModelTestResultsTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" --sparkBigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" --sparkMlModelBucketUri="gs://$MODEL_BUCKET/customer-churn-model/" --bigQueryFeatureImportanceTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_model_feature_importance" --enableDataframeDisplay=True
 
+
+
+================
 
 # BATCH SCORING
 gcloud dataproc batches submit pyspark \
