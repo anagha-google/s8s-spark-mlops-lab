@@ -136,7 +136,7 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 --container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
--- --appName="02-model-training"  --projectID=$PROJECT_ID --bigQuerySourceTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" --bigQueryModelTestResultsTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" --sparkBigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" --sparkMlModelBucketUri="gs://$MODEL_BUCKET/customer-churn-model/" --bigQueryFeatureImportanceTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_model_feature_importance" --enableDataframeDisplay=True
+-- --appName="02-model-training"  --projectID=$PROJECT_ID --bigQuerySourceTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_training_data" --bigQueryModelTestResultsTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_test_predictions" --sparkBigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/02-model-training/" --sparkMlModelBucketUri="gs://$MODEL_BUCKET/customer-churn-model/" --bigQueryModelMetricsTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_model_metrics" --bigQueryFeatureImportanceTableFQN="${PROJECT_ID}.customer_churn_ds.customer_churn_model_feature_importance" --enableDataframeDisplay=True
 
 
 
