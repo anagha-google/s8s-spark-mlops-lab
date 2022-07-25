@@ -31,7 +31,7 @@ PROJECT_NAME=`gcloud projects describe ${PROJECT_ID} | grep name | cut -d':' -f2
 GCP_ACCOUNT_NAME=`gcloud auth list --filter=status:ACTIVE --format="value(account)"`
 ORG_ID=`gcloud organizations list --format="value(name)"`
 LOCATION=us-central1
-VPC_NM=VPC=s8s-vpc-$PROJECT_NBR
+VPC_NM=s8s-vpc-$PROJECT_NBR
 SPARK_SERVERLESS_SUBNET=spark-snet
 PERSISTENT_HISTORY_SERVER_NM=s8s-sphs-${PROJECT_NBR}
 UMSA_FQN=s8s-lab-sa@$PROJECT_ID.iam.gserviceaccount.com
@@ -51,47 +51,47 @@ echo "CODE_BUCKET=$CODE_BUCKET"
 
 # a) DATA ENGINEERING - Vanilla
 gcloud dataproc batches submit pyspark \
-gs://$CODE_BUCKET/pyspark/data_engineering.py \
+gs://$CODE_BUCKET/pyspark/data_preprocessing.py \
 --py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
 --deps-bucket="gs://$CODE_BUCKET/pyspark/" \
 --project $PROJECT_ID \
 --region $LOCATION  \
---batch customer-churn-01-data-engineering-$RANDOM \
+--batch customer-churn-01-data-preprocessing-$RANDOM \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
--- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" True
+-- "01-data-v"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "s8s-spark-bucket-${PROJECT_NBR}/01-data-preprocessing" True
 
 # b) DATA ENGINEERING - GCR image
 gcloud dataproc batches submit pyspark \
-gs://$CODE_BUCKET/pyspark/data_engineering.py \
+gs://$CODE_BUCKET/pyspark/data_preprocessing.py \
 --py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
 --deps-bucket="gs://$CODE_BUCKET/pyspark/" \
 --project $PROJECT_ID \
 --region $LOCATION  \
---batch customer-churn-01-data-engineering-$RANDOM \
+--batch customer-churn-01-data-preprocessing-$RANDOM \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 --container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
--- "01-data-engineering"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" True
+-- "01-data-preprocessing"  $PROJECT_ID "gs://${DATA_BUCKET}/customer_churn_train_data.csv" "s8s-spark-bucket-${PROJECT_NBR}/01-data-preprocessing" True
 
 # c) DATA ENGINEERING - arg parser
 gcloud dataproc batches submit pyspark \
-gs://$CODE_BUCKET/pyspark/data_engineering.py \
+gs://$CODE_BUCKET/pyspark/data_preprocessing.py \
 --py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
 --deps-bucket="gs://$CODE_BUCKET/pyspark/" \
 --project $PROJECT_ID \
 --region $LOCATION  \
---batch customer-churn-01-data-engineering-$RANDOM \
+--batch customer-churn-01-data-preprocessing-$RANDOM \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
 --container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
--- --appName="01-data-engineering"  --projectID=$PROJECT_ID --rawDatasetBucketFQN="gs://${DATA_BUCKET}/customer_churn_train_data.csv" --sparkBigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/01-data-engineering" --enableDataframeDisplay=True
+-- --appName="01-data-engineering"  --projectID=$PROJECT_ID --rawDatasetBucketFQN="gs://${DATA_BUCKET}/customer_churn_train_data.csv" --sparkBigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/01-data-preprocessing" --enableDataframeDisplay=True
 
 
 # a) MODEL TRAINING - Vanilla
