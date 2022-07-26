@@ -93,6 +93,21 @@ gs://$CODE_BUCKET/pyspark/data_preprocessing.py \
 --container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
 -- --appName="01-data-engineering"  --projectID=$PROJECT_ID --rawDatasetBucketFQN="gs://${DATA_BUCKET}/customer_churn_train_data.csv" --sparkBigQueryScratchBucketUri="s8s-spark-bucket-${PROJECT_NBR}/01-data-preprocessing" --enableDataframeDisplay=True
 
+gcloud dataproc batches submit pyspark \
+gs://$CODE_BUCKET/pyspark/data_preprocessing.py \
+--py-files="gs://$CODE_BUCKET/pyspark/common_utils.py" \
+--deps-bucket="gs://$CODE_BUCKET/pyspark/" \
+--project $PROJECT_ID \
+--region $LOCATION  \
+--batch customer-churn-01-data-preprocessing-$RANDOM \
+--subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
+--history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
+--service-account $UMSA_FQN \
+--properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
+--container-image="gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2" \
+-- ["--appName","01-data-engineering","--projectID",$PROJECT_ID,"--rawDatasetBucketFQN","gs://${DATA_BUCKET}/customer_churn_train_data.csv","--sparkBigQueryScratchBucketUri","s8s-spark-bucket-${PROJECT_NBR}/01-data-preprocessing","--enableDataframeDisplay",True]
+
+
 
 # a) MODEL TRAINING - Vanilla
 gcloud dataproc batches submit pyspark \
