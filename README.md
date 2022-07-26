@@ -1,3 +1,5 @@
+https://google-cloud-pipeline-components.readthedocs.io/en/google-cloud-pipeline-components-1.0.0/google_cloud_pipeline_components.experimental.dataproc.html#google_cloud_pipeline_components.experimental.dataproc.DataprocPySparkBatchOp
+
 com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2
 
 
