@@ -1,12 +1,34 @@
+Spark ML vertex AI Pipelines
+
+
+Hello World Pipeline:
+https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/ml_ops/stage3/get_started_with_dataproc_serverless_pipeline_components.ipynb
+
+Nardini pipeline:
+https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipelines_dataproc_tabular/google_cloud_pipeline_components_dataproc_tabular.ipynb
+
+Components API docs:
 https://google-cloud-pipeline-components.readthedocs.io/en/google-cloud-pipeline-components-1.0.0/google_cloud_pipeline_components.experimental.dataproc.html#google_cloud_pipeline_components.experimental.dataproc.DataprocPySparkBatchOp
 
+BQ jar:
 com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2
 
-gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2
+My container image:
+gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.3
 
+Spark ML model serve with Vertex AI:
+https://medium.com/google-cloud/serving-a-spark-ml-model-on-vertex-ai-using-a-ci-cd-pipeline-with-cloud-build-and-cloud-function-e659e00dc7c4
+
+Vertex AI pipeline to trigger Cloud Composer:
+https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/community/ml_ops/stage3/get_started_with_airflow_and_vertex_pipelines.ipynb
+
+Spark Lens
+https://github.com/qubole/sparklens
+
+Spark ML Pipelines:
+https://spark.apache.org/docs/latest/ml-pipeline.html
 
 # s8s-spark-mlops
-
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
 PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d':' -f2 |  tr -d "'" | xargs`
 PROJECT_NAME=`gcloud projects describe ${PROJECT_ID} | grep name | cut -d':' -f2 | xargs`
