@@ -2,6 +2,8 @@ https://google-cloud-pipeline-components.readthedocs.io/en/google-cloud-pipeline
 
 com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2
 
+gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.2
+
 
 # s8s-spark-mlops
 
