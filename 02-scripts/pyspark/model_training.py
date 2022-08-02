@@ -1,0 +1,341 @@
+# ............................................................
+# Model training
+# ............................................................
+# This script does model training, with Spark MLLib-</br>
+# Supervised learning, binary classification with 
+# RandomForestClassifier and uses the Spark MLLib pipeline API
+# Uses BigQuery as a source, and writes test results, metrics and 
+# feature importance scores to BigQuery
+# ............................................................
+
+from pyspark.sql import SparkSession
+from pyspark.ml import Pipeline
+from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler
+from pyspark.ml.classification import RandomForestClassifier
+from pyspark.mllib.evaluation import MulticlassMetrics
+from pyspark.ml.evaluation import BinaryClassificationEvaluator, MulticlassClassificationEvaluator
+from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
+from pyspark.sql.types import FloatType
+import pyspark.sql.functions as F
+from pyspark.ml.feature import StringIndexer
+import pandas as pd
+import sys, logging, argparse, random, tempfile, json
+from pyspark.sql.functions import col, udf
+from pyspark.sql.functions import round as spark_round
+from pyspark.sql.types import StructType, DoubleType, StringType
+from pyspark.sql.functions import lit
+from pathlib import Path as path
+from google.cloud import storage
+from urllib.parse import urlparse, urljoin
+
+def fnParseArguments():
+# {{ Start 
+    """
+    Purpose:
+        Parse arguments received by script
+    Returns:
+        args
+    """
+    argsParser = argparse.ArgumentParser()
+    argsParser.add_argument(
+        '--pipelineID',
+        help='Unique ID for the pipeline stages for traceability',
+        type=str,
+        required=True)
+    argsParser.add_argument(
+        '--projectNbr',
+        help='The project number',
+        type=str,
+        required=True)
+    argsParser.add_argument(
+        '--projectID',
+        help='The project id',
+        type=str,
+        required=True)
+    argsParser.add_argument(
+        '--displayPrintStatements',
+        help='Boolean - print to screen or not',
+        type=bool,
+        required=True)
+    return argsParser.parse_args()
+# }} End fn_parseArguments()
+
+def fnMain(logger, args):
+# {{ Start main
+
+    # 1a. Arguments
+    pipelineID = args.pipelineID
+    projectNbr = args.projectNbr
+    projectID = args.projectID
+    displayPrintStatements = args.displayPrintStatements
+
+    # 1b. Variables 
+    appBaseName = "customer-churn-model"
+    appNameSuffix = "training"
+    appName = f"{appBaseName}-{appNameSuffix}"
+    modelBaseNm = appBaseName
+    modelVersion = pipelineID
+    bqDatasetNm = f"{projectID}.customer_churn_ds"
+    operation = appNameSuffix
+    bigQuerySourceTableFQN = f"{bqDatasetNm}.training_data"
+    bigQueryModelTestResultsTableFQN = f"{bqDatasetNm}.test_predictions"
+    bigQueryModelMetricsTableFQN = f"{bqDatasetNm}.model_metrics"
+    bigQueryFeatureImportanceTableFQN = f"{bqDatasetNm}.model_feature_importance_scores"
+    modelBucketUri = f"gs://s8s_model_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
+    metricsBucketUri = f"gs://s8s_metrics_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
+    scratchBucketUri = f"s8s-spark-bucket-{projectNbr}/{appBaseName}/pipelineId-{pipelineID}/{appNameSuffix}/"
+    pipelineExecutionDt = datetime.now().strftime("%Y%m%d%H%M%S")
+
+    # Other variables, constants
+    SPLIT_SEED = 6
+    SPLIT_SPECS = [0.8, 0.2]
+
+    # 1c. Display input and output
+    if displayPrintStatements:
+        logger.info("Starting model training for *Customer Churn* experiment")
+        logger.info(".....................................................")
+        logger.info(f"The datetime now is - {pipelineExecutionDt}")
+        logger.info(" ")
+        logger.info("INPUT PARAMETERS")
+        logger.info(f"....pipelineID={pipelineID}")
+        logger.info(f"....projectID={projectID}")
+        logger.info(f"....projectNbr={projectNbr}")
+        logger.info(f"....displayPrintStatements={displayPrintStatements}")
+        logger.info(" ")
+        logger.info("EXPECTED SETUP")  
+        logger.info(f"....BQ Dataset={bqDatasetNm}")
+        logger.info(f"....Model Training Source Data in BigQuery={bigQuerySourceTableFQN}")
+        logger.info(f"....Scratch Bucket for BQ connector=gs://s8s-spark-bucket-{projectNbr}") 
+        logger.info(f"....Model Bucket=gs://s8s-model-bucket-{projectNbr}")  
+        logger.info(f"....Metrics Bucket=gs://s8s-metrics-bucket-{projectNbr}") 
+        logger.info(" ")
+        logger.info("OUTPUT")
+        logger.info(f"....Model in GCS={modelBucketUri}")
+        logger.info(f"....Model metrics in GCS={metricsBucketUri}")  
+        logger.info(f"....Model metrics in BigQuery={bigQueryModelMetricsTableFQN}")      
+        logger.info(f"....Model feature importance scores in BigQuery={bigQueryFeatureImportanceTableFQN}") 
+        logger.info(f"....Model test results in BigQuery={bigQueryModelTestResultsTableFQN}") 
+
+    try:
+        # 2. Spark Session creation
+        logger.info('....Initializing spark & spark configs')
+        spark = SparkSession.builder.appName(appName).getOrCreate()
+
+        # Spark configuration setting for writes to BigQuery
+        spark.conf.set("parentProject", projectID)
+        spark.conf.set("temporaryGcsBucket", scratchBucketUri)
+        spark.conf.set("spark.sql.execution.arrow.pyspark.enabled", "true")
+
+        # 3. Pre-process training data
+        logger.info('....Data pre-procesing')
+        dataPreprocessingStagesList = []
+        # 3a. Create and append to pipeline stages - string indexing and one hot encoding
+        for eachCategoricalColumn in common_utils.CATEGORICAL_COLUMN_LIST:
+            # Category indexing with StringIndexer
+            stringIndexer = StringIndexer(inputCol=eachCategoricalColumn, outputCol=eachCategoricalColumn + "Index")
+            # Use OneHotEncoder to convert categorical variables into binary SparseVectors
+            encoder = OneHotEncoder(inputCols=[stringIndexer.getOutputCol()], outputCols=[eachCategoricalColumn + "classVec"])
+            # Add stages.  This is a lazy operation
+            dataPreprocessingStagesList += [stringIndexer, encoder]
+
+        # 3b. Convert label into label indices using the StringIndexer and append to pipeline stages
+        labelStringIndexer = StringIndexer(inputCol="churn", outputCol="label")
+        dataPreprocessingStagesList += [labelStringIndexer]
+
+        # 4. Feature engineering
+        logger.info('....Feature engineering')
+        featureEngineeringStageList = []
+        assemblerInputs = common_utils.NUMERIC_COLUMN_LIST + [c + "classVec" for c in common_utils.CATEGORICAL_COLUMN_LIST]
+        featuresVectorAssembler = VectorAssembler(inputCols=assemblerInputs, outputCol="features")
+        featureEngineeringStageList += [featuresVectorAssembler]
+
+        # 5. Model training
+        logger.info('....Model training')
+        modelTrainingStageList = []
+        rfClassifier = RandomForestClassifier(labelCol="label", featuresCol="features")
+        modelTrainingStageList += [rfClassifier]
+
+        # 6. Create a model training pipeline for stages defined
+        logger.info('....Instantiating pipeline model')
+        pipeline = Pipeline(stages=dataPreprocessingStagesList + featureEngineeringStageList + modelTrainingStageList)   
+
+        # 7. Read training data
+        logger.info('....Read the training dataset into a dataframe')
+        inputDF = spark.read \
+            .format('bigquery') \
+            .load(bigQuerySourceTableFQN)
+
+        if displayPrintStatements:
+            inputDF.printSchema()
+            logger.info(f"inputDF count={inputDF.count()}")
+
+        # Typecast some columns to the right datatype
+        inputDF = inputDF.withColumn("partner", inputDF.partner.cast('string')) \
+            .withColumn("dependents", inputDF.dependents.cast('string')) \
+            .withColumn("phone_service", inputDF.phone_service.cast('string')) \
+            .withColumn("paperless_billing", inputDF.paperless_billing.cast('string')) \
+            .withColumn("churn", inputDF.churn.cast('string')) \
+            .withColumn("monthly_charges", inputDF.monthly_charges.cast('float')) \
+            .withColumn("total_charges", inputDF.total_charges.cast('float'))
+
+        # 8. Split to training and test datasets
+        logger.info('....Split the dataset')
+        trainDF, testDF = inputDF.randomSplit(SPLIT_SPECS, seed=SPLIT_SEED)
+
+        # 9. Fit the model
+        logger.info('....Fit the model')
+        pipelineModel = pipeline.fit(trainDF)
+
+        # 10. Test the model with the test dataset
+        logger.info('....Test the model')
+        predictionsDF = pipelineModel.transform(testDF)
+        predictionsDF.show(2)
+
+        # 11. Model explainability - feature importance
+        pipelineModel.stages[-1].featureImportances
+
+        def fnExtractFeatureImportance(featureImportanceSparseVector, predictionsDataframe, featureColumnListing):
+            featureColumnMetadataList = []
+            for i in predictionsDataframe.schema[featureColumnListing].metadata["ml_attr"]["attrs"]:
+                featureColumnMetadataList = featureColumnMetadataList + predictionsDataframe.schema[featureColumnListing].metadata["ml_attr"]["attrs"][i]
+                
+            featureColumnMetadataPDF = pd.DataFrame(featureColumnMetadataList)
+            featureColumnMetadataPDF['importance_score'] = featureColumnMetadataPDF['idx'].apply(lambda x: featureImportanceSparseVector[x])
+            return(featureColumnMetadataPDF.sort_values('importance_score', ascending = False))
+
+        fnExtractFeatureImportance(pipelineModel.stages[-1].featureImportances, predictionsDF, "features")
+
+        featureImportantcePDF = fnExtractFeatureImportance(pipelineModel.stages[-1].featureImportances, predictionsDF, "features")
+
+        def fnCaptureModelMetrics(predictionsDF, labelColumn, operation):
+        """
+        Get model metrics
+        Args:
+            predictions: predictions
+            labelColumn: target column
+            operation: train or test
+        Returns:
+            metrics: metrics
+            
+        Anagha TODO: This function if called from common_utils fails; Need to researchy why
+        """
+        
+        metricLabels = ['area_roc', 'area_prc', 'accuracy', 'f1', 'precision', 'recall']
+        metricColumns = ['true', 'score', 'prediction']
+        metricKeys = [f'{operation}_{ml}' for ml in metricLabels] + metricColumns
+
+        # Instantiate evaluators
+        bcEvaluator = BinaryClassificationEvaluator(labelCol=labelColumn)
+        mcEvaluator = MulticlassClassificationEvaluator(labelCol=labelColumn)
+
+        # Capture metrics -> areas, acc, f1, prec, rec
+        area_roc = round(bcEvaluator.evaluate(predictionsDF, {bcEvaluator.metricName: 'areaUnderROC'}), 5)
+        area_prc = round(bcEvaluator.evaluate(predictionsDF, {bcEvaluator.metricName: 'areaUnderPR'}), 5)
+        acc = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "accuracy"}), 5)
+        f1 = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "f1"}), 5)
+        prec = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "weightedPrecision"}), 5)
+        rec = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "weightedRecall"}), 5)
+
+        # Get the true, score, prediction off of the test results dataframe
+        rocDictionary = common_utils.fnGetTrueScoreAndPrediction(predictionsDF, labelColumn)
+        true = rocDictionary['true']
+        score = rocDictionary['score']
+        prediction = rocDictionary['prediction']
+
+        # Create a metric values array
+        metricValuesArray = [] 
+        metricValuesArray.extend((area_roc, area_prc, acc, f1, prec, rec))
+        #metricValuesArray.extend((area_roc, area_prc, acc, f1, prec, rec, true, score, prediction))
+        
+        # Zip the keys and values into a dictionary  
+        metricsDictionary = dict(zip(metricKeys, metricValuesArray))
+
+        return metricsDictionary
+
+        # 12. Capture & display metrics
+        modelMetrics = fnCaptureModelMetrics(predictionsDF, "label", "test")
+        for m, v in modelMetrics.items():
+            logger.info(f'{m}: {v}')
+
+        # 13. Persist metrics to BigQuery
+        metricsDF = spark.createDataFrame(modelMetrics.items(), ["metric_nm", "metric_value"]) 
+        metricsWithPipelineIdDF = metricsDF.withColumn("pipeline_id", lit(pipelineID)) \
+                                        .withColumn("model_version", lit(pipelineID)) \
+                                        .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
+                                        .withColumn("operation", lit(operation)) 
+
+        metricsWithPipelineIdDF.show()
+
+        metricsWithPipelineIdDF.write.format('bigquery') \
+        .mode("overwrite")\
+        .option('table', bigQueryModelMetricsTableFQN) \
+        .save()
+
+        # 14. Persist feature importance scores to BigQuery
+        featureImportantceDF = spark.createDataFrame(featureImportantcePDF).toDF("feature_index","feature_nm","importance_score")
+
+        persistFeatureImportanceDF = featureImportantceDF.withColumn("pipeline_id", lit(pipelineID)) \
+                                        .withColumn("model_version", lit(pipelineID)) \
+                                        .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
+                                        .withColumn("operation", lit(operation)) 
+
+        persistFeatureImportanceDF.show()
+
+        persistFeatureImportanceDF.write.format('bigquery') \
+        .mode("overwrite")\
+        .option('table', bigQueryFeatureImportanceTableFQN) \
+        .save()
+
+
+        # 15. Persist metrics to GCS
+        blobName = f"{modelBaseNm}/{operation}/{modelVersion}/metrics.json"
+        common_utils.fnPersistMetrics(urlparse(metricsBucketUri).netloc, modelMetrics, blobName)
+
+        # 16. Persist model testing results to BigQuery
+        persistPredictionsDF = predictionsDF.withColumn("pipeline_id", lit(pipelineID)) \
+                                        .withColumn("model_version", lit(pipelineID)) \
+                                        .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
+                                        .withColumn("operation", lit(operation)) 
+
+        persistPredictionsDF.write.format('bigquery') \
+        .mode("overwrite")\
+        .option('table', bigQueryModelTestResultsTableFQN) \
+        .save()
+
+        # 17. Persist model to GCS
+        logger.info('....Persist the model to GCS')
+        pipelineModel.write().overwrite().save(modelBucketUri)
+
+
+    except RuntimeError as coreError:
+            logger.error(coreError)
+    else:
+        logger.info('Successfully completed model training!')
+
+# }} End fn_main()
+
+def fnConfigureLogger():
+# {{ Start 
+    """
+    Purpose:
+        Configure a logger for the script
+    Returns:
+        Logger object
+    """
+    logFormatter = logging.Formatter('%(asctime)s - %(filename)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger("data_engineering")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    logStreamHandler = logging.StreamHandler(sys.stdout)
+    logStreamHandler.setFormatter(logFormatter)
+    logger.addHandler(logStreamHandler)
+    return logger
+# }} End fnConfigureLogger()
+
+if __name__ == "__main__":
+# {{ Entry point
+    arguments = fnParseArguments()
+    logger = fnConfigureLogger()
+    fnMain(logger, arguments)
+
+# }} End enty point
