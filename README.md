@@ -16,6 +16,10 @@ com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2
 My container image:
 gcr.io/s8s-spark-ml-mlops/dataproc_serverless_custom_runtime:1.0.3
 
+Resources:
+spark.executor.cores
+spark.executor.instances
+
 Spark ML model serve with Vertex AI:
 https://medium.com/google-cloud/serving-a-spark-ml-model-on-vertex-ai-using-a-ci-cd-pipeline-with-cloud-build-and-cloud-function-e659e00dc7c4
 
