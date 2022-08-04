@@ -27,6 +27,8 @@ from pyspark.sql.functions import lit
 from pathlib import Path as path
 from google.cloud import storage
 from urllib.parse import urlparse, urljoin
+from datetime import datetime
+import common_utils
 
 def fnParseArguments():
 # {{ Start 
@@ -58,7 +60,7 @@ def fnParseArguments():
         type=bool,
         required=True)
     return argsParser.parse_args()
-# }} End fn_parseArguments()
+# }} End fnParseArguments()
 
 def fnMain(logger, args):
 # {{ Start main
@@ -126,48 +128,15 @@ def fnMain(logger, args):
         spark.conf.set("temporaryGcsBucket", scratchBucketUri)
         spark.conf.set("spark.sql.execution.arrow.pyspark.enabled", "true")
 
-        # 3. Pre-process training data
-        logger.info('....Data pre-procesing')
-        dataPreprocessingStagesList = []
-        # 3a. Create and append to pipeline stages - string indexing and one hot encoding
-        for eachCategoricalColumn in common_utils.CATEGORICAL_COLUMN_LIST:
-            # Category indexing with StringIndexer
-            stringIndexer = StringIndexer(inputCol=eachCategoricalColumn, outputCol=eachCategoricalColumn + "Index")
-            # Use OneHotEncoder to convert categorical variables into binary SparseVectors
-            encoder = OneHotEncoder(inputCols=[stringIndexer.getOutputCol()], outputCols=[eachCategoricalColumn + "classVec"])
-            # Add stages.  This is a lazy operation
-            dataPreprocessingStagesList += [stringIndexer, encoder]
+        # ........................................................
+        # TRAINING DATA - READ & SPLIT
+        # ........................................................
 
-        # 3b. Convert label into label indices using the StringIndexer and append to pipeline stages
-        labelStringIndexer = StringIndexer(inputCol="churn", outputCol="label")
-        dataPreprocessingStagesList += [labelStringIndexer]
-
-        # 4. Feature engineering
-        logger.info('....Feature engineering')
-        featureEngineeringStageList = []
-        assemblerInputs = common_utils.NUMERIC_COLUMN_LIST + [c + "classVec" for c in common_utils.CATEGORICAL_COLUMN_LIST]
-        featuresVectorAssembler = VectorAssembler(inputCols=assemblerInputs, outputCol="features")
-        featureEngineeringStageList += [featuresVectorAssembler]
-
-        # 5. Model training
-        logger.info('....Model training')
-        modelTrainingStageList = []
-        rfClassifier = RandomForestClassifier(labelCol="label", featuresCol="features")
-        modelTrainingStageList += [rfClassifier]
-
-        # 6. Create a model training pipeline for stages defined
-        logger.info('....Instantiating pipeline model')
-        pipeline = Pipeline(stages=dataPreprocessingStagesList + featureEngineeringStageList + modelTrainingStageList)   
-
-        # 7. Read training data
+        # 3. Read training data
         logger.info('....Read the training dataset into a dataframe')
         inputDF = spark.read \
             .format('bigquery') \
             .load(bigQuerySourceTableFQN)
-
-        if displayPrintStatements:
-            inputDF.printSchema()
-            logger.info(f"inputDF count={inputDF.count()}")
 
         # Typecast some columns to the right datatype
         inputDF = inputDF.withColumn("partner", inputDF.partner.cast('string')) \
@@ -178,22 +147,91 @@ def fnMain(logger, args):
             .withColumn("monthly_charges", inputDF.monthly_charges.cast('float')) \
             .withColumn("total_charges", inputDF.total_charges.cast('float'))
 
-        # 8. Split to training and test datasets
+        if displayPrintStatements:
+            inputDF.printSchema()
+            logger.info(f"inputDF count={inputDF.count()}")
+
+        # 4. Split to training and test datasets
         logger.info('....Split the dataset')
         trainDF, testDF = inputDF.randomSplit(SPLIT_SPECS, seed=SPLIT_SEED)
+
+        # ........................................................
+        # PREPROCESSING, FEATURE ENGINEERING
+        # ........................................................
+        # 5. Pre-process training data
+        logger.info('....Data pre-procesing')
+        dataPreprocessingStagesList = []
+        # 5a. Create and append to pipeline stages - string indexing and one hot encoding
+        for eachCategoricalColumn in common_utils.CATEGORICAL_COLUMN_LIST:
+            # Category indexing with StringIndexer
+            stringIndexer = StringIndexer(inputCol=eachCategoricalColumn, outputCol=eachCategoricalColumn + "Index")
+            # Use OneHotEncoder to convert categorical variables into binary SparseVectors
+            encoder = OneHotEncoder(inputCols=[stringIndexer.getOutputCol()], outputCols=[eachCategoricalColumn + "classVec"])
+            # Add stages.  This is a lazy operation
+            dataPreprocessingStagesList += [stringIndexer, encoder]
+
+        # 5b. Convert label into label indices using the StringIndexer and append to pipeline stages
+        labelStringIndexer = StringIndexer(inputCol="churn", outputCol="label")
+        dataPreprocessingStagesList += [labelStringIndexer]
+
+        # 6. Feature engineering
+        logger.info('....Feature engineering')
+        featureEngineeringStageList = []
+        assemblerInputs = common_utils.NUMERIC_COLUMN_LIST + [c + "classVec" for c in common_utils.CATEGORICAL_COLUMN_LIST]
+        featuresVectorAssembler = VectorAssembler(inputCols=assemblerInputs, outputCol="features")
+        featureEngineeringStageList += [featuresVectorAssembler]
+
+        # ........................................................
+        # MODEL TRAINING
+        # ........................................................
+
+        # 7. Model training
+        logger.info('....Model training')
+        modelTrainingStageList = []
+        rfClassifier = RandomForestClassifier(labelCol="label", featuresCol="features")
+        modelTrainingStageList += [rfClassifier]
+
+        # 8. Create a model training pipeline for stages defined
+        logger.info('....Instantiating pipeline model')
+        pipeline = Pipeline(stages=dataPreprocessingStagesList + featureEngineeringStageList + modelTrainingStageList)   
 
         # 9. Fit the model
         logger.info('....Fit the model')
         pipelineModel = pipeline.fit(trainDF)
 
-        # 10. Test the model with the test dataset
+        # 10. Persist model to GCS
+        logger.info('....Persist the model to GCS')
+        pipelineModel.write().overwrite().save(modelBucketUri)
+
+        # ........................................................
+        # MODEL TESTING
+        # ........................................................
+
+        # 11. Test the model with the test dataset
         logger.info('....Test the model')
         predictionsDF = pipelineModel.transform(testDF)
         predictionsDF.show(2)
 
-        # 11. Model explainability - feature importance
+        # 12. Persist model testing results to BigQuery
+        persistPredictionsDF = predictionsDF.withColumn("pipeline_id", lit(pipelineID)) \
+                                        .withColumn("model_version", lit(pipelineID)) \
+                                        .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
+                                        .withColumn("operation", lit(operation)) 
+
+        persistPredictionsDF.write.format('bigquery') \
+        .mode("append")\
+        .option('table', bigQueryModelTestResultsTableFQN) \
+        .save()
+
+
+        # ........................................................
+        # MODEL EXPLAINABILITY
+        # ........................................................
+
+        # 13a. Model explainability - feature importance
         pipelineModel.stages[-1].featureImportances
 
+        # 13b. Function to parse feature importance
         def fnExtractFeatureImportance(featureImportanceSparseVector, predictionsDataframe, featureColumnListing):
             featureColumnMetadataList = []
             for i in predictionsDataframe.schema[featureColumnListing].metadata["ml_attr"]["attrs"]:
@@ -203,108 +241,107 @@ def fnMain(logger, args):
             featureColumnMetadataPDF['importance_score'] = featureColumnMetadataPDF['idx'].apply(lambda x: featureImportanceSparseVector[x])
             return(featureColumnMetadataPDF.sort_values('importance_score', ascending = False))
 
+        # 13c. Print feature importance
         fnExtractFeatureImportance(pipelineModel.stages[-1].featureImportances, predictionsDF, "features")
 
-        featureImportantcePDF = fnExtractFeatureImportance(pipelineModel.stages[-1].featureImportances, predictionsDF, "features")
+        # 13d. Capture into a Pandas DF
+        featureImportancePDF = fnExtractFeatureImportance(pipelineModel.stages[-1].featureImportances, predictionsDF, "features")
 
-        def fnCaptureModelMetrics(predictionsDF, labelColumn, operation):
-        """
-        Get model metrics
-        Args:
-            predictions: predictions
-            labelColumn: target column
-            operation: train or test
-        Returns:
-            metrics: metrics
+        # 13e. Persist feature importance scores to BigQuery
+        # Convert Pandas to Spark DF & use Spark to persist
+        featureImportanceDF = spark.createDataFrame(featureImportancePDF).toDF("feature_index","feature_nm","importance_score")
+
+        persistFeatureImportanceDF = featureImportanceDF.withColumn("pipeline_id", lit(pipelineID)) \
+                                        .withColumn("model_version", lit(pipelineID)) \
+                                        .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
+                                        .withColumn("operation", lit(appNameSuffix)) 
+
+        persistFeatureImportanceDF.show(2)
+
+        persistFeatureImportanceDF.write.format('bigquery') \
+        .mode("append")\
+        .option('table', bigQueryFeatureImportanceTableFQN) \
+        .save()
+
+        # ........................................................
+        # MODEL METRICS
+        # ........................................................
+
+        # 14a. Metrics capture function
+        def fnParseModelMetrics(predictionsDF, labelColumn, operation, boolSubsetOnly):
+
+            metricLabels = ['area_roc', 'area_prc', 'accuracy', 'f1', 'precision', 'recall']
+            metricColumns = ['true', 'score', 'prediction']
+            metricKeys = [f'{operation}_{ml}' for ml in metricLabels] + metricColumns
+
+            # Instantiate evaluators
+            bcEvaluator = BinaryClassificationEvaluator(labelCol=labelColumn)
+            mcEvaluator = MulticlassClassificationEvaluator(labelCol=labelColumn)
+
+            # Capture metrics -> areas, acc, f1, prec, rec
+            area_roc = round(bcEvaluator.evaluate(predictionsDF, {bcEvaluator.metricName: 'areaUnderROC'}), 5)
+            area_prc = round(bcEvaluator.evaluate(predictionsDF, {bcEvaluator.metricName: 'areaUnderPR'}), 5)
+            acc = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "accuracy"}), 5)
+            f1 = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "f1"}), 5)
+            prec = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "weightedPrecision"}), 5)
+            rec = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "weightedRecall"}), 5)
+
+            # Get the true, score, prediction off of the test results dataframe
+            rocDictionary = common_utils.fnGetTrueScoreAndPrediction(predictionsDF, labelColumn)
+            true = rocDictionary['true']
+            score = rocDictionary['score']
+            prediction = rocDictionary['prediction']
+
+            # Create a metric values array
+            metricValuesArray = []
+            if boolSubsetOnly:
+                metricValuesArray.extend((area_roc, area_prc, acc, f1, prec, rec))
+            else:
+                metricValuesArray.extend((area_roc, area_prc, acc, f1, prec, rec, true, score, prediction))
             
-        Anagha TODO: This function if called from common_utils fails; Need to researchy why
-        """
-        
-        metricLabels = ['area_roc', 'area_prc', 'accuracy', 'f1', 'precision', 'recall']
-        metricColumns = ['true', 'score', 'prediction']
-        metricKeys = [f'{operation}_{ml}' for ml in metricLabels] + metricColumns
+            # Zip the keys and values into a dictionary  
+            metricsDictionary = dict(zip(metricKeys, metricValuesArray))
 
-        # Instantiate evaluators
-        bcEvaluator = BinaryClassificationEvaluator(labelCol=labelColumn)
-        mcEvaluator = MulticlassClassificationEvaluator(labelCol=labelColumn)
+            return metricsDictionary
 
-        # Capture metrics -> areas, acc, f1, prec, rec
-        area_roc = round(bcEvaluator.evaluate(predictionsDF, {bcEvaluator.metricName: 'areaUnderROC'}), 5)
-        area_prc = round(bcEvaluator.evaluate(predictionsDF, {bcEvaluator.metricName: 'areaUnderPR'}), 5)
-        acc = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "accuracy"}), 5)
-        f1 = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "f1"}), 5)
-        prec = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "weightedPrecision"}), 5)
-        rec = round(mcEvaluator.evaluate(predictionsDF, {mcEvaluator.metricName: "weightedRecall"}), 5)
-
-        # Get the true, score, prediction off of the test results dataframe
-        rocDictionary = common_utils.fnGetTrueScoreAndPrediction(predictionsDF, labelColumn)
-        true = rocDictionary['true']
-        score = rocDictionary['score']
-        prediction = rocDictionary['prediction']
-
-        # Create a metric values array
-        metricValuesArray = [] 
-        metricValuesArray.extend((area_roc, area_prc, acc, f1, prec, rec))
-        #metricValuesArray.extend((area_roc, area_prc, acc, f1, prec, rec, true, score, prediction))
-        
-        # Zip the keys and values into a dictionary  
-        metricsDictionary = dict(zip(metricKeys, metricValuesArray))
-
-        return metricsDictionary
-
-        # 12. Capture & display metrics
-        modelMetrics = fnCaptureModelMetrics(predictionsDF, "label", "test")
+        # 14b. Capture & display metrics subset
+        modelMetrics = fnParseModelMetrics(predictionsDF, "label", "test", True)
         for m, v in modelMetrics.items():
-            logger.info(f'{m}: {v}')
+            print(f'{m}: {v}')
 
-        # 13. Persist metrics to BigQuery
+        # 14c. Persist metrics subset to BigQuery
         metricsDF = spark.createDataFrame(modelMetrics.items(), ["metric_nm", "metric_value"]) 
         metricsWithPipelineIdDF = metricsDF.withColumn("pipeline_id", lit(pipelineID)) \
                                         .withColumn("model_version", lit(pipelineID)) \
                                         .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
-                                        .withColumn("operation", lit(operation)) 
+                                        .withColumn("operation", lit(appNameSuffix)) 
 
         metricsWithPipelineIdDF.show()
 
         metricsWithPipelineIdDF.write.format('bigquery') \
-        .mode("overwrite")\
+        .mode("append")\
         .option('table', bigQueryModelMetricsTableFQN) \
         .save()
 
-        # 14. Persist feature importance scores to BigQuery
-        featureImportantceDF = spark.createDataFrame(featureImportantcePDF).toDF("feature_index","feature_nm","importance_score")
-
-        persistFeatureImportanceDF = featureImportantceDF.withColumn("pipeline_id", lit(pipelineID)) \
-                                        .withColumn("model_version", lit(pipelineID)) \
-                                        .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
-                                        .withColumn("operation", lit(operation)) 
-
-        persistFeatureImportanceDF.show()
-
-        persistFeatureImportanceDF.write.format('bigquery') \
-        .mode("overwrite")\
-        .option('table', bigQueryFeatureImportanceTableFQN) \
-        .save()
-
-
-        # 15. Persist metrics to GCS
-        blobName = f"{modelBaseNm}/{operation}/{modelVersion}/metrics.json"
+        # 14d. Persist metrics subset to GCS
+        blobName = f"{modelBaseNm}/{appNameSuffix}/{modelVersion}/subset/metrics.json"
         common_utils.fnPersistMetrics(urlparse(metricsBucketUri).netloc, modelMetrics, blobName)
 
-        # 16. Persist model testing results to BigQuery
-        persistPredictionsDF = predictionsDF.withColumn("pipeline_id", lit(pipelineID)) \
-                                        .withColumn("model_version", lit(pipelineID)) \
-                                        .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
-                                        .withColumn("operation", lit(operation)) 
+        # 14e. Persist metrics in full to GCS
+        # (The version persisted to BQ does not have True, Score and Prediction needed for Confusion Matrix
+        # This version below has the True, Score and Prediction additionally) 
+        # {{
+        # 14e.1. Capture
+        modelMetricsWithTSP = fnParseModelMetrics(predictionsDF, "label", "test", False)
 
-        persistPredictionsDF.write.format('bigquery') \
-        .mode("overwrite")\
-        .option('table', bigQueryModelTestResultsTableFQN) \
-        .save()
+        # 14e.2. Persist
+        blobName = f"{modelBaseNm}/{appNameSuffix}/{modelVersion}/full/metrics.json"
+        print(blobName)
+        common_utils.fnPersistMetrics(urlparse(metricsBucketUri).netloc, modelMetricsWithTSP, blobName)
 
-        # 17. Persist model to GCS
-        logger.info('....Persist the model to GCS')
-        pipelineModel.write().overwrite().save(modelBucketUri)
+        # 14e.3. Print
+        for m, v in modelMetricsWithTSP.items():
+            print(f'{m}: {v}')
 
 
     except RuntimeError as coreError:
@@ -312,7 +349,7 @@ def fnMain(logger, args):
     else:
         logger.info('Successfully completed model training!')
 
-# }} End fn_main()
+# }} End fnMain()
 
 def fnConfigureLogger():
 # {{ Start 

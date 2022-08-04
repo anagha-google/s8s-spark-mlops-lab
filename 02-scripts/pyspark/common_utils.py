@@ -24,6 +24,7 @@ from pyspark.sql.functions import lit
 from pathlib import Path as path
 from google.cloud import storage
 from urllib.parse import urlparse, urljoin
+from datetime import datetime
 
 logFormatter = logging.Formatter('%(asctime)s - %(filename)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("common_utils")

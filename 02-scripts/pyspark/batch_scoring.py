@@ -13,6 +13,7 @@ from pyspark.sql.functions import *
 from pyspark.ml import PipelineModel
 import common_utils
 import sys, logging, argparse
+from datetime import datetime
 
 import common_utils
 
@@ -182,7 +183,7 @@ def fnMain(logger, args):
         logger.info('Successfully completed batch scoring!')
 # }} End fn_main()
 
-def fn_configureLogger():
+def fnConfigureLogger():
 # {{ Start 
     """
     Purpose:
@@ -201,6 +202,6 @@ def fn_configureLogger():
 # }} End fn_configureLogger()
 
 if __name__ == "__main__":
-    arguments = fn_parseArguments()
-    logger = fn_configureLogger()
-    fn_main(logger, arguments)
+    arguments = fnParseArguments()
+    logger = fnConfigureLogger()
+    fnMain(logger, arguments)
