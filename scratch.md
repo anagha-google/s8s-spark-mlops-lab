@@ -6,7 +6,8 @@ terraform plan \
   -var="project_name=${PROJECT_NAME}" \
   -var="project_number=${PROJECT_NBR}" \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
-  -var="org_id=${ORG_ID}" 
+  -var="org_id=${ORG_ID}" \
+  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
 
 
 terraform apply \
@@ -14,7 +15,8 @@ terraform apply \
   -var="project_name=${PROJECT_NAME}" \
   -var="project_number=${PROJECT_NBR}" \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
-  -var="org_id=${ORG_ID}" \
+  -var="org_id=${ORG_ID}"  \
+  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
   -auto-approve
   
 terraform destroy \
@@ -23,6 +25,7 @@ terraform destroy \
   -var="project_number=${PROJECT_NBR}" \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
   -var="org_id=${ORG_ID}" \
+  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
   -auto-approve
 
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
