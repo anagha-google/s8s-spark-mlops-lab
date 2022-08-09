@@ -34,6 +34,7 @@ s8s_spark_sphs_bucket_fqn   = "gs://s8s-sphs-${local.project_nbr}"
 vpc_nm                      = "s8s-vpc-${local.project_nbr}"
 spark_subnet_nm             = "spark-snet"
 spark_subnet_cidr           = "10.0.0.0/16"
+psa_ip_length               = 16
 s8s_data_bucket             = "s8s_data_bucket-${local.project_nbr}"
 s8s_code_bucket             = "s8s_code_bucket-${local.project_nbr}"
 s8s_notebook_bucket         = "s8s_notebook_bucket-${local.project_nbr}"
@@ -41,8 +42,14 @@ s8s_model_bucket            = "s8s_model_bucket-${local.project_nbr}"
 s8s_metrics_bucket          = "s8s_metrics_bucket-${local.project_nbr}"
 s8s_artifact_repository_nm  = "s8s-spark-${local.project_nbr}"
 bq_datamart_ds              = "customer_churn_ds"
-notebook_server_machine_type="e2-medium"
-notebook_server_name        ="s8s-spark-ml-mvp-umnb-server"
+umnb_server_machine_type    ="e2-medium"
+umnb_server_nm              ="s8s-spark-ml-pipelines-nb-server"
+mnb_server_machine_type     ="n1-standard-4"
+mnb_server_nm               ="s8s-spark-ml-interactive-nb-server"
+CC_GMSA_FQN                 = "service-${local.project_nbr}@cloudcomposer-accounts.iam.gserviceaccount.com"
+GCE_GMSA_FQN                = "${local.project_nbr}-compute@developer.gserviceaccount.com"
+CLOUD_COMPOSER2_IMG_VERSION = "${var.cloud_composer_image_version}"
+DOCKER_IMG_VERSION          = "1.0.0"
 }
 
 /******************************************
@@ -256,13 +263,18 @@ resource "google_project_service" "enable_cloudresourcemanager_google_apis" {
   ]
 }
 
+resource "google_project_service" "enable_composer_google_apis" {
+  project = var.project_id
+  service = "composer.googleapis.com"
+  disable_dependent_services = true
+}
 
 /*******************************************
 Introducing sleep to minimize errors from
 dependencies having not completed
 ********************************************/
 resource "time_sleep" "sleep_after_api_enabling" {
-  create_duration = "120s"
+  create_duration = "180s"
   depends_on = [
     google_project_service.enable_orgpolicy_google_apis,
     google_project_service.enable_compute_google_apis,
@@ -276,7 +288,8 @@ resource "time_sleep" "sleep_after_api_enabling" {
     google_project_service.enable_notebooks_google_apis,
     google_project_service.enable_cloudbuild_google_apis,
     google_project_service.enable_artifactregistry_google_apis,
-    google_project_service.enable_cloudresourcemanager_google_apis
+    google_project_service.enable_cloudresourcemanager_google_apis,
+    google_project_service.enable_composer_google_apis
   ]
 }
 
@@ -318,13 +331,45 @@ module "umsa_role_grants" {
     "roles/cloudbuild.builds.editor",
     "roles/aiplatform.admin",
     "roles/aiplatform.viewer",
-    "roles/aiplatform.user"
+    "roles/aiplatform.user",
+    "roles/viewer",
+    "roles/composer.worker",
+    "roles/composer.admin"
   ]
   depends_on = [
     module.umsa_creation
   ]
 }
 
+# IAM role grants to Google Managed Service Account for Cloud Composer 2
+module "gmsa_role_grants_cc" {
+  source                  = "terraform-google-modules/iam/google//modules/member_iam"
+  service_account_address = "${local.CC_GMSA_FQN}"
+  prefix                  = "serviceAccount"
+  project_id              = local.project_id
+  project_roles = [
+    
+    "roles/composer.ServiceAgentV2Ext",
+  ]
+  depends_on = [
+    module.umsa_role_grants
+  ]
+}
+
+# IAM role grants to Google Managed Service Account for Compute Engine (for Cloud Composer 2 to download images)
+module "gmsa_role_grants_gce" {
+  source                  = "terraform-google-modules/iam/google//modules/member_iam"
+  service_account_address = "${local.GCE_GMSA_FQN}"
+  prefix                  = "serviceAccount"
+  project_id              = local.project_id
+  project_roles = [
+    
+    "roles/editor",
+  ]
+  depends_on = [
+    module.umsa_role_grants
+  ]
+}
 
 
 /******************************************************
@@ -349,7 +394,6 @@ module "umsa_impersonate_privs_to_admin" {
     module.umsa_creation
   ]
 }
-
 
 /******************************************************
 6. Grant IAM roles to Admin User/yourself
@@ -398,10 +442,10 @@ module "administrator_role_grants" {
     "roles/aiplatform.user" = [
       "user:${local.admin_upn_fqn}",
     ]
-    "roles/aiplatform.admin" = [
+     "roles/aiplatform.admin" = [
       "user:${local.admin_upn_fqn}",
     ]
-     "roles/aiplatform.admin" = [
+     "roles/compute.networkAdmin" = [
       "user:${local.admin_upn_fqn}",
     ]
   }
@@ -421,16 +465,17 @@ resource "time_sleep" "sleep_after_identities_permissions" {
     module.umsa_creation,
     module.umsa_role_grants,
     module.umsa_impersonate_privs_to_admin,
-    module.administrator_role_grants
+    module.administrator_role_grants,
+    module.gmsa_role_grants_cc,
+    module.gmsa_role_grants_gce
   ]
 }
 
-/******************************************
-7. Create VPC network & Subnet 
- *****************************************/
+/************************************************************************
+7. Create VPC network, subnet & reserved static IP creation
+ ***********************************************************************/
 module "vpc_creation" {
   source                                 = "terraform-google-modules/network/google"
-  #version                                = "~> 4.0"
   project_id                             = local.project_id
   network_name                           = local.vpc_nm
   routing_mode                           = "REGIONAL"
@@ -446,6 +491,30 @@ module "vpc_creation" {
   ]
   depends_on = [
     time_sleep.sleep_after_identities_permissions
+  ]
+}
+
+resource "google_compute_global_address" "reserved_ip_for_psa_creation" { 
+  provider      = google-beta
+  name          = "private-service-access-ip"
+  purpose       = "VPC_PEERING"
+  network       =  "projects/${local.project_id}/global/networks/s8s-vpc-${local.project_nbr}"
+  address_type  = "INTERNAL"
+  prefix_length = local.psa_ip_length
+  
+  depends_on = [
+    module.vpc_creation
+  ]
+}
+
+resource "google_service_networking_connection" "private_connection_with_service_networking" {
+  network                 =  "projects/${local.project_id}/global/networks/s8s-vpc-${local.project_nbr}"
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.reserved_ip_for_psa_creation.name]
+
+  depends_on = [
+    module.vpc_creation,
+    google_compute_global_address.reserved_ip_for_psa_creation
   ]
 }
 
@@ -486,6 +555,7 @@ resource "time_sleep" "sleep_after_network_and_firewall_creation" {
  *****************************************/
 
 resource "google_storage_bucket" "s8s_spark_bucket_creation" {
+  project                           = local.project_id 
   name                              = local.s8s_spark_bucket
   location                          = local.location
   uniform_bucket_level_access       = true
@@ -496,6 +566,7 @@ resource "google_storage_bucket" "s8s_spark_bucket_creation" {
 }
 
 resource "google_storage_bucket" "s8s_spark_sphs_bucket_creation" {
+  project                           = local.project_id 
   name                              = local.s8s_spark_sphs_bucket
   location                          = local.location
   uniform_bucket_level_access       = true
@@ -506,6 +577,7 @@ resource "google_storage_bucket" "s8s_spark_sphs_bucket_creation" {
 }
 
 resource "google_storage_bucket" "s8s_data_bucket_creation" {
+  project                           = local.project_id 
   name                              = local.s8s_data_bucket
   location                          = local.location
   uniform_bucket_level_access       = true
@@ -516,6 +588,7 @@ resource "google_storage_bucket" "s8s_data_bucket_creation" {
 }
 
 resource "google_storage_bucket" "s8s_code_bucket_creation" {
+  project                           = local.project_id 
   name                              = local.s8s_code_bucket
   location                          = local.location
   uniform_bucket_level_access       = true
@@ -526,6 +599,7 @@ resource "google_storage_bucket" "s8s_code_bucket_creation" {
 }
 
 resource "google_storage_bucket" "s8s_notebook_bucket_creation" {
+  project                           = local.project_id 
   name                              = local.s8s_notebook_bucket
   location                          = local.location
   uniform_bucket_level_access       = true
@@ -536,6 +610,7 @@ resource "google_storage_bucket" "s8s_notebook_bucket_creation" {
 }
 
 resource "google_storage_bucket" "s8s_model_bucket_creation" {
+  project                           = local.project_id 
   name                              = local.s8s_model_bucket
   location                          = local.location
   uniform_bucket_level_access       = true
@@ -546,6 +621,7 @@ resource "google_storage_bucket" "s8s_model_bucket_creation" {
 }
 
 resource "google_storage_bucket" "s8s_metrics_bucket_creation" {
+  project                           = local.project_id 
   name                              = local.s8s_metrics_bucket
   location                          = local.location
   uniform_bucket_level_access       = true
@@ -559,6 +635,7 @@ resource "google_storage_bucket" "s8s_metrics_bucket_creation" {
 Introducing sleep to minimize errors from
 dependencies having not completed
 ********************************************/
+
 resource "time_sleep" "sleep_after_bucket_creation" {
   create_duration = "60s"
   depends_on = [
@@ -573,7 +650,21 @@ resource "time_sleep" "sleep_after_bucket_creation" {
 }
 
 /******************************************
-10. Copy of datasets, scripts and notebooks to buckets
+10. Post startup scripts for notebook instances
+ *****************************************/
+
+resource "local_file" "umnbs_post_startup_bash_creation" {
+  content = "sudo jupyter gsutil cp gs://${local.s8s_notebook_bucket}/vai-pipelines/*.ipynb /home/jupyter"
+  filename = "../02-scripts/bash/umnbs-exec-post-startup.sh"
+}
+
+resource "local_file" "mnbs_post_startup_bash_creation" {
+  content = "sudo jupyter gsutil cp gs://${local.s8s_notebook_bucket}/pyspark/*.ipynb /home/jupyter"
+  filename = "../02-scripts/bash/mnbs-exec-post-startup.sh"
+}
+
+/******************************************
+11. Copy of datasets, scripts and notebooks to buckets
  *****************************************/
 
 resource "google_storage_bucket_object" "datasets_upload_to_gcs" {
@@ -607,14 +698,60 @@ resource "google_storage_bucket_object" "pyspark_scripts_upload_to_gcs" {
   ]
 }
 
-
-resource "google_storage_bucket_object" "notebooks_upload_to_gcs" {
+resource "google_storage_bucket_object" "notebooks_dir_create_in_gcs" {
   for_each = fileset("../03-notebooks/", "*")
   source = "../03-notebooks/${each.value}"
-  name = "${each.value}"
+  name = "03-notebooks/${each.value}"
   bucket = "${local.s8s_notebook_bucket}"
   depends_on = [
     time_sleep.sleep_after_bucket_creation
+  ]
+}
+
+resource "google_storage_bucket_object" "notebooks_pyspark_upload_to_gcs" {
+  for_each = fileset("../03-notebooks/pyspark/", "*")
+  source = "../03-notebooks/pyspark/${each.value}"
+  name = "pyspark/${each.value}"
+  bucket = "${local.s8s_notebook_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation,
+    google_storage_bucket_object.notebooks_dir_create_in_gcs
+  ]
+}
+
+resource "google_storage_bucket_object" "notebooks_vai_pipelines_upload_to_gcs" {
+  for_each = fileset("../03-notebooks/vai-pipelines/", "*")
+  source = "../03-notebooks/vai-pipelines/${each.value}"
+  name = "vai-pipelines/${each.value}"
+  bucket = "${local.s8s_notebook_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation,
+    google_storage_bucket_object.notebooks_dir_create_in_gcs
+  ]
+}
+
+resource "google_storage_bucket_object" "bash_dir_create_in_gcs" {
+  for_each = fileset("../02-scripts/", "*")
+  source = "../02-scripts/${each.value}"
+  name = "${each.value}"
+  bucket = "${local.s8s_code_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation,
+    local_file.umnbs_post_startup_bash_creation,
+    local_file.mnbs_post_startup_bash_creation,
+    time_sleep.sleep_after_bucket_creation
+  ]
+}
+
+resource "google_storage_bucket_object" "bash_scripts_upload_to_gcs" {
+  for_each = fileset("../02-scripts/bash/", "*")
+  source = "../02-scripts/bash/${each.value}"
+  name = "bash/${each.value}"
+  bucket = "${local.s8s_code_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation,
+    local_file.umnbs_post_startup_bash_creation,
+    local_file.mnbs_post_startup_bash_creation
   ]
 }
 
@@ -627,17 +764,19 @@ resource "time_sleep" "sleep_after_network_and_storage_steps" {
   create_duration = "120s"
   depends_on = [
       time_sleep.sleep_after_network_and_firewall_creation,
-      time_sleep.sleep_after_bucket_creation
+      time_sleep.sleep_after_bucket_creation,
+      google_storage_bucket_object.notebooks_vai_pipelines_upload_to_gcs,
+      google_storage_bucket_object.notebooks_pyspark_upload_to_gcs,
+      google_storage_bucket_object.pyspark_scripts_upload_to_gcs
   ]
 }
 
 /******************************************
-11a. PHS creation
+12a. PHS creation
 ******************************************/
 
-# Docs: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/dataproc_cluster
-
 resource "google_dataproc_cluster" "sphs_creation" {
+  project  = local.project_id 
   provider = google-beta
   name     = local.s8s_spark_sphs_nm
   region   = local.location
@@ -676,7 +815,7 @@ resource "google_dataproc_cluster" "sphs_creation" {
 }
 
 /******************************************
-11b. BigQuery dataset creation
+12b. BigQuery dataset creation
 ******************************************/
 
 resource "google_bigquery_dataset" "bq_dataset_creation" {
@@ -684,18 +823,21 @@ resource "google_bigquery_dataset" "bq_dataset_creation" {
   location                    = "US"
 }
 
-/********************************************************
-11c. Vertex AI Workbench User-Managed Notebook Server Creation
-********************************************************/
+
+/******************************************************************
+12c. Vertex AI Workbench - User Managed Notebook Server Creation
+******************************************************************/
 
 resource "google_notebooks_instance" "umnb_server_creation" {
-  name = local.notebook_server_name
+  project  = local.project_id 
+  name = local.umnb_server_nm
   location = local.zone
   machine_type = "e2-medium"
 
   service_account = local.umsa_fqn
   network = "projects/${local.project_id}/global/networks/s8s-vpc-${local.project_nbr}"
-  subnet = "projects/${local.project_id}/regions/${local.location}/subnetworks/${local.spark_subnet_nm}" 
+  subnet = "projects/${local.project_id}/regions/${local.location}/subnetworks/${local.spark_subnet_nm}"
+  post_startup_script = "gs://${local.s8s_code_bucket}/bash/umnbs-exec-post-startup.sh" 
 
   vm_image {
     project      = "deeplearning-platform-release"
@@ -704,44 +846,149 @@ resource "google_notebooks_instance" "umnb_server_creation" {
   depends_on = [
     module.administrator_role_grants,
     module.vpc_creation,
-    time_sleep.sleep_after_network_and_storage_steps
+    time_sleep.sleep_after_network_and_storage_steps,
+    google_storage_bucket_object.bash_scripts_upload_to_gcs,
+    google_storage_bucket_object.notebooks_vai_pipelines_upload_to_gcs
+  ]  
+}
+
+/******************************************************************
+12d. Vertex AI Workbench - Managed Notebook Server Creation
+******************************************************************/
+
+resource "google_notebooks_runtime" "mnb_server_creation" {
+  project              = local.project_id
+  provider             = google-beta
+  name                 = local.mnb_server_nm
+  location             = local.location
+
+  access_config {
+    access_type        = "SERVICE_ACCOUNT"
+    runtime_owner      = local.umsa_fqn
+  }
+
+  software_config {
+    post_startup_script = "gs://${local.s8s_code_bucket}/bash/mnbs-exec-post-startup.sh"
+  }
+
+  virtual_machine {
+    virtual_machine_config {
+      machine_type     = local.mnb_server_machine_type
+      network = "projects/${local.project_id}/global/networks/s8s-vpc-${local.project_nbr}"
+      subnet = "projects/${local.project_id}/regions/${local.location}/subnetworks/${local.spark_subnet_nm}" 
+
+      data_disk {
+        initialize_params {
+          disk_size_gb = "100"
+          disk_type    = "PD_STANDARD"
+        }
+      }
+      container_images {
+        repository = "gcr.io/deeplearning-platform-release/base-cpu"
+        tag = "latest"
+      }
+    }
+  }
+  depends_on = [
+    module.administrator_role_grants,
+    module.vpc_creation,
+    google_compute_global_address.reserved_ip_for_psa_creation,
+    google_service_networking_connection.private_connection_with_service_networking,
+    time_sleep.sleep_after_network_and_storage_steps,
+    google_storage_bucket_object.bash_scripts_upload_to_gcs,
+    google_storage_bucket_object.notebooks_pyspark_upload_to_gcs
   ]  
 }
 
 /********************************************************
-11d. Artifact registry for serverless Spark images
+12e. Artifact registry for serverless Spark images
 ********************************************************/
 
 resource "google_artifact_registry_repository" "artifact_registry_creation" {
-  location          = local.location
-  repository_id     = local.s8s_artifact_repository_nm
-  description       = "Artifact repository"
-  format            = "DOCKER"
-  depends_on = [
-    module.administrator_role_grants,
-    module.vpc_creation,
-    google_project_service.enable_artifactregistry_google_apis,
-    time_sleep.sleep_after_network_and_storage_steps
-  ]  
+    location          = local.location
+    repository_id     = local.s8s_artifact_repository_nm
+    description       = "Artifact repository"
+    format            = "DOCKER"
+    depends_on = [
+        module.administrator_role_grants,
+        module.vpc_creation,
+        google_project_service.enable_artifactregistry_google_apis,
+        time_sleep.sleep_after_network_and_storage_steps
+    ]  
 }
 
-/*
-resource "google_container_registry" "artifact_registry_creation" {
-  project  = local.project_id
-  location = local.location
-   depends_on = [
-    module.administrator_role_grants,
-    module.vpc_creation,
-    google_project_service.enable_containerregistry_google_apis,
-    time_sleep.sleep_after_network_and_storage_steps
-   ]
+/********************************************************
+13. Create Docker Container image
+********************************************************/
+
+resource "null_resource" "custom_container_image_creation" {
+    provisioner "local-exec" {
+
+        command = "/bin/bash ../02-scripts/bash/build-container-image.sh"
+    }
+    depends_on = [
+        module.administrator_role_grants,
+        module.vpc_creation,
+        google_project_service.enable_artifactregistry_google_apis,
+        time_sleep.sleep_after_network_and_storage_steps
+    ]  
 }
-*/
+
+/********************************************************
+14. Create Composer Environment
+********************************************************/
+resource "google_composer_environment" "cloud_composer_env_creation" {
+  name   = "${local.project_id}-cc2"
+  region = local.location
+  provider = google-beta
+  config {
+
+    software_config {
+      image_version = local.CLOUD_COMPOSER2_IMG_VERSION 
+      env_variables = {
+        AIRFLOW_VAR_CODE_BUCKET = "${local.s8s_code_bucket}"
+        AIRFLOW_VAR_PHS = "${local.s8s_spark_sphs_nm}"
+        AIRFLOW_VAR_PROJECT_ID = "${local.project_id}"
+        AIRFLOW_VAR_REGION = "${local.location}"
+        AIRFLOW_VAR_SUBNET = "${local.spark_subnet_nm}"
+        AIRFLOW_VAR_BQ_DATASET = "${local.bq_datamart_ds}"
+        AIRFLOW_VAR_UMSA = "${local.umsa}"
+      }
+    }
+
+    node_config {
+      network    = local.vpc_nm
+      subnetwork = local.spark_subnet_nm
+      service_account = local.umsa_fqn
+    }
+  }
+
+  depends_on = [
+    time_sleep.sleep_after_phs_creation
+  ] 
+
+  timeouts {
+    create = "75m"
+  } 
+}
 
 /*******************************************
 Introducing sleep to minimize errors from
 dependencies having not completed
 ********************************************/
+resource "time_sleep" "sleep_after_composer_creation" {
+  create_duration = "180s"
+  depends_on = [
+      google_composer_environment.cloud_composer_env_creation
+  ]
+}
+
+
+/*******************************************
+Introducing sleep to minimize errors from
+dependencies having not completed
+********************************************/
+
 resource "time_sleep" "sleep_after_phs_creation" {
   create_duration = "180s"
   depends_on = [
@@ -796,8 +1043,8 @@ output "NOTEBOOK_BUCKET" {
   value = local.s8s_notebook_bucket
 }
 
-output "USER_MANAGED_NOTEBOOK_SERVER_NAME" {
-  value = local.notebook_server_name
+output "USER_MANAGED_umnb_server_nm" {
+  value = local.umnb_server_nm
 }
 
 /******************************************

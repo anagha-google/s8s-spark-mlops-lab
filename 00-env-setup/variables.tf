@@ -16,3 +16,6 @@ variable "gcp_account_name" {
 variable "org_id" {
  description = "Organization ID in which project created"
 }
+variable "cloud_composer_image_version" {
+ description = "Version of Cloud Composer 2 image to use"
+}
