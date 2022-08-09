@@ -27,6 +27,14 @@ terraform destroy \
   -var="org_id=${ORG_ID}" \
   -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
   -auto-approve
+  
+sn configs validate ${PEERING_SERVICE:?} \
+${CONSUMER_PROJECT:?} \
+${CONSUMER_NETWORK:?} \
+--robot=${ROBOT_EMAIL:?} \
+--validate_network \
+--ip_prefix=24 \
+--debug=4
 
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
 PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d':' -f2 |  tr -d "'" | xargs`
