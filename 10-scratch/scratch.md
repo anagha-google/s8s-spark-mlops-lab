@@ -17,7 +17,7 @@ terraform apply \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
   -var="org_id=${ORG_ID}"  \
   -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
-  -auto-approve
+  --auto-approve
   
 terraform destroy \
   -var="project_id=${PROJECT_ID}" \
@@ -26,7 +26,7 @@ terraform destroy \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
   -var="org_id=${ORG_ID}" \
   -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
-  -auto-approve
+  --auto-approve
   
 sn configs validate ${PEERING_SERVICE:?} \
 ${CONSUMER_PROJECT:?} \
