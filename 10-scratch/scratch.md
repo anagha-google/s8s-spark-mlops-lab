@@ -7,7 +7,9 @@ terraform plan \
   -var="project_number=${PROJECT_NBR}" \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
   -var="org_id=${ORG_ID}" \
-  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
+  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3" \
+  -var="container_image_version=1.0.0"
+  
 
 
 terraform apply \
@@ -16,7 +18,8 @@ terraform apply \
   -var="project_number=${PROJECT_NBR}" \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
   -var="org_id=${ORG_ID}"  \
-  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
+  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3" \
+  -var="container_image_version=1.0.0"
   --auto-approve
   
 terraform destroy \
@@ -25,7 +28,8 @@ terraform destroy \
   -var="project_number=${PROJECT_NBR}" \
   -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
   -var="org_id=${ORG_ID}" \
-  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3"
+  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3" \
+  -var="container_image_version=1.0.0"
   --auto-approve
   
 sn configs validate ${PEERING_SERVICE:?} \
