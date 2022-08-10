@@ -1,4 +1,5 @@
-# Customer Churn Prediction featuring Dataproc Serverless Spark and Vertex AI 
+# Scalable Machine Learning with Spark MLLib
+## Powered by Dataproc Serverless Spark and Vertex AI 
 
 ### WORK IN PROGRESS
 
