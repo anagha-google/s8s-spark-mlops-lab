@@ -1,4 +1,4 @@
-# Machine Learning at scale with Spark on GCP and Vertex AI
+# Practical Machine Learning at scale with Spark on GCP and Vertex AI
 
 
 
