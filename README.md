@@ -1,4 +1,4 @@
-# Vertex AI Pipelines for Spark ML powered by Dataproc Serverless
+# Customer Churn Prediction featuring Dataproc Serverless Spark and Vertex AI 
 
 ### WORK IN PROGRESS
 
