@@ -35,10 +35,10 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 (f) a-e in a Vertex AI managed pipeline <br> 
 
 ### 7.2. Scoring
-(f) Batch scoring with the best model from 1(e), on Dataproc Serverless Spark<br>
-(g) Orchestration of batch scoring on Cloud Composer/Apache Airflow
-(h) Stream scoring - Work in progress<br> 
-(i) Online serving (MLeap, Vertex AI serving) - Will be added based on demand<br>
+(f) Batch scoring with the best model from 1(e), on Dataproc Serverless Spark <br>
+(g) Orchestration of batch scoring on Cloud Composer/Apache Airflow <br>
+(h) Stream scoring - Work in progress <br> 
+(i) Online serving (MLeap, Vertex AI serving) - Will be added based on demand <br>
 
 If you are not seeing a capability core to ML lifecycle, it was likely not supported at the time of the authoring of this lab. Keeping the lab current is best effort. Community contributions are welcome.
 
