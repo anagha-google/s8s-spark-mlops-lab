@@ -23,6 +23,10 @@ Simplify your learning journey with - <br>
 (c) Terraform for provisioning a variety of Google Cloud data services that can be repurposed for your use case<br>
 
 ## 7. What's covered from an ML perspective
+Usecase: Telco Customer Churn Prediction<br> 
+Public Dataset Source: [Kaggle](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)<br> 
+[Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
+
 ### 7.1. Train a Spark MLlib model<br> 
  First in PySpark interactive notebooks, then via PySpark scripts<br> 
 (a) Preprocessing <br> 
