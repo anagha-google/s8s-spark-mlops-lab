@@ -19,3 +19,6 @@ variable "org_id" {
 variable "cloud_composer_image_version" {
  description = "Version of Cloud Composer 2 image to use"
 }
+variable "container_image_version" {
+ description = "Version number to assign to container image"
+}

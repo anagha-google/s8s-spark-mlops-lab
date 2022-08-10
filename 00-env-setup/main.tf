@@ -42,14 +42,14 @@ s8s_model_bucket            = "s8s_model_bucket-${local.project_nbr}"
 s8s_metrics_bucket          = "s8s_metrics_bucket-${local.project_nbr}"
 s8s_artifact_repository_nm  = "s8s-spark-${local.project_nbr}"
 bq_datamart_ds              = "customer_churn_ds"
-umnb_server_machine_type    ="e2-medium"
-umnb_server_nm              ="s8s-spark-ml-pipelines-nb-server"
-mnb_server_machine_type     ="n1-standard-4"
-mnb_server_nm               ="s8s-spark-ml-interactive-nb-server"
+umnb_server_machine_type    = "e2-medium"
+umnb_server_nm              = "s8s-spark-ml-pipelines-nb-server"
+mnb_server_machine_type     = "n1-standard-4"
+mnb_server_nm               = "s8s-spark-ml-interactive-nb-server"
 CC_GMSA_FQN                 = "service-${local.project_nbr}@cloudcomposer-accounts.iam.gserviceaccount.com"
 GCE_GMSA_FQN                = "${local.project_nbr}-compute@developer.gserviceaccount.com"
 CLOUD_COMPOSER2_IMG_VERSION = "${var.cloud_composer_image_version}"
-DOCKER_IMG_VERSION          = "1.0.0"
+SPARK_CONTAINER_IMG_VERSION = "${var.container_image_version}"
 }
 
 /******************************************
@@ -653,14 +653,16 @@ resource "time_sleep" "sleep_after_bucket_creation" {
 10. Post startup scripts for notebook instances
  *****************************************/
 
-resource "local_file" "umnbs_post_startup_bash_creation" {
-  content = "sudo jupyter gsutil cp gs://${local.s8s_notebook_bucket}/vai-pipelines/*.ipynb /home/jupyter"
-  filename = "../02-scripts/bash/umnbs-exec-post-startup.sh"
+resource "null_resource" "umnbs_post_startup_bash_creation" {
+    provisioner "local-exec" {
+        command = "sed -i s/PROJECT_NBR/${local.project_nbr}/g ../02-scripts/bash/umnbs-exec-post-startup.sh"
+    }
 }
 
-resource "local_file" "mnbs_post_startup_bash_creation" {
-  content = "sudo jupyter gsutil cp gs://${local.s8s_notebook_bucket}/pyspark/*.ipynb /home/jupyter"
-  filename = "../02-scripts/bash/mnbs-exec-post-startup.sh"
+resource "null_resource" "mnbs_post_startup_bash_creation" {
+    provisioner "local-exec" {
+        command = "sed -i s/PROJECT_NBR/${local.project_nbr}/g ../02-scripts/bash/mnbs-exec-post-startup.sh"
+    }
 }
 
 /******************************************
@@ -737,8 +739,8 @@ resource "google_storage_bucket_object" "bash_dir_create_in_gcs" {
   bucket = "${local.s8s_code_bucket}"
   depends_on = [
     time_sleep.sleep_after_bucket_creation,
-    local_file.umnbs_post_startup_bash_creation,
-    local_file.mnbs_post_startup_bash_creation,
+    null_resource.umnbs_post_startup_bash_creation,
+    null_resource.mnbs_post_startup_bash_creation,
     time_sleep.sleep_after_bucket_creation
   ]
 }
@@ -750,8 +752,8 @@ resource "google_storage_bucket_object" "bash_scripts_upload_to_gcs" {
   bucket = "${local.s8s_code_bucket}"
   depends_on = [
     time_sleep.sleep_after_bucket_creation,
-    local_file.umnbs_post_startup_bash_creation,
-    local_file.mnbs_post_startup_bash_creation
+    null_resource.umnbs_post_startup_bash_creation,
+    null_resource.mnbs_post_startup_bash_creation
   ]
 }
 
@@ -869,6 +871,7 @@ resource "google_notebooks_runtime" "mnb_server_creation" {
 
   software_config {
     post_startup_script = "gs://${local.s8s_code_bucket}/bash/mnbs-exec-post-startup.sh"
+    post_startup_script_behavior = "DOWNLOAD_AND_RUN_EVERY_START"
   }
 
   virtual_machine {
@@ -924,13 +927,14 @@ resource "google_artifact_registry_repository" "artifact_registry_creation" {
 resource "null_resource" "custom_container_image_creation" {
     provisioner "local-exec" {
 
-        command = "/bin/bash ../02-scripts/bash/build-container-image.sh"
+        command = "/bin/bash ../02-scripts/bash/build-container-image.sh ${local.SPARK_CONTAINER_IMG_VERSION}"
     }
     depends_on = [
         module.administrator_role_grants,
         module.vpc_creation,
         google_project_service.enable_artifactregistry_google_apis,
-        time_sleep.sleep_after_network_and_storage_steps
+        time_sleep.sleep_after_network_and_storage_steps,
+        google_artifact_registry_repository.artifact_registry_creation
     ]  
 }
 
