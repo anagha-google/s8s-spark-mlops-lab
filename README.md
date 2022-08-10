@@ -32,10 +32,10 @@ Simplify your learning journey with - <br>
 (f) a-e in a Vertex AI managed pipeline <br> 
 
 ##### 2. Scoring
-(f) Batch scoring with PySpark on Dataproc Serverless Spark<br> 
-(g) Stream scoring - Work in progress<br> 
-(h) Online serving (MLeap, Vertex AI serving)<br> 
-
+(f) Batch scoring with the best model from 1(e), on Dataproc Serverless Spark<br>
+(g) Orchestration of batch scoring on Cloud Composer/Apache Airflow
+(h) Stream scoring - Work in progress<br> 
+(i) Online serving (MLeap, Vertex AI serving)<br> 
 
 ### Featured products in the lab
 | # | Product/Feature | Purpose | 
