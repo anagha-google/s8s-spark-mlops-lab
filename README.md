@@ -1,5 +1,6 @@
-# Scalable Machine Learning with Spark MLLib
-## Powered by Dataproc Serverless Spark and Vertex AI 
+# Machine Learning at scale with the best of Spark on GCP and Vertex AI
+
+
 
 ### WORK IN PROGRESS
 
