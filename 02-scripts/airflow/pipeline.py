@@ -1,6 +1,6 @@
 # ======================================================================================
 # ABOUT
-# This script orchestrates the execution of batch scoring 
+# This script orchestrates batch scoring 
 # ======================================================================================
 
 import os
@@ -13,68 +13,109 @@ from airflow.utils.dates import days_ago
 import string
 import random 
 
-# Read environment variables into local variables
-project_id = models.Variable.get("project_id")
+# .......................................................
+# Variables
+# .......................................................
+randomizerCharLength = 10 
+randomVal = ''.join(random.choices(string.digits, k = randomizerCharLength))
+
+# {{
+# a) For the Airflow operator 
+"""
 region = models.Variable.get("region")
 subnet=models.Variable.get("subnet")
-phs_server=Variable.get("phs")
-code_bucket=Variable.get("code_bucket")
-bq_dataset=Variable.get("bq_dataset")
-umsa=Variable.get("umsa")
+phsServer=Variable.get("phsServer")
+containerImageUri=Variable.get("containerImageUri")
+bqDataset=Variable.get("bqDataset")
+umsaFQN=Variable.get("umsaFQN")
+bqConnectorJarUri=Variable.get("bqConnectorJarUri")
+# +
+# b) For the Spark application
+pipelineID=random.randint(1, 10000000)
+projectID = models.Variable.get("projectID")
+projectNbr = models.Variable.get("projectNbr")
+modelVersion=Variable.get("modelVersion")
+displayPrintStatements=True
+"""
+region = "us-central1"
+subnet = "spark-snet"
+phsServer = "s8s-sphs-505815944775"
+containerImageUri = "gcr.io/spark-s8s-mlops/customer_churn_image:1.0.0"
+bqDataset = "spark-s8s-mlops.customer_churn_ds"
+umsaFQN = "s8s-lab-sa@spark-s8s-mlops.iam.gserviceaccount.com"
+bqConnectorJarUri = "gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
+# +
+# b) For the Spark application
 
+pipelineID=randomVal
+projectID = "spark-s8s-mlops"
+projectNbr = "505815944775"
+modelVersion = "9923"
+displayPrintStatements=True
+
+# +
 # Define DAG name
-dag_name= "customer_churn_prediction"
-
-# User Managed Service Account FQN
-service_account_id= umsa+"@"+project_id+".iam.gserviceaccount.com"
-
+airflowDAGName= "customer_churn_prediction"
+# +
 # PySpark script to execute
-scoring_script= "gs://"+code_bucket+"/scripts/pyspark/batch_scoring.py"
+scoringScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/batch_scoring.py"
+commonUtilsScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/common_utils.py"
+# +
+# Arguments string
+batchScoringArguments = [f"--pipelineID={pipelineID}", \
+        f"--projectID={projectID}", \
+        f"--projectNbr={projectNbr}", \
+        f"--modelVersion={modelVersion}", \
+        f"--displayPrintStatements={displayPrintStatements}" ]
 
+# +
+# Batch variables
+batchIDPrefix = f"customer-churn-scoring-edo-{pipelineID}"
+# }}
 
-# This is to add a random suffix to the serverless Spark batch ID that needs to be unique each run 
-# ...Define the random module
-S = 10  # number of characters in the string.
-# call random.choices() string module to find the string in Uppercase + numeric data.
-ran = ''.join(random.choices(string.digits, k = S))
+# .......................................................
+# s8s Spark batch config
+# .......................................................
 
-BATCH_ID = "airflow-"+str(ran)
-
-BATCH_CONFIG1 = {
+s8sSparkBatchConfig = {
     "pyspark_batch": {
-        "main_python_file_uri": scoring_script,
-        "args": [
-          code_bucket
-        ],
-        "jar_file_uris": [
-      "gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
-    ]
+        "main_python_file_uri": scoringScript,
+        "python_file_uris": [ commonUtilsScript ],
+        "args": batchScoringArguments,
+        "jar_file_uris": [ bqConnectorJarUri ]
+    },
+    "runtime_config": {
+        "container_image": containerImageUri
     },
     "environment_config":{
         "execution_config":{
-              "service_account": service_account_id,
+            "service_account": umsaFQN,
             "subnetwork_uri": subnet
             },
         "peripherals_config": {
             "spark_history_server_config": {
-                "dataproc_cluster": f"projects/{project_id}/regions/{region}/clusters/{phs_server}"
+                "dataproc_cluster": f"projects/{projectID}/regions/{region}/clusters/{phsServer}"
                 }
-            },
-        },
+            }
+        }
 }
 
+
+# .......................................................
+# DAG
+# .......................................................
+
 with models.DAG(
-    dag_name,
+    airflowDAGName,
     schedule_interval=None,
     start_date = days_ago(2),
     catchup=False,
-) as dag_serverless_spark_batch_scoring:
-    customer_churn_prediction = DataprocCreateBatchOperator(
+) as scoringDAG:
+    customerChurnPredictionStep = DataprocCreateBatchOperator(
         task_id="Predict_Customer_Churn",
-        project_id=project_id,
+        project_id=projectID,
         region=region,
-        batch=BATCH_CONFIG1,
-        batch_id=BATCH_ID 
+        batch=s8sSparkBatchConfig,
+        batch_id=batchIDPrefix 
     )
-
-    customer_churn_prediction 
+    customerChurnPredictionStep 
