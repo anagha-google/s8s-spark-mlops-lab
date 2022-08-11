@@ -232,7 +232,7 @@ def fnMain(logger, args):
                                         .withColumn("operation", lit(operation)) 
 
         predictionsWithPipelineIdDF.write.format('bigquery') \
-        .mode("overwrite")\
+        .mode("append")\
         .option('table', bigQueryModelTestResultsTableFQN) \
         .save()
 
