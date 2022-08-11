@@ -46,7 +46,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 ### 7.1. Train a Spark MLlib model<br> 
  First in PySpark interactive notebooks, then via PySpark scripts<br> 
 (a) Preprocessing <br> 
-(b) Register managed dataset<br> 
+(b) Register managed dataset in Vertex AI<br> 
 (c) Train a RandomForest classification model<br> 
 (d) Evaluate the model - metrics and plots<br> 
 (e) Conditional hyperparameter tuning<br> 
