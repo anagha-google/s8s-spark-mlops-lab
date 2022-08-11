@@ -40,14 +40,14 @@ projectNbr = models.Variable.get("projectNbr")
 modelVersion=Variable.get("modelVersion")
 displayPrintStatements=Variable.get("displayPrintStatements")
 # +
-# Arguments array
+# d) Arguments array
 batchScoringArguments = [f"--pipelineID={pipelineID}", \
         f"--projectID={projectID}", \
         f"--projectNbr={projectNbr}", \
         f"--modelVersion={modelVersion}", \
         f"--displayPrintStatements={displayPrintStatements}" ]
 # +
-# PySpark script to execute
+# e) PySpark script to execute
 scoringScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/batch_scoring.py"
 commonUtilsScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/common_utils.py"
 # }}
