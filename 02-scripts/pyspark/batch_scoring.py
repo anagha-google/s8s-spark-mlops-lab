@@ -172,7 +172,7 @@ def fnMain(logger, args):
         print('....Persisting: Batch scoring results to BigQuery')
         batchScoreResultsDF.select("customer_id", "gender", "senior_citizen", "partner", "dependents", "tenure", "tenure_group", "phone_service", "multiple_lines", "internet_service", "online_security", "online_backup", "device_protection", "tech_support", "streaming_tv", "streaming_movies", "contract", "paperless_billing", "payment_method", "monthly_charges", "total_charges","prediction","model_version","pipeline_id","pipeline_execution_dt") \
         .write.format('bigquery') \
-        .mode("overwrite")\
+        .mode("append")\
         .option('table', bigQueryOutputTableFQN) \
         .save()
 
