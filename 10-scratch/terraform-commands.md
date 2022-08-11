@@ -1,6 +1,7 @@
 # Environment setup with Terraform
 
-### Variables
+### 1. Variables
+Delcare the variables below for use throughout the lab. 
 ```
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
 PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d':' -f2 |  tr -d "'" | xargs`
@@ -26,13 +27,16 @@ echo "DATA_BUCKET=$DATA_BUCKET"
 echo "CODE_BUCKET=$CODE_BUCKET"
 ```
 
-### Terraform init
+### Terraform commands
+
+## Terraform init
+Terraform init
 ```
 cd ~/s8s-spark-mlops/00-env-setup/
 terraform init
 ```
 
-### Terraform plan
+## Terraform plan
 ```
 terraform plan \
   -var="project_id=${PROJECT_ID}" \
@@ -44,7 +48,7 @@ terraform plan \
   -var="container_image_version=1.0.0"
  ```
 
-### Terraform apply
+## Terraform apply
 ```
 terraform apply \
   -var="project_id=${PROJECT_ID}" \
@@ -57,7 +61,7 @@ terraform apply \
   --auto-approve
  ```
  
-### Terraform destroy
+## Terraform destroy
 ```
 terraform destroy \
   -var="project_id=${PROJECT_ID}" \
@@ -70,7 +74,8 @@ terraform destroy \
   --auto-approve
 ```
 
-### Terrafrom selective re-deployment sample..
+## Terrafrom selective re-deployment sample..
+The below is a sample
 ```
 terraform apply -target=google_notebooks_runtime.mnb_server_creation \
 -var="project_id=${PROJECT_ID}" \
