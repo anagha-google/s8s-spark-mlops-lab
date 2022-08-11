@@ -16,12 +16,15 @@ import random
 # .......................................................
 # Variables
 # .......................................................
-randomizerCharLength = 10 
-randomVal = ''.join(random.choices(string.digits, k = randomizerCharLength))
 
 # {{
-# a) For the Airflow operator 
-"""
+# a) General
+randomizerCharLength = 10 
+randomVal = ''.join(random.choices(string.digits, k = randomizerCharLength))
+airflowDAGName= "customer_churn_prediction"
+batchIDPrefix = f"{airflowDAGName}-edo-{randomVal}"
+# +
+# b) Capture from Airflow variables
 region = models.Variable.get("region")
 subnet=models.Variable.get("subnet")
 phsServer=Variable.get("phsServer")
@@ -30,47 +33,23 @@ bqDataset=Variable.get("bqDataset")
 umsaFQN=Variable.get("umsaFQN")
 bqConnectorJarUri=Variable.get("bqConnectorJarUri")
 # +
-# b) For the Spark application
-pipelineID=random.randint(1, 10000000)
+# c) For the Spark application
+pipelineID=randomVal
 projectID = models.Variable.get("projectID")
 projectNbr = models.Variable.get("projectNbr")
 modelVersion=Variable.get("modelVersion")
-displayPrintStatements=True
-"""
-region = "us-central1"
-subnet = "spark-snet"
-phsServer = "s8s-sphs-505815944775"
-containerImageUri = "gcr.io/spark-s8s-mlops/customer_churn_image:1.0.0"
-bqDataset = "spark-s8s-mlops.customer_churn_ds"
-umsaFQN = "s8s-lab-sa@spark-s8s-mlops.iam.gserviceaccount.com"
-bqConnectorJarUri = "gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
+displayPrintStatements=Variable.get("displayPrintStatements")
 # +
-# b) For the Spark application
-
-pipelineID=randomVal
-projectID = "spark-s8s-mlops"
-projectNbr = "505815944775"
-modelVersion = "9923"
-displayPrintStatements=True
-
-# +
-# Define DAG name
-airflowDAGName= "customer_churn_prediction"
-# +
-# PySpark script to execute
-scoringScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/batch_scoring.py"
-commonUtilsScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/common_utils.py"
-# +
-# Arguments string
+# Arguments array
 batchScoringArguments = [f"--pipelineID={pipelineID}", \
         f"--projectID={projectID}", \
         f"--projectNbr={projectNbr}", \
         f"--modelVersion={modelVersion}", \
         f"--displayPrintStatements={displayPrintStatements}" ]
-
 # +
-# Batch variables
-batchIDPrefix = f"customer-churn-scoring-edo-{pipelineID}"
+# PySpark script to execute
+scoringScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/batch_scoring.py"
+commonUtilsScript= "gs://s8s_code_bucket-"+projectNbr+"/pyspark/common_utils.py"
 # }}
 
 # .......................................................
