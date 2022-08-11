@@ -12,7 +12,7 @@ UMSA_FQN=s8s-lab-sa@$PROJECT_ID.iam.gserviceaccount.com
 DATA_BUCKET=s8s_data_bucket-${PROJECT_NBR}
 CODE_BUCKET=s8s_code_bucket-${PROJECT_NBR}
 MODEL_BUCKET=s8s_model_bucket-${PROJECT_NBR}
-CONTAINER_IMAGE_VERSION=1.0.0
+CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
 ```
 
 ## Preprocessing
@@ -29,7 +29,7 @@ gs://$CODE_BUCKET/pyspark/preprocessing.py \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2" \
---container-image="gcr.io/$PROJECT_ID/customer_churn_image:${CONTAINER_IMAGE_VERSION}" \
+--container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=20220807 --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
 
