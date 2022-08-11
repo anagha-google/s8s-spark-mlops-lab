@@ -1033,28 +1033,28 @@
   "runtimeConfig": {
     "parameters": {
       "common_utils_py_fqn": {
-        "stringValue": "[\"gs://s8s_code_bucket-PROJECT_NBR/pyspark/common_utils.py\"]"
+        "stringValue": "[\"gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/common_utils.py\"]"
       },
       "container_image": {
-        "stringValue": "gcr.io/PROJECT_ID/customer_churn_image:1.0.0"
+        "stringValue": "gcr.io/YOUR_PROJECT_ID/customer_churn_image:1.0.0"
       },
       "data_preprocessing_args": {
-        "stringValue": "[\"--pipelineID=EXECUTION_ID\", \"--projectID=PROJECT_ID\", \"--projectNbr=PROJECT_NBR\", \"--displayPrintStatements=True\"]"
+        "stringValue": "[\"--pipelineID=USER_DEFINED_EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
       },
       "data_preprocessing_main_py_fqn": {
-        "stringValue": "gs://s8s_code_bucket-PROJECT_NBR/pyspark/preprocessing.py"
+        "stringValue": "gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/preprocessing.py"
       },
       "data_preprocessing_pyspark_batch_id": {
-        "stringValue": "customer-churn-model-preprocessing-EXECUTION_ID"
+        "stringValue": "customer-churn-model-preprocessing-USER_DEFINED_EXECUTION_ID"
       },
       "hyperparameter_tuning_args": {
-        "stringValue": "[\"--pipelineID=EXECUTION_ID\", \"--projectID=PROJECT_ID\", \"--projectNbr=PROJECT_NBR\", \"--displayPrintStatements=True\"]"
+        "stringValue": "[\"--pipelineID=EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
       },
       "hyperparameter_tuning_main_py_fqn": {
-        "stringValue": "gs://s8s_code_bucket-PROJECT_NBR/pyspark/hyperparameter_tuning.py"
+        "stringValue": "gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/hyperparameter_tuning.py"
       },
       "hyperparameter_tuning_metrics_fqp": {
-        "stringValue": "gs://s8s_metrics_bucket-PROJECT_NBR/customer-churn-model/training/EXECUTION_ID/full/metrics.json"
+        "stringValue": "gs://s8s_metrics_bucket-YOUR_PROJECT_NBR/customer-churn-model/training/EXECUTION_ID/full/metrics.json"
       },
       "hyperparameter_tuning_pyspark_batch_id": {
         "stringValue": "customer-churn-model-hyperparameter-tuning-EXECUTION_ID"
@@ -1066,31 +1066,31 @@
         "stringValue": "customer-churn-model-EXECUTION_ID"
       },
       "managed_dataset_src_uri": {
-        "stringValue": "bq://PROJECT_ID.customer_churn_ds.training_data"
+        "stringValue": "bq://YOUR_PROJECT_ID.customer_churn_ds.training_data"
       },
       "model_training_args": {
-        "stringValue": "[\"--pipelineID=EXECUTION_ID\", \"--projectID=PROJECT_ID\", \"--projectNbr=PROJECT_NBR\", \"--displayPrintStatements=True\"]"
+        "stringValue": "[\"--pipelineID=EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
       },
       "model_training_main_py_fqn": {
-        "stringValue": "gs://s8s_code_bucket-PROJECT_NBR/pyspark/model_training.py"
+        "stringValue": "gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/model_training.py"
       },
       "model_training_metrics_fqp": {
-        "stringValue": "gs://s8s_metrics_bucket-PROJECT_NBR/customer-churn-model/training/EXECUTION_ID/full/metrics.json"
+        "stringValue": "gs://s8s_metrics_bucket-YOUR_PROJECT_NBR/customer-churn-model/training/EXECUTION_ID/full/metrics.json"
       },
       "model_training_pyspark_batch_id": {
         "stringValue": "customer-churn-model-training-EXECUTION_ID"
       },
       "project_id": {
-        "stringValue": "PROJECT_ID"
+        "stringValue": "YOUR_PROJECT_ID"
       },
       "service_account": {
-        "stringValue": "s8s-lab-sa@PROJECT_ID.iam.gserviceaccount.com"
+        "stringValue": "s8s-lab-sa@YOUR_PROJECT_ID.iam.gserviceaccount.com"
       },
       "spark_phs_nm": {
-        "stringValue": "projects/PROJECT_ID/regions/LOCATION/clusters/s8s-sphs-PROJECT_NBR"
+        "stringValue": "projects/YOUR_PROJECT_ID/regions/YOUR_LOCATION/clusters/s8s-sphs-YOUR_PROJECT_NBR"
       },
       "subnetwork_uri": {
-        "stringValue": "projects/PROJECT_ID/regions/LOCATION/subnetworks/spark-snet"
+        "stringValue": "projects/YOUR_PROJECT_ID/regions/YOUR_LOCATION/subnetworks/spark-snet"
       },
       "threshold": {
         "doubleValue": 0.5

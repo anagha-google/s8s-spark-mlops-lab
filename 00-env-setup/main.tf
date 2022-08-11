@@ -39,6 +39,7 @@ s8s_data_bucket             = "s8s_data_bucket-${local.project_nbr}"
 s8s_code_bucket             = "s8s_code_bucket-${local.project_nbr}"
 s8s_notebook_bucket         = "s8s_notebook_bucket-${local.project_nbr}"
 s8s_model_bucket            = "s8s_model_bucket-${local.project_nbr}"
+s8s_pipeline_bucket         = "s8s_pipeline_bucket-${local.project_nbr}"
 s8s_metrics_bucket          = "s8s_metrics_bucket-${local.project_nbr}"
 s8s_artifact_repository_nm  = "s8s-spark-${local.project_nbr}"
 bq_datamart_ds              = "customer_churn_ds"
@@ -631,6 +632,17 @@ resource "google_storage_bucket" "s8s_metrics_bucket_creation" {
   ]
 }
 
+resource "google_storage_bucket" "s8s_vai_pipeline_bucket_creation" {
+  project                           = local.project_id 
+  name                              = local.s8s_pipeline_bucket
+  location                          = local.location
+  uniform_bucket_level_access       = true
+  force_destroy                     = true
+  depends_on = [
+      time_sleep.sleep_after_network_and_firewall_creation
+  ]
+}
+
 /*******************************************
 Introducing sleep to minimize errors from
 dependencies having not completed
@@ -646,28 +658,65 @@ resource "time_sleep" "sleep_after_bucket_creation" {
     google_storage_bucket.s8s_spark_bucket_creation,
     google_storage_bucket.s8s_model_bucket_creation,
     google_storage_bucket.s8s_metrics_bucket_creation,
+    google_storage_bucket.s8s_vai_pipeline_bucket_creation
   ]
 }
 
 /******************************************
-10. Post startup scripts for notebook instances
+10. Customize scripts and notebooks
  *****************************************/
+ # Copy from templates and replace variables
 
 resource "null_resource" "umnbs_post_startup_bash_creation" {
     provisioner "local-exec" {
-        command = "sed -i s/PROJECT_NBR/${local.project_nbr}/g ../02-scripts/bash/umnbs-exec-post-startup.sh"
+        command = "cp ../04-templates/umnbs-exec-post-startup.sh ../02-scripts/bash/ && sed -i s/PROJECT_NBR/${local.project_nbr}/g ../02-scripts/bash/umnbs-exec-post-startup.sh"
     }
 }
 
 resource "null_resource" "mnbs_post_startup_bash_creation" {
     provisioner "local-exec" {
-        command = "sed -i s/PROJECT_NBR/${local.project_nbr}/g ../02-scripts/bash/mnbs-exec-post-startup.sh"
+        command = "cp ../04-templates/mnbs-exec-post-startup.sh ../02-scripts/bash/ && sed -i s/PROJECT_NBR/${local.project_nbr}/g ../02-scripts/bash/mnbs-exec-post-startup.sh"
+    }
+}
+
+resource "null_resource" "preprocessing_notebook_customization" {
+    provisioner "local-exec" {
+        command = "cp ../04-templates/preprocessing.ipynb ../03-notebooks/pyspark/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../03-notebooks/pyspark/preprocessing.ipynb && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../03-notebooks/pyspark/preprocessing.ipynb"
+        interpreter = ["bash", "-c"]
+    }
+}
+
+resource "null_resource" "training_notebook_customization" {
+    provisioner "local-exec" {
+        command = "cp ../04-templates/model_training.ipynb ../03-notebooks/pyspark/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../03-notebooks/pyspark/model_training.ipynb && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../03-notebooks/pyspark/model_training.ipynb"
+        interpreter = ["bash", "-c"]    
+    }
+}
+
+resource "null_resource" "hpt_notebook_customization" {
+    provisioner "local-exec" {
+        command = "cp ../04-templates/hyperparameter_tuning.ipynb ../03-notebooks/pyspark/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../03-notebooks/pyspark/hyperparameter_tuning.ipynb && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../03-notebooks/pyspark/hyperparameter_tuning.ipynb"
+        interpreter = ["bash", "-c"]
+    }
+}
+
+resource "null_resource" "scoring_notebook_customization" {
+    provisioner "local-exec" {
+        command = "cp ../04-templates/batch_scoring.ipynb ../03-notebooks/pyspark/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../03-notebooks/pyspark/batch_scoring.ipynb && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../03-notebooks/pyspark/batch_scoring.ipynb"
+        interpreter = ["bash", "-c"]
+    }
+}
+
+resource "null_resource" "vai_pipeline_customization" {
+    provisioner "local-exec" {
+        command = "cp ../04-templates/customer_churn_vai_pipeline_template.json ../05-pipelines/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_GCP_LOCATION/${local.location}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_EXECUTION_ID/12345678/g ../05-pipelines/customer_churn_vai_pipeline_template.json"
+        interpreter = ["bash", "-c"]
     }
 }
 
 /******************************************
 11. Copy of datasets, scripts and notebooks to buckets
- *****************************************/
+ ******************************************/
 
 resource "google_storage_bucket_object" "datasets_upload_to_gcs" {
   for_each = fileset("../01-datasets/", "*")
@@ -717,7 +766,11 @@ resource "google_storage_bucket_object" "notebooks_pyspark_upload_to_gcs" {
   bucket = "${local.s8s_notebook_bucket}"
   depends_on = [
     time_sleep.sleep_after_bucket_creation,
-    google_storage_bucket_object.notebooks_dir_create_in_gcs
+    google_storage_bucket_object.notebooks_dir_create_in_gcs,
+    null_resource.preprocessing_notebook_customization,
+    null_resource.training_notebook_customization,
+    null_resource.hpt_notebook_customization,
+    null_resource.scoring_notebook_customization,
   ]
 }
 
@@ -757,6 +810,25 @@ resource "google_storage_bucket_object" "bash_scripts_upload_to_gcs" {
   ]
 }
 
+resource "google_storage_bucket_object" "airflow_scripts_upload_to_gcs" {
+  name   = "airflow/pipeline.py"
+  source = "../02-scripts/airflow/pipeline.py"
+  bucket = "${local.s8s_code_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation
+  ]
+}
+
+resource "google_storage_bucket_object" "vai_pipeline_upload_to_gcs" {
+  name   = "template/customer_churn_vai_pipeline_template.json"
+  source = "../04-templates/customer_churn_vai_pipeline_template.json"
+  bucket = "${local.s8s_pipeline_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation,
+    null_resource.vai_pipeline_customization
+  ]
+}
+
 /*******************************************
 Introducing sleep to minimize errors from
 dependencies having not completed
@@ -769,7 +841,10 @@ resource "time_sleep" "sleep_after_network_and_storage_steps" {
       time_sleep.sleep_after_bucket_creation,
       google_storage_bucket_object.notebooks_vai_pipelines_upload_to_gcs,
       google_storage_bucket_object.notebooks_pyspark_upload_to_gcs,
-      google_storage_bucket_object.pyspark_scripts_upload_to_gcs
+      google_storage_bucket_object.pyspark_scripts_upload_to_gcs,
+      google_storage_bucket_object.bash_scripts_upload_to_gcs,
+      google_storage_bucket_object.airflow_scripts_upload_to_gcs,
+      google_storage_bucket_object.vai_pipeline_upload_to_gcs
   ]
 }
 
@@ -941,22 +1016,27 @@ resource "null_resource" "custom_container_image_creation" {
 /********************************************************
 14. Create Composer Environment
 ********************************************************/
+
 resource "google_composer_environment" "cloud_composer_env_creation" {
   name   = "${local.project_id}-cc2"
   region = local.location
   provider = google-beta
-  config {
 
+  config {
     software_config {
       image_version = local.CLOUD_COMPOSER2_IMG_VERSION 
       env_variables = {
-        AIRFLOW_VAR_CODE_BUCKET = "${local.s8s_code_bucket}"
-        AIRFLOW_VAR_PHS = "${local.s8s_spark_sphs_nm}"
         AIRFLOW_VAR_PROJECT_ID = "${local.project_id}"
+        AIRFLOW_VAR_PROJECT_NBR = "${local.project_id}"
         AIRFLOW_VAR_REGION = "${local.location}"
         AIRFLOW_VAR_SUBNET = "${local.spark_subnet_nm}"
+        AIRFLOW_VAR_PHS_SERVER = "${local.s8s_spark_sphs_nm}"
+        AIRFLOW_VAR_CONTAINER_IMAGE_URI = "gcr.io/${local.project_id}/customer_churn_image:${local.SPARK_CONTAINER_IMG_VERSION}"
+        AIRFLOW_VAR_BQ_CONNECTOR_JAR_URI = "gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
+        AIRFLOW_VAR_MODEL_VERSION = "REPLACE_ME"
+        AIRFLOW_VAR_DISPLAY_PRINT_STATEMENTS = "True"
         AIRFLOW_VAR_BQ_DATASET = "${local.bq_datamart_ds}"
-        AIRFLOW_VAR_UMSA = "${local.umsa}"
+        AIRFLOW_VAR_UMSA_FQN = "${local.umsa_fqn}"
       }
     }
 
@@ -968,12 +1048,19 @@ resource "google_composer_environment" "cloud_composer_env_creation" {
   }
 
   depends_on = [
-    time_sleep.sleep_after_phs_creation
+        module.administrator_role_grants,
+        time_sleep.sleep_after_network_and_storage_steps,
+        google_dataproc_cluster.sphs_creation,
+        
   ] 
 
   timeouts {
     create = "75m"
   } 
+}
+
+output "CLOUD_COMPOSER_DAG_BUCKET" {
+  value = google_composer_environment.cloud_composer_env_creation.config.0.dag_gcs_prefix
 }
 
 /*******************************************
@@ -987,24 +1074,22 @@ resource "time_sleep" "sleep_after_composer_creation" {
   ]
 }
 
-
 /*******************************************
-Introducing sleep to minimize errors from
-dependencies having not completed
-********************************************/
+15. Upload Airflow DAG to Composer DAG bucket
+******************************************/
+# Remove the gs:// prefix and /dags suffix
 
-resource "time_sleep" "sleep_after_phs_creation" {
-  create_duration = "180s"
+resource "google_storage_bucket_object" "upload_cc2_dag_to_airflow_dag_bucket" {
+  name   = "dags/pipeline.py"
+  source = "../02-scripts/airflow/pipeline.py"  
+  bucket = substr(substr(google_composer_environment.cloud_composer_env_creation.config.0.dag_gcs_prefix, 5, length(google_composer_environment.cloud_composer_env_creation.config.0.dag_gcs_prefix)), 0, (length(google_composer_environment.cloud_composer_env_creation.config.0.dag_gcs_prefix)-10))
   depends_on = [
-      google_dataproc_cluster.sphs_creation,
-      google_notebooks_instance.umnb_server_creation,
-      google_artifact_registry_repository.artifact_registry_creation
-
+    time_sleep.sleep_after_composer_creation
   ]
 }
 
 /******************************************
-12. Output important variables needed for the demo
+16. Output important variables needed for the demo
 ******************************************/
 
 output "PROJECT_ID" {
