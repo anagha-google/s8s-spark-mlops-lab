@@ -44,7 +44,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 If you are not seeing a capability core to ML lifecycle, it was likely not supported at the time of the authoring of this lab. Keeping the lab current is best effort. Community contributions are welcome.
 
 ## 8. Solution Architecture
-- REPLACE WITH DIAGRAM -
+
 
 ## 9. The lab modules
 Follow in sequential order.
