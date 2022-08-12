@@ -1027,7 +1027,7 @@ resource "google_composer_environment" "cloud_composer_env_creation" {
       image_version = local.CLOUD_COMPOSER2_IMG_VERSION 
       env_variables = {
         AIRFLOW_VAR_PROJECT_ID = "${local.project_id}"
-        AIRFLOW_VAR_PROJECT_NBR = "${local.project_id}"
+        AIRFLOW_VAR_PROJECT_NBR = "${local.project_nbr}"
         AIRFLOW_VAR_REGION = "${local.location}"
         AIRFLOW_VAR_SUBNET = "${local.spark_subnet_nm}"
         AIRFLOW_VAR_PHS_SERVER = "${local.s8s_spark_sphs_nm}"
