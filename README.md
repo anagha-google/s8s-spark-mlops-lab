@@ -43,32 +43,25 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 
 If you are not seeing a capability core to ML lifecycle, it was likely not supported at the time of the authoring of this lab. Keeping the lab current is best effort. Community contributions are welcome.
 
-## 8. Featured products in the lab
-| # | Product/Feature | Purpose | 
-| -- | :--- | :-- |
-| 1 |  Google Cloud Storage | Storage of code, notebooks, logs and more |
-| 2 |  BigQuery | Transformed data for model training |
-| 3 |  Cloud Dataproc Serverless Spark batches  | Execution of Spark MLlib components of Vertex AI pipeline |
-| 4 |  Cloud Dataproc Serverless Spark interactive  | Interactive Spark exposed via Jupyter on Vertex AI Workbench |
-| 5 |  Vertex AI Workbench - Managed Notebook instance | Experimentation via interactive serverless Spark Jupyter notebooks |
-| 6 |  Cloud Dataproc Persistent Spark History Server  | Spark UI and indefinite access to logs from prior executions |
-| 7 |  Cloud Composer | Batch scoring job orchestration |
-| 8 |  Google Container Registry | Custom container image for Dataproc Serverless Spark |
-| 9 |  Vertex AI Unmanaged Notebok instance | Vertex AI pipeline orchestration development |
-| 10 |  Vertex AI Pipelines | Orchestration of PySpark ML tasks |
-| 11 |  Vertex AI Managed Datasets | Curated preproocessed data ready to be used for training |
-| 12 |  Vertex AI Metadata | Model metrics, and more |
+## 8. Solution Architecture
+- REPLACE WITH DIAGRAM -
 
 ## 9. The lab modules
 Follow in sequential order.
 | # | Module | 
 | -- | :--- |
-| 1 |  Blah |
+| 01 |  Terraform for environment provisioning |
+| 2a |  Preprocessing with a Spark interactive notebook |
+| 2b |  Preprocessing with Serverless Spark batches |
+| 3a |  Model training with a Spark interactive notebook |
+| 3b |  Model training with Serverless Spark batches |
+....
 
 ## 10. Dont forget to 
 Shut down/delete resources when done
 
 ## 11. Credits & Resources
+
 
 
 ## 12. Contributions welcome
