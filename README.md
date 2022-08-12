@@ -63,10 +63,10 @@ Follow in sequential order.
 Shut down/delete resources when done
 
 ## 11. Credits & Resources
-|Collaborator | Contribution  | 
-| -- | :--- |
-| Dr. Thomas Abraham | Consultation & testing |
-| Ivan Nardini | Samples, guidance |
+| # | Collaborator | Contribution  | 
+| -- | :--- | :--- |
+| 1. | Dr. Thomas Abraham | Consultation & testing |
+| 2. | Ivan Nardini | Samples, guidance |
 
 ## 12. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
