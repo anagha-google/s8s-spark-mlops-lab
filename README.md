@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-# Vertex AI Pipelines for Spark ML powered by Dataproc Serverless
-
-### WORK IN PROGRESS
-
-1. Clone this repo
-2. Provision your environment using Terraform
-3. Author Spark ML code in Serverless Spark interactive notebooks
-4. Operational Spark ML code into PySpark scripts & test from CLI
-5. Author a Vertex AI pipeline for model training from a notebook on User Managed Notebook instance
-6. Schedule model training pipeline with Cloud Scheduler
-7. Author a Vertex AI pipeline for batch scoring from a notebook on User Managed Notebook instance
-8. Author an Airflow DAG that executes a batch scoring Vertex AI pipeline
-9. Run the DAG in Cloud Composer
-10. Destroy resources upon lab completion
-
-
-=======
 # Practical Machine Learning at scale with Spark on GCP and Vertex AI
 
 ## 1. About
@@ -79,9 +61,9 @@ If you are not seeing a capability core to ML lifecycle, it was likely not suppo
 
 ## 9. The lab modules
 Follow in sequential order.
-| # | Product/Feature | Purpose | 
-| -- | :--- | :-- |
-| 1 |  Google Cloud Storage | Storage of code, notebooks, logs and more |
+| # | Module | 
+| -- | :--- |
+| 1 |  Blah |
 
 ## 10. Dont forget to 
 Shut down/delete resources when done
@@ -92,10 +74,3 @@ Shut down/delete resources when done
 ## 12. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
 
-
-
-
-
-
-
->>>>>>> c1a236a5a9e9499a66e1c8b5564bdd1e00296e3e
