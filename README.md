@@ -51,10 +51,10 @@ Follow in sequential order.
 | # | Module | 
 | -- | :--- |
 | 01 |  Terraform for environment provisioning |
-| 2a |  Preprocessing with a Spark interactive notebook |
-| 2b |  Preprocessing with Serverless Spark batches |
-| 3a |  Model training with a Spark interactive notebook |
-| 3b |  Model training with Serverless Spark batches |
+| 02 |  Preprocessing with serverless Spark interactive & Spark batches |
+| 03 |  Model training with serverless Spark interactive & Spark batches |
+| 04 |  Hyperparameter tuning  with serverless Spark interactive & Spark batches |
+| 05 |  Batch scoring with serverless Spark interactive & Spark batches |
 ....
 
 ## 10. Dont forget to 
