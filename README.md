@@ -55,13 +55,14 @@ Follow in sequential order.
 | 03 |  Model training with serverless Spark interactive & Spark batches |
 | 04 |  Hyperparameter tuning  with serverless Spark interactive & Spark batches |
 | 05 |  Batch scoring with serverless Spark interactive & Spark batches |
-....
+| 06 |  Authoring & testing a model training Vertex AI pipeline via notebook and UI |
+| 07 |  Scheduling a model training Vertex AI pipeline with Cloud Scheduler |
+| 08 |  Authoring an Airflow DAG for batch scoring and scheduling on Cloud Composer 2 |
 
 ## 10. Dont forget to 
 Shut down/delete resources when done
 
 ## 11. Credits & Resources
-
 
 
 ## 12. Contributions welcome
