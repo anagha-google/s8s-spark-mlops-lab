@@ -38,7 +38,7 @@ terraform init
 
 ## Terraform plan
 ```
-cd ~/${PROJECT_ID}/00-env-setup/
+cd ~/s8s-spark-mlops/00-env-setup/
 terraform plan \
   -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
@@ -51,7 +51,7 @@ terraform plan \
 
 ## Terraform apply
 ```
-cd ~/${PROJECT_ID}/00-env-setup/
+cd ~/s8s-spark-mlops/00-env-setup/
 terraform apply \
   -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
@@ -65,7 +65,7 @@ terraform apply \
  
 ## Terraform destroy
 ```
-cd ~/${PROJECT_ID}/00-env-setup/
+cd ~/s8s-spark-mlops/00-env-setup/
 terraform destroy \
   -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
@@ -80,7 +80,7 @@ terraform destroy \
 ## Terrafrom selective re-deployment sample..
 The below is a sample
 ```
-cd ~/${PROJECT_ID}/00-env-setup/
+cd ~/s8s-spark-mlops/00-env-setup/
 terraform apply -target=google_notebooks_runtime.mnb_server_creation \
 -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
