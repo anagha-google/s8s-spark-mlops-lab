@@ -1,6 +1,6 @@
 # Practical Machine Learning at scale with Spark on GCP and Vertex AI
 
-##WORK ON PAUSE for a week##
+##WORK ON HOLD due to team offsite##
 
 ## 1. About
 This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI. The focus is on demystifying the integration (and not about a perfect model), and features a minimum viable example of telco **Customer Churn Prediction** with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn), and using [Random Forest classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier).
