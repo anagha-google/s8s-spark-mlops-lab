@@ -12,7 +12,7 @@ The lab is fully scripted (no research needed), with (fully automated) environme
 It is a Level 300 lab, and includes components spanning storage, networking, kubernetes,and a variety of data services. 
 
 ## 4. Audience
-The intended audience is anyone with access to Google Cloud and interested in kicking the tires, with ease.
+The intended audience is anyone with access to Google Cloud and interested in the features showcased and want to kick the tires.
 
 ## 5. Prerequisites
 Knowledge of Spark and Machine Learning would be beneficial.<br> 
