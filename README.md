@@ -67,7 +67,7 @@ Shut down/delete resources when done
 ## 11. Credits & Resources
 | # | Collaborator | Contribution  | 
 | -- | :--- | :--- |
-| 1. | Dr. Thomas Abraham | Consultation & testing |
+| 1. | Thomas Abraham | Consultation & testing |
 | 2. | Ivan Nardini | Samples, guidance |
 
 ## 12. Contributions welcome
