@@ -1069,7 +1069,7 @@
         "stringValue": "bq://YOUR_PROJECT_ID.customer_churn_ds.training_data"
       },
       "model_training_args": {
-        "stringValue": "[\"--pipelineID=EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
+        "stringValue": "[\"--pipelineID=YOUR_USER_DEFINED_EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
       },
       "model_training_main_py_fqn": {
         "stringValue": "gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/model_training.py"
