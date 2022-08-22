@@ -68,7 +68,7 @@ Shut down/delete resources when done
 | # | Collaborator | Contribution  | 
 | -- | :--- | :--- |
 | 1. | Thomas Abraham | Consultation & testing |
-| 2. | Ivan Nardini | Samples, guidance |
+| 2. | Ivan Nardini | Samples, Vertex AI & Spark integration roadmap & more |
 
 ## 12. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
