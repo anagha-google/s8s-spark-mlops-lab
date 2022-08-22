@@ -1039,31 +1039,31 @@
         "stringValue": "gcr.io/YOUR_PROJECT_ID/customer_churn_image:1.0.0"
       },
       "data_preprocessing_args": {
-        "stringValue": "[\"--pipelineID=USER_DEFINED_EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
+        "stringValue": "[\"--pipelineID=YOUR_USER_DEFINED_EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
       },
       "data_preprocessing_main_py_fqn": {
         "stringValue": "gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/preprocessing.py"
       },
       "data_preprocessing_pyspark_batch_id": {
-        "stringValue": "customer-churn-model-preprocessing-USER_DEFINED_EXECUTION_ID"
+        "stringValue": "customer-churn-model-preprocessing-YOUR_USER_DEFINED_EXECUTION_ID"
       },
       "hyperparameter_tuning_args": {
-        "stringValue": "[\"--pipelineID=EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
+        "stringValue": "[\"--pipelineID=YOUR_USER_DEFINED_EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
       },
       "hyperparameter_tuning_main_py_fqn": {
         "stringValue": "gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/hyperparameter_tuning.py"
       },
       "hyperparameter_tuning_metrics_fqp": {
-        "stringValue": "gs://s8s_metrics_bucket-YOUR_PROJECT_NBR/customer-churn-model/training/EXECUTION_ID/full/metrics.json"
+        "stringValue": "gs://s8s_metrics_bucket-YOUR_PROJECT_NBR/customer-churn-model/training/YOUR_USER_DEFINED_EXECUTION_ID/full/metrics.json"
       },
       "hyperparameter_tuning_pyspark_batch_id": {
-        "stringValue": "customer-churn-model-hyperparameter-tuning-EXECUTION_ID"
+        "stringValue": "customer-churn-model-hyperparameter-tuning-YOUR_USER_DEFINED_EXECUTION_ID"
       },
       "location": {
         "stringValue": "LOCATION"
       },
       "managed_dataset_display_nm": {
-        "stringValue": "customer-churn-model-EXECUTION_ID"
+        "stringValue": "customer-churn-model-YOUR_USER_DEFINED_EXECUTION_ID"
       },
       "managed_dataset_src_uri": {
         "stringValue": "bq://YOUR_PROJECT_ID.customer_churn_ds.training_data"
@@ -1075,10 +1075,10 @@
         "stringValue": "gs://s8s_code_bucket-YOUR_PROJECT_NBR/pyspark/model_training.py"
       },
       "model_training_metrics_fqp": {
-        "stringValue": "gs://s8s_metrics_bucket-YOUR_PROJECT_NBR/customer-churn-model/training/EXECUTION_ID/full/metrics.json"
+        "stringValue": "gs://s8s_metrics_bucket-YOUR_PROJECT_NBR/customer-churn-model/training/YOUR_USER_DEFINED_EXECUTION_ID/full/metrics.json"
       },
       "model_training_pyspark_batch_id": {
-        "stringValue": "customer-churn-model-training-EXECUTION_ID"
+        "stringValue": "customer-churn-model-training-YOUR_USER_DEFINED_EXECUTION_ID"
       },
       "project_id": {
         "stringValue": "YOUR_PROJECT_ID"
