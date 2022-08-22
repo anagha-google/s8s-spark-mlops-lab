@@ -81,7 +81,7 @@ terraform destroy \
 The below is a sample
 ```
 cd ~/s8s-spark-mlops/00-env-setup/
-terraform apply -target=google_notebooks_runtime.mnb_server_creation \
+terraform apply -target=null_resource.vai_pipeline_customization \
 -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
   -var="project_number=${PROJECT_NBR}" \
