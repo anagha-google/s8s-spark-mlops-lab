@@ -1087,10 +1087,10 @@
         "stringValue": "s8s-lab-sa@YOUR_PROJECT_ID.iam.gserviceaccount.com"
       },
       "spark_phs_nm": {
-        "stringValue": "projects/YOUR_PROJECT_ID/regions/YOUR_LOCATION/clusters/s8s-sphs-YOUR_PROJECT_NBR"
+        "stringValue": "projects/YOUR_PROJECT_ID/regions/YOUR_GCP_LOCATION/clusters/s8s-sphs-YOUR_PROJECT_NBR"
       },
       "subnetwork_uri": {
-        "stringValue": "projects/YOUR_PROJECT_ID/regions/YOUR_LOCATION/subnetworks/spark-snet"
+        "stringValue": "projects/YOUR_PROJECT_ID/regions/YOUR_GCP_LOCATION/subnetworks/spark-snet"
       },
       "threshold": {
         "doubleValue": 0.5
