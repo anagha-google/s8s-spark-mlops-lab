@@ -77,11 +77,26 @@ terraform destroy \
   --auto-approve
 ```
 
-## Terrafrom selective re-deployment sample..
+## Terrafrom selective execuction sample..
 The below is a sample
 ```
 cd ~/s8s-spark-mlops/00-env-setup/
 terraform apply -target=null_resource.vai_pipeline_customization \
+-var="project_id=${PROJECT_ID}" \
+  -var="project_name=${PROJECT_NAME}" \
+  -var="project_number=${PROJECT_NBR}" \
+  -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
+  -var="org_id=${ORG_ID}"  \
+  -var="cloud_composer_image_version=composer-2.0.11-airflow-2.2.3" \
+  -var="container_image_version=1.0.0" \
+  --auto-approve
+```
+
+## Terrafrom selective replace sample..
+The below is a sample
+```
+cd ~/s8s-spark-mlops/00-env-setup/
+terraform apply -replace=null_resource.vai_pipeline_customization \
 -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
   -var="project_number=${PROJECT_NBR}" \
