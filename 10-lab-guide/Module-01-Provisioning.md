@@ -4,6 +4,13 @@ This module covers environment provisioning for the workshop.
 
 ## 1. Details about the environment that is setup by this module
 
+| # | Services provisioned | Purpose  | 
+| -- | :--- | :--- |
+| 1. | VPC network | Many services in this workshop are VPC native |
+| 2. | Subnet | Same as above |
+| 3. | Reserved IP | For Private Service Access for Vertex AI Managed Notebook with BYO network |
+| 4. | VPC peering | To peer our VPC from #1 with that of Vertex AI tenant for Vertex AI Managed Notebook with BYO network |
+
 
 
 ## 2. Create the environment
