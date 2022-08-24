@@ -1253,7 +1253,7 @@ output "MODEL_TRAINING_VAI_PIPELINE_TRIGGER_FUNCTION_URI" {
 resource "google_cloud_scheduler_job" "schedule_vai_pipeline" {
   name             = "customer_churn_model_training_batch"
   description      = "Customer Churn One-time Model Training Vertex AI Pipeline"
-  schedule         = "*/8 * * * *"
+  schedule         = "0 9 * * 1"
   time_zone        = local.cloud_scheduler_timezone
   attempt_deadline = "320s"
   region           = local.location
