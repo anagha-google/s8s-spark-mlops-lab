@@ -22,6 +22,7 @@ YOUR_GCP_MULTI_REGION="US"
 BQ_CONNECTOR_JAR_GCS_URI="gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
 CLOUD_COMPOSER_IMG_VERSION="composer-2.0.11-airflow-2.2.3"
 SPARK_CUSTOM_CONTAINER_IMAGE_TAG="1.0.0"
+CLOUD_SCHEDULER_TIME_ZONE="America/Chicago"
 
 echo "PROJECT_ID=$PROJECT_ID"
 echo "PROJECT_NBR=$PROJECT_NBR"
@@ -56,7 +57,8 @@ terraform plan \
   -var="gcp_region=${YOUR_GCP_REGION}" \
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
-  -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" 
+  -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}"
  ```
 
 ## Terraform apply
@@ -74,6 +76,7 @@ terraform apply \
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
  ```
  
@@ -92,6 +95,7 @@ terraform destroy \
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
 ```
 
@@ -111,6 +115,7 @@ terraform apply -target=null_resource.vai_pipeline_customization \
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
 ```
 
@@ -130,5 +135,6 @@ terraform apply -replace=google_cloudfunctions2_function.deploy_gcf_vai_pipeline
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
 ```
