@@ -16,7 +16,7 @@ git clone https://github.com/anagha-google/s8s-spark-mlops.git
 
 ### 3. Navigate to the Terraform provisioning directory
 ```
-cd s8s-spark-mlops/00-env-setup
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
 
 ### 4. Provision the environment
