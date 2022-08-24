@@ -2,26 +2,30 @@
 
 This module covers environment provisioning for the workshop.
 
-### 1. Create a directory in Cloud Shell for the workshop
+## 1. Details about the environment setup by this module
+
+## 2. Create the environment
+
+### 2.1. Create a directory in Cloud Shell for the workshop
 ```
 cd ~
 mkdir gcp-spark-mllib-workshop
 ```
 
-### 2. Clone the workshop git repo
+### 2.2. Clone the workshop git repo
 ```
 cd ~/gcp-spark-mllib-workshop
 git clone https://github.com/anagha-google/s8s-spark-mlops.git
 ```
 
-### 3. Navigate to the Terraform provisioning directory
+### 2.3. Navigate to the Terraform provisioning directory
 ```
 cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
 
-### 4. Provision the environment
+### 2.4. Provision the environment
 
-#### 4.1. Define variables for use
+#### 2.4.1. Define variables for use
 Modify the below as appropriate for your deployment..e.g. region, zone etc.
 ```
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
@@ -55,13 +59,13 @@ echo "DATA_BUCKET=$DATA_BUCKET"
 echo "CODE_BUCKET=$CODE_BUCKET"
 ```
 
-### 4.2. Initialize Terraform
+### 2.4.2. Initialize Terraform
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
 terraform init
 ```
 
-#### 4.3. Review the Terraform deployment plan
+#### 2.4.3. Review the Terraform deployment plan
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
 terraform plan \
@@ -79,7 +83,7 @@ terraform plan \
   -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}"
 ```
 
-#### 4.4. Provision the environment
+#### 2.4.4. Provision the environment
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
 cd ~/s8s-spark-mlops/00-env-setup/
@@ -99,7 +103,7 @@ terraform apply \
   --auto-approve
 ```
 
-#### 4.5. For selective replacement of specific services/units of deployment
+#### 2.4.5. For selective replacement of specific services/units of deployment
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
 terraform apply -target=null_resource.vai_pipeline_customization \
@@ -118,7 +122,7 @@ terraform apply -target=null_resource.vai_pipeline_customization \
   --auto-approve
 ```
 
-#### 4.6. To destroy the deployment
+#### 2.4.6. To destroy the deployment
 You can (a) shutdown the project altogether in GCP Cloud Console or (b) use Terraform to destroy. Use (b) at your own risk as its a little glitchy while (a) is guaranteed to stop the billing meter pronto.
 <br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
@@ -139,3 +143,6 @@ terraform destroy \
   -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
   ```
+
+## 3. What's in the next module
+In the next module, we will walk through the foundational infrastructure provisioned to better understand the subsequent modules and the requirements of GCP services for an enterprise grade setup.
