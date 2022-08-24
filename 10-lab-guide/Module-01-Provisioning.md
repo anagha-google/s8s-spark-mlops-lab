@@ -30,7 +30,7 @@ Further:
 | 18. | Create User Managed Service Account  | For all operations |
 | 19. | Grant IAM permissions  | To self and to the service account |
 | 20. | Customize code  | Update various attributes within PySpark code, bash scripts, notebooks and more to reflect your deployment |
-| 21. | Upload Airflow DAG  | To Cloud Composer DAG folder |
+| 21. | Upload Airflow DAG  | To Cloud Composer DAG folder<br> for ease |
 | 22. | Upload precreated (customized for your deployment) notebooks  | - To Vertex AI Managed Notebook instance<br> - To Vertex AI User-Managed Notebook instance <br> for ease|
 | 23. | Upload Vertex AI pipeline authoring notebook  | To Cloud Composer DAG folder |
 | 24. | Create Custom Spark Container image  | To simplify lab experience |
