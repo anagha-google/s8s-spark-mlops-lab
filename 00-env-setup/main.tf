@@ -816,8 +816,7 @@ resource "google_storage_bucket_object" "notebooks_pyspark_upload_to_gcs" {
     null_resource.preprocessing_notebook_customization,
     null_resource.training_notebook_customization,
     null_resource.hpt_notebook_customization,
-    null_resource.scoring_notebook_customization,
-    null_resource.vai_pipeline_notebook_customization
+    null_resource.scoring_notebook_customization
   ]
 }
 
@@ -828,7 +827,8 @@ resource "google_storage_bucket_object" "notebooks_vai_pipelines_upload_to_gcs" 
   bucket = "${local.s8s_notebook_bucket}"
   depends_on = [
     time_sleep.sleep_after_bucket_creation,
-    google_storage_bucket_object.notebooks_dir_create_in_gcs
+    google_storage_bucket_object.notebooks_dir_create_in_gcs,
+    null_resource.vai_pipeline_notebook_customization
   ]
 }
 
