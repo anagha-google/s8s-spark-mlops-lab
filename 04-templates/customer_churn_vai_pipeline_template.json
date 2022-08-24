@@ -1060,7 +1060,7 @@
         "stringValue": "customer-churn-model-hyperparameter-tuning-YOUR_USER_DEFINED_EXECUTION_ID"
       },
       "location": {
-        "stringValue": "LOCATION"
+        "stringValue": "YOUR_GCP_LOCATION"
       },
       "managed_dataset_display_nm": {
         "stringValue": "customer-churn-model-YOUR_USER_DEFINED_EXECUTION_ID"
