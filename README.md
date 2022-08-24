@@ -9,7 +9,7 @@ This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/late
 The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, notebooks, orchestration, commands, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience.
 
 ## 3. Level
-It is a Level 300 lab, and includes components spanning storage, networking, kubernetes,and a variety of data services. 
+The level is arguable based on area of focus. Terraform is L300, Machine learning is L300, Spark itself can be considered L300, and given nuances of Dataproc serverless and Vertex AI, L300 overall.
 
 ## 4. Audience
 The intended audience is anyone with access to Google Cloud and interested in the features showcased and want to kick the tires.
