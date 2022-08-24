@@ -22,8 +22,9 @@ locals {
 project_id                  = "${var.project_id}"
 project_nbr                 = "${var.project_number}"
 admin_upn_fqn               = "${var.gcp_account_name}"
-location                    = "us-central1"
-zone                        = "us-central1-a"
+location                    = "${var.gcp_region}"
+zone                        = "${var.gcp_zone}"
+location_multi              = "${var.gcp_multi_region}"
 umsa                        = "s8s-lab-sa"
 umsa_fqn                    = "${local.umsa}@${local.project_id}.iam.gserviceaccount.com"
 s8s_spark_bucket            = "s8s-spark-bucket-${local.project_nbr}"
@@ -41,6 +42,7 @@ s8s_notebook_bucket         = "s8s_notebook_bucket-${local.project_nbr}"
 s8s_model_bucket            = "s8s_model_bucket-${local.project_nbr}"
 s8s_pipeline_bucket         = "s8s_pipeline_bucket-${local.project_nbr}"
 s8s_metrics_bucket          = "s8s_metrics_bucket-${local.project_nbr}"
+s8s_functions_bucket        = "s8s_functions_bucket-${local.project_nbr}"
 s8s_artifact_repository_nm  = "s8s-spark-${local.project_nbr}"
 bq_datamart_ds              = "customer_churn_ds"
 umnb_server_machine_type    = "e2-medium"
@@ -50,7 +52,9 @@ mnb_server_nm               = "s8s-spark-ml-interactive-nb-server"
 CC_GMSA_FQN                 = "service-${local.project_nbr}@cloudcomposer-accounts.iam.gserviceaccount.com"
 GCE_GMSA_FQN                = "${local.project_nbr}-compute@developer.gserviceaccount.com"
 CLOUD_COMPOSER2_IMG_VERSION = "${var.cloud_composer_image_version}"
-SPARK_CONTAINER_IMG_VERSION = "${var.container_image_version}"
+SPARK_CONTAINER_IMG_TAG     = "${var.spark_container_image_tag}"
+dpms_nm                     = "s8s-dpms-${local.project_nbr}"
+bq_connector_jar_gcs_uri    = "${var.bq_connector_jar_gcs_uri}"
 }
 
 /******************************************
@@ -270,6 +274,31 @@ resource "google_project_service" "enable_composer_google_apis" {
   disable_dependent_services = true
 }
 
+resource "google_project_service" "enable_functions_google_apis" {
+  project = var.project_id
+  service = "cloudfunctions.googleapis.com"
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "enable_pubsub_google_apis" {
+  project = var.project_id
+  service = "pubsub.googleapis.com"
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "enable_dpms_google_apis" {
+  project = var.project_id
+  service = "metastore.googleapis.com"
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "enable_cloudrun_admin_google_apis" {
+  project = var.project_id
+  service = "run.googleapis.com"
+  disable_dependent_services = true
+}
+
+
 /*******************************************
 Introducing sleep to minimize errors from
 dependencies having not completed
@@ -290,7 +319,11 @@ resource "time_sleep" "sleep_after_api_enabling" {
     google_project_service.enable_cloudbuild_google_apis,
     google_project_service.enable_artifactregistry_google_apis,
     google_project_service.enable_cloudresourcemanager_google_apis,
-    google_project_service.enable_composer_google_apis
+    google_project_service.enable_composer_google_apis,
+    google_project_service.enable_functions_google_apis,
+    google_project_service.enable_pubsub_google_apis,
+    google_project_service.enable_cloudrun_admin_google_apis,
+    google_project_service.enable_dpms_google_apis
   ]
 }
 
@@ -335,7 +368,12 @@ module "umsa_role_grants" {
     "roles/aiplatform.user",
     "roles/viewer",
     "roles/composer.worker",
-    "roles/composer.admin"
+    "roles/composer.admin",
+    "roles/cloudfunctions.admin",
+    "roles/cloudfunctions.serviceAgent",
+    "roles/cloudscheduler.serviceAgent"
+
+
   ]
   depends_on = [
     module.umsa_creation
@@ -709,7 +747,7 @@ resource "null_resource" "scoring_notebook_customization" {
 
 resource "null_resource" "vai_pipeline_customization" {
     provisioner "local-exec" {
-        command = "mkdir ../05-pipelines && cp ../04-templates/customer_churn_vai_pipeline_template.json ../05-pipelines/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_GCP_LOCATION/${local.location}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_EXECUTION_ID/12345678/g ../05-pipelines/customer_churn_vai_pipeline_template.json"
+        command = "mkdir ../05-pipelines && cp ../04-templates/customer_churn_vai_pipeline_template.json ../05-pipelines/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_GCP_LOCATION/${local.location}/g ../05-pipelines/customer_churn_vai_pipeline_template.json "
         interpreter = ["bash", "-c"]
     }
 }
@@ -819,13 +857,24 @@ resource "google_storage_bucket_object" "airflow_scripts_upload_to_gcs" {
   ]
 }
 
+# Substituted version of pipeline JSON
 resource "google_storage_bucket_object" "vai_pipeline_upload_to_gcs" {
-  name   = "template/customer_churn_vai_pipeline_template.json"
-  source = "../04-templates/customer_churn_vai_pipeline_template.json"
+  name   = "templates/customer_churn_vai_pipeline_template.json"
+  source = "../05-pipelines/customer_churn_vai_pipeline_template.json"
   bucket = "${local.s8s_pipeline_bucket}"
   depends_on = [
     time_sleep.sleep_after_bucket_creation,
     null_resource.vai_pipeline_customization
+  ]
+}
+
+resource "google_storage_bucket_object" "gcf_scripts_upload_to_gcs" {
+  for_each = fileset("../02-scripts/cloud-functions/", "*")
+  source = "../02-scripts/cloud-functions/${each.value}"
+  name = "cloud-functions/${each.value}"
+  bucket = "${local.s8s_code_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation
   ]
 }
 
@@ -979,7 +1028,7 @@ resource "google_notebooks_runtime" "mnb_server_creation" {
 }
 
 /********************************************************
-12e. Artifact registry for serverless Spark images
+12e. Artifact registry for Serverless Spark custom container images
 ********************************************************/
 
 resource "google_artifact_registry_repository" "artifact_registry_creation" {
@@ -996,13 +1045,13 @@ resource "google_artifact_registry_repository" "artifact_registry_creation" {
 }
 
 /********************************************************
-13. Create Docker Container image
+13. Create Docker Container image for Serverless Spark
 ********************************************************/
 
 resource "null_resource" "custom_container_image_creation" {
     provisioner "local-exec" {
 
-        command = "/bin/bash ../02-scripts/bash/build-container-image.sh ${local.SPARK_CONTAINER_IMG_VERSION}"
+        command = "/bin/bash ../02-scripts/bash/build-container-image.sh ${local.SPARK_CONTAINER_IMG_TAG} ${local.bq_connector_jar_gcs_uri} ${local.location}"
     }
     depends_on = [
         module.administrator_role_grants,
@@ -1031,8 +1080,8 @@ resource "google_composer_environment" "cloud_composer_env_creation" {
         AIRFLOW_VAR_REGION = "${local.location}"
         AIRFLOW_VAR_SUBNET = "${local.spark_subnet_nm}"
         AIRFLOW_VAR_PHS_SERVER = "${local.s8s_spark_sphs_nm}"
-        AIRFLOW_VAR_CONTAINER_IMAGE_URI = "gcr.io/${local.project_id}/customer_churn_image:${local.SPARK_CONTAINER_IMG_VERSION}"
-        AIRFLOW_VAR_BQ_CONNECTOR_JAR_URI = "gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
+        AIRFLOW_VAR_CONTAINER_IMAGE_URI = "gcr.io/${local.project_id}/customer_churn_image:${local.SPARK_CONTAINER_IMG_TAG}"
+        AIRFLOW_VAR_BQ_CONNECTOR_JAR_URI = "${local.bq_connector_jar_gcs_uri}"
         AIRFLOW_VAR_MODEL_VERSION = "REPLACE_ME"
         AIRFLOW_VAR_DISPLAY_PRINT_STATEMENTS = "True"
         AIRFLOW_VAR_BQ_DATASET = "${local.bq_datamart_ds}"
@@ -1067,12 +1116,15 @@ output "CLOUD_COMPOSER_DAG_BUCKET" {
 Introducing sleep to minimize errors from
 dependencies having not completed
 ********************************************/
+
+
 resource "time_sleep" "sleep_after_composer_creation" {
   create_duration = "180s"
   depends_on = [
       google_composer_environment.cloud_composer_env_creation
   ]
 }
+
 
 /*******************************************
 15. Upload Airflow DAG to Composer DAG bucket
@@ -1089,7 +1141,138 @@ resource "google_storage_bucket_object" "upload_cc2_dag_to_airflow_dag_bucket" {
 }
 
 /******************************************
-16. Output important variables needed for the demo
+16. Create Dataproc Metastore
+******************************************/
+resource "google_dataproc_metastore_service" "datalake_metastore_creation" {
+  service_id = local.dpms_nm
+  location   = local.location
+  port       = 9080
+  tier       = "DEVELOPER"
+  network    = "projects/${local.project_id}/global/networks/${local.vpc_nm}"
+
+  maintenance_window {
+    hour_of_day = 2
+    day_of_week = "SUNDAY"
+  }
+
+  hive_metastore_config {
+    version = "3.1.2"
+  }
+
+  depends_on = [
+    module.administrator_role_grants,
+    time_sleep.sleep_after_network_and_storage_steps,
+    time_sleep.sleep_after_api_enabling,
+    google_dataproc_cluster.sphs_creation   
+  ]
+}
+
+/******************************************
+17. Deploy Google Cloud Function to execute VAI pipeline for model training
+******************************************/
+
+resource "google_storage_bucket" "create_gcf_source_bucket" {
+  name                          = "${local.s8s_functions_bucket}"  
+  location                      = local.location_multi
+  uniform_bucket_level_access   = true
+  depends_on = [
+    module.administrator_role_grants,
+    time_sleep.sleep_after_network_and_storage_steps,
+    time_sleep.sleep_after_api_enabling
+  ]
+}
+
+resource "google_storage_bucket_object" "upload_gcf_zip_file" {
+  name   = "function-source.zip"
+  bucket = google_storage_bucket.create_gcf_source_bucket.name
+  source = "../02-scripts/cloud-functions/function-source.zip"  
+  depends_on = [
+    google_storage_bucket.create_gcf_source_bucket
+  ]
+}
+
+resource "google_cloudfunctions2_function" "deploy_gcf_vai_pipeline_trigger" {
+  provider          = google-beta
+  name              = "mlops-vai-pipeline-executor-func"
+  location          = local.location
+  description       = "GCF gen2 to execute a model training Vertex AI pipeline"
+
+  build_config {
+    runtime         = "python38"
+    entry_point     = "process_request" 
+    source {
+      storage_source {
+        bucket = google_storage_bucket.create_gcf_source_bucket.name
+        object = google_storage_bucket_object.upload_gcf_zip_file.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count              = 1
+    available_memory                = "256M"
+    timeout_seconds                 = 60
+    ingress_settings                = "ALLOW_ALL"
+    all_traffic_on_latest_revision  = true
+     
+    environment_variables = {
+        VAI_PIPELINE_JSON_TEMPLATE_GCS_FILE_FQN = "gs://s8s_pipeline_bucket-${local.project_nbr}/templates/customer_churn_vai_pipeline_template.json"
+        VAI_PIPELINE_JSON_EXEC_DIR_URI = "gs://s8s_pipeline_bucket-${local.project_nbr}"
+        GCP_LOCATION = local.location
+        PROJECT_ID = local.project_id
+        VAI_PIPELINE_ROOT_LOG_DIR = "gs://s8s_model_bucket-${local.project_nbr}/customer-churn-model/pipelines"
+    }
+    service_account_email = "s8s-lab-sa@${local.project_id}.iam.gserviceaccount.com"
+  }
+
+  depends_on = [
+    module.administrator_role_grants,
+    time_sleep.sleep_after_network_and_storage_steps,
+    time_sleep.sleep_after_api_enabling,
+    google_storage_bucket_object.gcf_scripts_upload_to_gcs
+  ]
+}
+
+output "MODEL_TRAINING_VAI_PIPELINE_TRIGGER_FUNCTION_URI" { 
+  value = google_cloudfunctions2_function.deploy_gcf_vai_pipeline_trigger.service_config[0].uri
+}
+
+/******************************************
+18. Configure Cloud Scheduler to run the function
+******************************************/
+
+resource "google_cloud_scheduler_job" "schedule_vai_pipeline" {
+  name             = "customer_churn_model_training_batch"
+  description      = "Customer Churn One-time Model Training Vertex AI Pipeline"
+  schedule         = "*/8 * * * *"
+  time_zone        = "America/Chicago"
+  attempt_deadline = "320s"
+  region           = local.location
+
+  retry_config {
+    retry_count = 1
+  }
+
+  http_target {
+    http_method = "POST"
+    uri         = google_cloudfunctions2_function.deploy_gcf_vai_pipeline_trigger.service_config[0].uri
+    body        = base64encode("{\"foo\":\"bar\"}")
+    oidc_token {
+      service_account_email = local.umsa_fqn
+    }
+  }
+
+  depends_on = [
+    module.administrator_role_grants,
+    time_sleep.sleep_after_network_and_storage_steps,
+    time_sleep.sleep_after_api_enabling,
+    google_storage_bucket_object.gcf_scripts_upload_to_gcs,
+    google_cloudfunctions2_function.deploy_gcf_vai_pipeline_trigger
+  ]
+}
+
+/******************************************
+20. Output important variables needed for the demo
 ******************************************/
 
 output "PROJECT_ID" {
@@ -1114,6 +1297,10 @@ output "SPARK_SERVERLESS_SUBNET" {
 
 output "PERSISTENT_HISTORY_SERVER_NM" {
   value = local.s8s_spark_sphs_nm
+}
+
+output "DPMS_NM" {
+  value = local.dpms_nm
 }
 
 output "UMSA_FQN" {

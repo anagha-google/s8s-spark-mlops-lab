@@ -19,6 +19,18 @@ variable "org_id" {
 variable "cloud_composer_image_version" {
  description = "Version of Cloud Composer 2 image to use"
 }
-variable "container_image_version" {
- description = "Version number to assign to container image"
+variable "spark_container_image_tag" {
+ description = "Tag number to assign to container image"
+}
+variable "gcp_region" {
+ description = "GCP region"
+}
+variable "gcp_zone" {
+ description = "GCP zone"
+}
+variable "gcp_multi_region" {
+ description = "GCP multi-region"
+}
+variable "bq_connector_jar_gcs_uri" {
+ description = "BQ connector jar to use"
 }
