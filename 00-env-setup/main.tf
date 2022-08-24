@@ -55,6 +55,7 @@ CLOUD_COMPOSER2_IMG_VERSION = "${var.cloud_composer_image_version}"
 SPARK_CONTAINER_IMG_TAG     = "${var.spark_container_image_tag}"
 dpms_nm                     = "s8s-dpms-${local.project_nbr}"
 bq_connector_jar_gcs_uri    = "${var.bq_connector_jar_gcs_uri}"
+cloud_scheduler_timezone    = "${var.cloud_scheduler_time_zone}"
 }
 
 /******************************************
@@ -1245,7 +1246,7 @@ resource "google_cloud_scheduler_job" "schedule_vai_pipeline" {
   name             = "customer_churn_model_training_batch"
   description      = "Customer Churn One-time Model Training Vertex AI Pipeline"
   schedule         = "*/8 * * * *"
-  time_zone        = "America/Chicago"
+  time_zone        = local.cloud_scheduler_timezone
   attempt_deadline = "320s"
   region           = local.location
 
