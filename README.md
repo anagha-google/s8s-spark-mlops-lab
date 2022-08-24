@@ -67,8 +67,9 @@ Shut down/delete resources when done
 ## 11. Credits & Resources
 | # | Collaborator | Contribution  | 
 | -- | :--- | :--- |
-| 1. | Thomas Abraham | Consultation & testing |
-| 2. | Ivan Nardini | Samples, Vertex AI & Spark integration roadmap & more |
+| 1. | Anagha Khanolkar | Author - workshop vision, design, code, terraform automation, lab guide |
+| 2. | Thomas Abraham | Consultation & testing |
+| 3. | Ivan Nardini & Win Woo | Samples, Vertex AI & Spark integration roadmap & more |
 
 ## 12. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
