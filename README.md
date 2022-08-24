@@ -68,7 +68,7 @@ Shut down/delete resources when done
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Author - workshop vision, design, code, terraform automation, lab guide |
 | 2. | Thomas Abraham | Consultation & testing |
-| 3. | Ivan Nardini & Win Woo | Integration samples, Vertex AI & Spark integration expertise, & more |
+| 3. | Ivan Nardini<br>Win Woo | Integration samples, Vertex AI & Spark integration expertise, & more |
 
 ## 12. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
