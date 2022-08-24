@@ -746,6 +746,13 @@ resource "null_resource" "scoring_notebook_customization" {
     }
 }
 
+resource "null_resource" "vai_pipeline_notebook_customization" {
+    provisioner "local-exec" {
+        command = "cp ../04-templates/customer_churn_training_pipeline.ipynb ../03-notebooks/vai-pipelines/ && sed -i s/YOUR_GCP_LOCATION/${local.location}/g ../03-notebooks/vai-pipelines/customer_churn_training_pipeline.ipynb && sed -i s/YOUR_SPARK_CONTAINER_IMAGE_TAG/${local.SPARK_CONTAINER_IMG_TAG}/g ../03-notebooks/vai-pipelines/customer_churn_training_pipeline.ipynb"
+        interpreter = ["bash", "-c"]
+    }
+}
+
 resource "null_resource" "vai_pipeline_customization" {
     provisioner "local-exec" {
         command = "mkdir ../05-pipelines && cp ../04-templates/customer_churn_vai_pipeline_template.json ../05-pipelines/ && sed -i s/YOUR_PROJECT_NBR/${local.project_nbr}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_PROJECT_ID/${local.project_id}/g ../05-pipelines/customer_churn_vai_pipeline_template.json && sed -i s/YOUR_GCP_LOCATION/${local.location}/g ../05-pipelines/customer_churn_vai_pipeline_template.json "
@@ -810,6 +817,7 @@ resource "google_storage_bucket_object" "notebooks_pyspark_upload_to_gcs" {
     null_resource.training_notebook_customization,
     null_resource.hpt_notebook_customization,
     null_resource.scoring_notebook_customization,
+    null_resource.vai_pipeline_notebook_customization
   ]
 }
 
