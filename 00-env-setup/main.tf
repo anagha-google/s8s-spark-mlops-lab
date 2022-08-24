@@ -946,7 +946,7 @@ resource "google_dataproc_cluster" "sphs_creation" {
 
 resource "google_bigquery_dataset" "bq_dataset_creation" {
   dataset_id                  = local.bq_datamart_ds
-  location                    = "US"
+  location                    = local.location_multi
 }
 
 
