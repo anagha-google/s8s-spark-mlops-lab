@@ -34,3 +34,6 @@ variable "gcp_multi_region" {
 variable "bq_connector_jar_gcs_uri" {
  description = "BQ connector jar to use"
 }
+variable "cloud_scheduler_time_zone" {
+ description = "Cloud Scheduler Time Zone e.g. America/Chicago"
+}
