@@ -88,7 +88,7 @@ terraform plan \
 #### 2.4.4. Provision the environment
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
-cd ~/s8s-spark-mlops/00-env-setup/
+
 terraform apply \
   -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
@@ -129,7 +129,6 @@ You can (a) shutdown the project altogether in GCP Cloud Console or (b) use Terr
 <br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
-cd ~/s8s-spark-mlops/00-env-setup/
 terraform destroy \
   -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
@@ -146,5 +145,5 @@ terraform destroy \
   --auto-approve
   ```
 
-## 3. What's in the next module
-In the next module, we will walk through the foundational infrastructure provisioned to better understand the subsequent modules and the requirements of GCP services for an enterprise grade setup.
+## 4. What's in the next module
+In the next module, we will learn how to use Serverless Spark interactive notebooks for 
