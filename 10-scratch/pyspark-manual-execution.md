@@ -15,6 +15,7 @@ MODEL_BUCKET=s8s_model_bucket-${PROJECT_NBR}
 CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
 BQ_CONNECTOR_JAR_GS_URI="gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
 BQ_CONNECTOR_PACKAGES="com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2"
+PIPELINE_ID=$RANDOM
 ```
 
 ## Preprocessing
@@ -32,7 +33,7 @@ gs://$CODE_BUCKET/pyspark/preprocessing.py \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
 --container-image=${CONTAINER_IMAGE_URI} \
--- --pipelineID=20220807 --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
+-- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
 
 ## Model training
@@ -50,7 +51,7 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
 --container-image=${CONTAINER_IMAGE_URI} \
--- --pipelineID=20220807 --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
+-- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
 
 ## Hyperparameter tuning
@@ -68,7 +69,7 @@ gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
 --container-image=${CONTAINER_IMAGE_URI} \
--- --pipelineID=20220807 --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
+-- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
 
 ## Batch scoring
@@ -86,6 +87,6 @@ gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
 --container-image=${CONTAINER_IMAGE_URI} \
--- --pipelineID=20220807 --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True --modelVersion=20220807
+-- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True --modelVersion=20220807
 ```
 
