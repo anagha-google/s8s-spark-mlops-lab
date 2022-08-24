@@ -2,7 +2,9 @@
 
 This module covers environment provisioning for the workshop.
 
-## 1. Details about the environment setup by this module
+## 1. Details about the environment that is setup by this module
+
+
 
 ## 2. Create the environment
 
