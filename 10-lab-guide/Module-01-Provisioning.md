@@ -1,6 +1,8 @@
 # About
 
-This module covers environment provisioning for the workshop.
+This module covers environment provisioning for the workshop. This module takes ~50 minutes to complete. 
+<br>
+Note: Ensure services in use in the workshop are available in the location of your preference and modify the variables in step 2.4.1 to reflect the same.
 
 ## 1. Details about the environment that is setup by this module
 
@@ -36,6 +38,8 @@ Further:
 | 24. | Create Custom Spark Container image  | To simplify lab experience |
 
 and more..
+
+Lets get started!
 
 
 
