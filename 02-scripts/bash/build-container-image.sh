@@ -2,14 +2,18 @@
 
 #........................................................................
 # Purpose: Build custom container image for serverless spark
+# Parameters: (1) Docker image tag (2) gs URI of BQ connector jar (3) GCP region
+# e.g. ./build-container-image.sh 1.0.0 gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar us-central1
 #........................................................................
 
 # Variables
 PROJECT_ID=`gcloud config list --format 'value(core.project)'`
 LOCAL_SCRATCH_DIR=~/build
-DOCKER_IMAGE_TAG="1.0.0"
+DOCKER_IMAGE_TAG=$1
 DOCKER_IMAGE_NM="customer_churn_image"
 DOCKER_IMAGE_FQN="gcr.io/$PROJECT_ID/$DOCKER_IMAGE_NM:$DOCKER_IMAGE_TAG"
+BQ_CONNECTOR_JAR_URI=$2
+GCP_REGION=$3
 
 # Create local directory
 cd ~
@@ -145,12 +149,12 @@ echo "Completed Dockerfile creation"
 
 # Download dependencies to be baked into image
 cd $LOCAL_SCRATCH_DIR
-gsutil cp gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar .
+gsutil cp $BQ_CONNECTOR_JAR_URI .
 wget -P . https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh
 echo "Completed downloading dependencies"
 
 # Authenticate 
-gcloud auth configure-docker us-central1-docker.pkg.dev -q
+gcloud auth configure-docker ${GCP_REGION}-docker.pkg.dev -q
 
 # Build image
 docker build . --progress=tty -f Dockerfile -t $DOCKER_IMAGE_FQN

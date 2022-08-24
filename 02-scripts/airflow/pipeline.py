@@ -21,24 +21,24 @@ import random
 # a) General
 randomizerCharLength = 10 
 randomVal = ''.join(random.choices(string.digits, k = randomizerCharLength))
-airflowDAGName= "customer_churn_prediction"
+airflowDAGName= "customer-churn-prediction"
 batchIDPrefix = f"{airflowDAGName}-edo-{randomVal}"
 # +
 # b) Capture from Airflow variables
 region = models.Variable.get("region")
 subnet=models.Variable.get("subnet")
-phsServer=Variable.get("phsServer")
-containerImageUri=Variable.get("containerImageUri")
-bqDataset=Variable.get("bqDataset")
-umsaFQN=Variable.get("umsaFQN")
-bqConnectorJarUri=Variable.get("bqConnectorJarUri")
+phsServer=Variable.get("phs_server")
+containerImageUri=Variable.get("container_image_uri")
+bqDataset=Variable.get("bq_dataset")
+umsaFQN=Variable.get("umsa_fqn")
+bqConnectorJarUri=Variable.get("bq_connector_jar_uri")
 # +
 # c) For the Spark application
-pipelineID=randomVal
-projectID = models.Variable.get("projectID")
-projectNbr = models.Variable.get("projectNbr")
-modelVersion=Variable.get("modelVersion")
-displayPrintStatements=Variable.get("displayPrintStatements")
+pipelineID = randomVal
+projectID = models.Variable.get("project_id")
+projectNbr = models.Variable.get("project_nbr")
+modelVersion=Variable.get("model_version")
+displayPrintStatements=Variable.get("display_print_statements")
 # +
 # d) Arguments array
 batchScoringArguments = [f"--pipelineID={pipelineID}", \
@@ -91,7 +91,7 @@ with models.DAG(
     catchup=False,
 ) as scoringDAG:
     customerChurnPredictionStep = DataprocCreateBatchOperator(
-        task_id="Predict_Customer_Churn",
+        task_id="Predict-Customer-Churn",
         project_id=projectID,
         region=region,
         batch=s8sSparkBatchConfig,
