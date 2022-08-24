@@ -96,7 +96,7 @@ terraform apply -target=null_resource.vai_pipeline_customization \
 The below is a sample
 ```
 cd ~/s8s-spark-mlops/00-env-setup/
-terraform apply -replace=null_resource.vai_pipeline_customization \
+terraform apply -replace=google_cloudfunctions2_function.deploy_gcf_vai_pipeline_trigger \
 -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
   -var="project_number=${PROJECT_NBR}" \
