@@ -2,38 +2,44 @@
 
 
 ## 1. About
-This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI. The focus is on demystifying the integration (and not about a perfect model), and features a minimum viable example of telco **Customer Churn Prediction** with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn), and using [Random Forest classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier).
+This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI AIML platform. The focus is on demystifying the products and integration (and not about a perfect model), and features a minimum viable example of telco **Customer Churn Prediction** with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn), and using [Random Forest classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier).
 
 ## 2. Format
 The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, notebooks, orchestration, commands, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience.
 
 ## 3. Level
-The level is arguable based on area of focus. Terraform is L300, Machine learning is L300, Spark itself can be considered L300, and given nuances of Dataproc serverless and Vertex AI, L300 overall.
+The level is arguable and depends on the individual's skills and experience with the paradigm, technology and cloud platform. In the author's opinion, the lab is loosely L300. 
 
 ## 4. Audience
 The intended audience is anyone with access to Google Cloud and interested in the features showcased and want to kick the tires.
 
 ## 5. Prerequisites
-Knowledge of Spark and Machine Learning would be beneficial.<br> 
+Knowledge of Apache Spark, Machine Learning, and GCP products would be beneficial but is not entirely required, given the format of the lab.<br> 
 Access to Google Cloud is a must.
 
 ## 6. Goal
-Simplify your learning journey with - <br> 
+Simplify your learning and adoption journey of our product stack for scalable data science with - <br> 
 (a) Just enough product knowledge of Dataproc Serverless Spark & Vertex AI integration for machine learning at scale on Google Cloud<br>
-(b) Quick start code for ML at scale with Spark that can be repurposed for your data and experimentation<br>
+(b) Quick start code for ML at scale with Spark that can be repurposed for your data and ML experiments<br>
 (c) Terraform for provisioning a variety of Google Cloud data services that can be repurposed for your use case<br>
 
-## 7. What's covered from an ML perspective
+## 7. Use case covered
 Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) and [Spark MLLib, Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
 
-### 7.1. Train a Spark MLlib model<br> 
- First in PySpark interactive notebooks, then via PySpark scripts<br> 
-(a) Preprocessing <br> 
-(b) Register managed dataset in Vertex AI<br> 
+## 8. What's covered from an ML perspective<br> 
+
+### 8.1. 
+First in PySpark interactive Jupyter notebooks, then via PySpark scripts<br> 
+1. Preprocessing <br> 
+2. Model training 
+3. Hyperparameter tuning
+4. Batch scoring
+
 (c) Train a RandomForest classification model<br> 
 (d) Evaluate the model - metrics and plots<br> 
 (e) Conditional hyperparameter tuning<br> 
 (f) a-e in a Vertex AI managed pipeline <br> 
+(b) Register managed dataset in Vertex AI<br> 
 (g) Event driven orchestration of Vertex AI managed pipeline execution with Cloud Scheduler<br> 
 
 ### 7.2. Scoring
