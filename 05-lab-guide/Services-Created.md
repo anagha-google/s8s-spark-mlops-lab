@@ -8,10 +8,9 @@ The following are the services that get provisioned in your environment.
 The following networking components are created as part of Terraform deployment-
 1. VPC
 ![VPC](../06-images/module-1-networking-01.png)   
-
 <br><br>
 2. Subnet with private google access
-
+![VPC](../06-images/module-1-networking-02.png)   
 <br><br>
 3. Firewall rule for Data Serverless Spark
 
