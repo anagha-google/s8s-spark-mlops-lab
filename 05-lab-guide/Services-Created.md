@@ -22,13 +22,13 @@ The following networking components are created as part of Terraform deployment-
 
 ### 2.3. Firewall rule for Data Serverless Spark
 
-![VPC](../06-images/module-1-networking-04.png)   
+![VPC](../06-images/module-1-networking-05.png)   
 <br><br>
 
 
 ### 2.4. Reserved IP for VPC peering with Vertex AI tenant network for Vertex AI workbench, managed notebook instance with BYO network
 
-![VPC](../06-images/module-1-networking-05.png)   
+![VPC](../06-images/module-1-networking-04.png)   
 <br><br>
 
 
@@ -38,6 +38,9 @@ The following networking components are created as part of Terraform deployment-
 <br><br>
 
 ![VPC](../06-images/module-1-networking-07.png)   
+<br><br>
+
+![VPC](../06-images/module-1-networking-08.png)   
 <br><br>
 
 ## 3. Cloud Storage
