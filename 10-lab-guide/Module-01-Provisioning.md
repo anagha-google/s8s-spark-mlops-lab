@@ -150,7 +150,7 @@ terraform apply \
 #### 2.4.5. For selective replacement of specific services/units of deployment
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
-terraform apply -target=google_notebooks_instance.umnb_server_creation \
+terraform apply -target=google_notebooks_instance.mnb_server_creation \
 -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
   -var="project_number=${PROJECT_NBR}" \
