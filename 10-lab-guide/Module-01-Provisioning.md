@@ -2,7 +2,7 @@
 
 This module covers environment provisioning for the workshop. This module takes ~50 minutes to complete. 
 <br><br>
-**Note:**<br> 
+**Read Me First:**<br> 
 1. Ensure services in use in the workshop are available in the location of your preference and modify the variables in step 2.4.1 to reflect the same.
 2. Get any preview services allow-listed
 3. Some of the organization policies many not apply for your company, modify appropriately
