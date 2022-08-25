@@ -152,6 +152,24 @@ terraform apply \
   --auto-approve
 ```
 
+Then run the below-
+```
+terraform apply -target=google_storage_bucket_object.bash_scripts_upload_to_gcs \
+-var="project_id=${PROJECT_ID}" \
+  -var="project_name=${PROJECT_NAME}" \
+  -var="project_number=${PROJECT_NBR}" \
+  -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
+  -var="org_id=${ORG_ID}"  \
+  -var="cloud_composer_image_version=${CLOUD_COMPOSER_IMG_VERSION}" \
+  -var="spark_container_image_tag=${SPARK_CUSTOM_CONTAINER_IMAGE_TAG}" \
+  -var="gcp_region=${YOUR_GCP_REGION}" \
+  -var="gcp_zone=${YOUR_GCP_ZONE}" \
+  -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
+  -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
+  --auto-approve
+```
+
 #### 2.4.5. For selective replacement of specific services/units of deployment
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup<br>
 If -target does not work, try -replace
