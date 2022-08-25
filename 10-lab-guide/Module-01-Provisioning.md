@@ -148,7 +148,8 @@ terraform apply \
 ```
 
 #### 2.4.5. For selective replacement of specific services/units of deployment
-Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup<br>
+If -target does not work, try -replace
 ```
 terraform apply -target=google_notebooks_instance.mnb_server_creation \
 -var="project_id=${PROJECT_ID}" \
