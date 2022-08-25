@@ -299,6 +299,14 @@ resource "google_project_service" "enable_cloudrun_admin_google_apis" {
   disable_dependent_services = true
 }
 
+resource "google_project_service" "enable_cloudscheduler_google_apis" {
+  project = var.project_id
+  service = "cloudscheduler.googleapis.com"
+  disable_dependent_services = true
+}
+
+
+
 
 /*******************************************
 Introducing sleep to minimize errors from
@@ -324,7 +332,8 @@ resource "time_sleep" "sleep_after_api_enabling" {
     google_project_service.enable_functions_google_apis,
     google_project_service.enable_pubsub_google_apis,
     google_project_service.enable_cloudrun_admin_google_apis,
-    google_project_service.enable_dpms_google_apis
+    google_project_service.enable_dpms_google_apis,
+    google_project_service.enable_cloudscheduler_google_apis
   ]
 }
 
