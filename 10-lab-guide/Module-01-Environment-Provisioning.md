@@ -152,25 +152,25 @@ terraform apply \
   --auto-approve
 ```
 
-Then run the below-
-```
-terraform apply -target=google_storage_bucket_object.bash_scripts_upload_to_gcs \
--var="project_id=${PROJECT_ID}" \
-  -var="project_name=${PROJECT_NAME}" \
-  -var="project_number=${PROJECT_NBR}" \
-  -var="gcp_account_name=${GCP_ACCOUNT_NAME}" \
-  -var="org_id=${ORG_ID}"  \
-  -var="cloud_composer_image_version=${CLOUD_COMPOSER_IMG_VERSION}" \
-  -var="spark_container_image_tag=${SPARK_CUSTOM_CONTAINER_IMAGE_TAG}" \
-  -var="gcp_region=${YOUR_GCP_REGION}" \
-  -var="gcp_zone=${YOUR_GCP_ZONE}" \
-  -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
-  -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
-  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
-  --auto-approve
-```
 
-#### 2.4.5. For selective replacement of specific services/units of deployment
+
+## 3. Glitches/nuances to be mindful of
+**3.1. Cloud Composer 2**<br>
+If you edit the Terraform and run apply, Cloud Composer2 attempts to update the network and fails the deployment. <br>
+Workaround: Delete Cloud Composer manually and then rerun. 10+ minutes to delete, 20 minutes to recreate -> enough for a power nap. :)
+
+**3.2. Managed Notebook Instance on Vertex AI Workbench**<br>
+Changing ownership of notebooks (uploaded to /home/jupyter via Terrafrom) from owner root to jupyter:jupyter does not work currently as part of Terraform deployment.<br>
+Workaround: Clone the notebook and save.
+
+**3.3. Persistent Spark History Server (PHS)**<br>
+If you edit the Terraform and run apply, PHS gets destroyed and recreated. <br>
+Workaround: Not applicable. It just takes 90 seconds or less to destroy and 90 seconds to recreate.
+
+## 4. Terraform How-Tos
+
+### 4.1. For selective replacement of specific services/units of deployment
+This is not needed...and is informational only.<br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup<br>
 If -target does not work, try -replace
 ```
@@ -190,7 +190,7 @@ terraform apply -target=google_notebooks_instance.mnb_server_creation \
   --auto-approve
 ```
 
-#### 2.4.6. To destroy the deployment
+### 4.2. To destroy the deployment
 You can (a) shutdown the project altogether in GCP Cloud Console or (b) use Terraform to destroy. Use (b) at your own risk as its a little glitchy while (a) is guaranteed to stop the billing meter pronto.
 <br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
@@ -211,18 +211,5 @@ terraform destroy \
   --auto-approve
   ```
 
-## 3. Glitches/nuances to be mindful of
-**3.1. Cloud Composer 2**<br>
-If you edit the Terraform and run apply, Cloud Composer2 attempts to update the network and fails the deployment. <br>
-Workaround: Delete Cloud Composer manually and then rerun. 10+ minutes to delete, 20 minutes to recreate -> enough for a power nap. :)
-
-**3.2. Managed Notebook Instance on Vertex AI Workbench**<br>
-Changing ownership of notebooks (uploaded to /home/jupyter via Terrafrom) from owner root to jupyter:jupyter does not work currently as part of Terraform deployment.<br>
-Workaround: Clone the notebook and save.
-
-**3.3. Persistent Spark History Server (PHS)**<br>
-If you edit the Terraform and run apply, PHS gets destroyed and recreated. <br>
-Workaround: Not applicable. It just takes 90 seconds or less to destroy and 90 seconds to recreate.
-
-## 4. What's in the next module
+## 5. What's in the next module
 In the next module, we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
