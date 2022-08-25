@@ -40,7 +40,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 
 | # | Operationalizing Step | 
 | --- | :--- |
-| 1 | Author a Vertex AI pipeline for Spark ML model training in a Jupyter Notebook |
+| 1 | Author a Vertex AI pipeline for Spark ML model training in a Jupyter Notebook including registering managed dataset, metrics and plots |
 | 2 | Test the pipeline JSON via console | 
 | 3 | Create a Cloud Function to launch the pipeline on demand | 
 | 4 | Create a Cloud Scheduler job to call the Cloud Function for scheduled Spark ML model training | 
