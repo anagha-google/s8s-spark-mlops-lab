@@ -26,13 +26,13 @@ The following networking components are created as part of Terraform deployment-
 <br><br>
 
 
-### 2.4. Reserved IP for VPC peering with Vertex AI tenant network for Vertex AI workbench, managed notebook instance with BYO network
+### 2.4. Reserved IP for VPC peering with Vertex AI tenant network for Vertex AI workbench, managed notebook instance for BYO network
 
 ![VPC](../06-images/module-1-networking-04.png)   
 <br><br>
 
 
-### 2.5. VPC peering with Vertex AI tenant network for Vertex AI workbench, managed notebook instance with BYO network
+### 2.5. VPC peering with Vertex AI tenant network for Vertex AI workbench, managed notebook instance for BYO network
 
 ![VPC](../06-images/module-1-networking-06.png)   
 <br><br>
