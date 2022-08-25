@@ -28,7 +28,9 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 ## 8. What's covered from an ML perspective<br> 
 
 ### 8.1. Authoring Spark Machine Learning Experiments
-Dataproc Serveress Spark interactive Jupyter notebooks on Vertex AI Workbench, Managed Notebook instance is the recommended solution for interactive authoring of Spark code, both Data Engineering and Machine Learning. For operationalizing, create pyspark script versions of the code authored in the notebooks. Spark notebook scheduling is not supported yet. 
+Dataproc Serveress Spark interactive Jupyter notebooks on Vertex AI Workbench, Managed Notebook instance is the recommended solution for interactive authoring of Spark code, both Data Engineering and Machine Learning. For operationalizing, create pyspark script versions of the code authored in the notebooks. Spark notebook scheduling is not supported yet. <br>
+
+Here is what is covered in the lab:
 
 | Step | Interactive Jupyter Notebook | Command line PySpark script execution | 
 | -- | :--- | :--- |
@@ -38,7 +40,9 @@ Dataproc Serveress Spark interactive Jupyter notebooks on Vertex AI Workbench, M
 | Spark ML Model Batch Scoring |  x | x |
 
 ### 8.2. Operationalizing Model Training
-Vertex AI managed pipelines is the recommended solution for operationalizing/orchestrating Spark ML model training on GCP. We will chain the PySpark scripts from 8.1, into a DAG and run it in a Vertex AI pipeline. The pipeline authoring will be done in a Jupyter notebook on Vertex AI Workbench, User-managed Notebook instance. For operationalizing, Cloud Composer cant be used as there is not yet an Airflow operator for Vertex AI pipelines. We will therefore use Cloud Function for executing the pipeline and Cloud Scheduler for scheduling.
+Vertex AI managed pipelines is the recommended solution for operationalizing/orchestrating Spark ML model training on GCP. We will chain the PySpark scripts from 8.1, into a DAG and run it in a Vertex AI pipeline. The pipeline authoring will be done in a Jupyter notebook on Vertex AI Workbench, User-managed Notebook instance. For operationalizing, Cloud Composer cant be used as there is not yet an Airflow operator for Vertex AI pipelines. We will therefore use Cloud Function for executing the pipeline and Cloud Scheduler for scheduling.<br>
+
+Here is what is covered in the lab:
 
 | # | Operationalizing Step | 
 | --- | :--- |
