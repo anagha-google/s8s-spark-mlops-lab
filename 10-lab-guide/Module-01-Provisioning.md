@@ -188,5 +188,12 @@ terraform destroy \
   --auto-approve
   ```
 
+#### 2.4.7. Glitches/nuances
+1. Cloud Composer 2<br>
+If you edit the Terraform and run apply, Cloud Composer2 attempts to update the network and fails the deployment. <br>
+Workaround: Delete Cloud Composer manually and then rerun
+
+
+
 ## 4. What's in the next module
 In the next module, we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
