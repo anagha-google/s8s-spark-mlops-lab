@@ -840,8 +840,7 @@ resource "google_storage_bucket_object" "bash_dir_create_in_gcs" {
   depends_on = [
     time_sleep.sleep_after_bucket_creation,
     null_resource.umnbs_post_startup_bash_creation,
-    null_resource.mnbs_post_startup_bash_creation,
-    time_sleep.sleep_after_bucket_creation
+    null_resource.mnbs_post_startup_bash_creation
   ]
 }
 
@@ -852,6 +851,7 @@ resource "google_storage_bucket_object" "bash_scripts_upload_to_gcs" {
   bucket = "${local.s8s_code_bucket}"
   depends_on = [
     time_sleep.sleep_after_bucket_creation,
+    google_storage_bucket_object.bash_dir_create_in_gcs,
     null_resource.umnbs_post_startup_bash_creation,
     null_resource.mnbs_post_startup_bash_creation
   ]
