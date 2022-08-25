@@ -189,4 +189,4 @@ terraform destroy \
   ```
 
 ## 4. What's in the next module
-In the next module, we will learn how to use Serverless Spark interactive notebooks for 
+In the next module, we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
