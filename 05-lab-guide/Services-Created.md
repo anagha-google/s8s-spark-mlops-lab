@@ -45,6 +45,7 @@ The following networking components are created as part of Terraform deployment-
 
 ## 3. Cloud Storage
 
+### 3.1. Buckets created
 A number of buckets are created by te Terraform and some buckets are created by the GCP products. The following is a listing of buckets created as part of the deployment with Terraform.
 
 ![GCS](../06-images/module-1-storage-01.png)   
@@ -53,6 +54,66 @@ A number of buckets are created by te Terraform and some buckets are created by 
 ![GCS](../06-images/module-1-storage-02.png)   
 <br><br>
 
+### 3.2. The Data Bucket
+
+
+
+### 3.3. The Code Bucket
+
+The following is the author's code bucket content-
+```
+# Cloud Composer - Airflow DAG
+gs://s8s_code_bucket-569379262211/airflow/pipeline.py
+
+# Shell Script for building custom container image for Serverless Spark
+gs://s8s_code_bucket-569379262211/bash/build-container-image.sh
+
+# Post startup shell scripts to upload Jupyter notebooks in GCS to Vertex AI workbench notebook server instances
+gs://s8s_code_bucket-569379262211/bash/mnbs-exec-post-startup.sh
+gs://s8s_code_bucket-569379262211/bash/umnbs-exec-post-startup.sh
+
+# Pyspark scripts for Spark Machine Learning
+gs://s8s_code_bucket-569379262211/pyspark/batch_scoring.py
+gs://s8s_code_bucket-569379262211/pyspark/common_utils.py
+gs://s8s_code_bucket-569379262211/pyspark/hyperparameter_tuning.py
+gs://s8s_code_bucket-569379262211/pyspark/model_training.py
+gs://s8s_code_bucket-569379262211/pyspark/preprocessing.py
+
+# Cloud Functions source code
+gs://s8s_code_bucket-569379262211/cloud-functions/function-source.zip
+gs://s8s_code_bucket-569379262211/cloud-functions/main.py
+gs://s8s_code_bucket-569379262211/cloud-functions/requirements.txt
+```
+
+### 3.4. The Notebook Bucket
+
+```
+# PySpark development notebooks
+gs://s8s_notebook_bucket-569379262211/pyspark/batch_scoring.ipynb
+gs://s8s_notebook_bucket-569379262211/pyspark/hyperparameter_tuning.ipynb
+gs://s8s_notebook_bucket-569379262211/pyspark/model_training.ipynb
+gs://s8s_notebook_bucket-569379262211/pyspark/preprocessing.ipynb
+
+# Vertex AI pipeline development notebook
+gs://s8s_notebook_bucket-569379262211/vai-pipelines/customer_churn_training_pipeline.ipynb
+```
+
+### 3.5. The Pipeline Bucket
+
+The customized (for your environment) JSON for scheduling a Vertex AI pipeline.
+```
+gs://s8s_pipeline_bucket-569379262211/templates/customer_churn_vai_pipeline_template.json
+```
+
+### 3.6. The Functions Bucket
+
+Cloud Functions source code
+```
+gs://s8s_functions_bucket-569379262211/function-source.zip
+```
+
+### 3.6. The rest of the buckets
+Are empty and used for peristing logs and/or MLOps artifacts
 
 
 
