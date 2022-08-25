@@ -45,6 +45,17 @@ The following networking components are created as part of Terraform deployment-
 
 ## 3. Cloud Storage
 
+A number of buckets are created by te Terraform and some buckets are created by the GCP products. The following is a listing of buckets created as part of the deployment with Terraform.
+
+![GCS](../06-images/module-1-storage-01.png)   
+<br><br>
+
+![GCS](../06-images/module-1-storage-02.png)   
+<br><br>
+
+
+
+
 ## 4. BigQuery
 
 ## 5. Persistent Spark History Server
