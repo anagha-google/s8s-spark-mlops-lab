@@ -876,7 +876,7 @@ resource "google_storage_bucket_object" "airflow_scripts_upload_to_gcs" {
 }
 
 # Substituted version of pipeline JSON
-resource "google_storage_bucket_object" "vai_pipeline_upload_to_gcs" {
+resource "google_storage_bucket_object" "vai_pipeline_json_upload_to_gcs" {
   name   = "templates/customer_churn_vai_pipeline_template.json"
   source = "../05-pipelines/customer_churn_vai_pipeline_template.json"
   bucket = "${local.s8s_pipeline_bucket}"
@@ -906,12 +906,14 @@ resource "time_sleep" "sleep_after_network_and_storage_steps" {
   depends_on = [
       time_sleep.sleep_after_network_and_firewall_creation,
       time_sleep.sleep_after_bucket_creation,
+      google_project_service.enable_notebooks_google_apis,
       google_storage_bucket_object.notebooks_vai_pipelines_upload_to_gcs,
       google_storage_bucket_object.notebooks_pyspark_upload_to_gcs,
       google_storage_bucket_object.pyspark_scripts_upload_to_gcs,
       google_storage_bucket_object.bash_scripts_upload_to_gcs,
       google_storage_bucket_object.airflow_scripts_upload_to_gcs,
-      google_storage_bucket_object.vai_pipeline_upload_to_gcs
+      google_storage_bucket_object.vai_pipeline_json_upload_to_gcs,
+      google_storage_bucket_object.gcf_scripts_upload_to_gcs
   ]
 }
 
@@ -954,6 +956,7 @@ resource "google_dataproc_cluster" "sphs_creation" {
   depends_on = [
     module.administrator_role_grants,
     module.vpc_creation,
+    time_sleep.sleep_after_api_enabling,
     time_sleep.sleep_after_network_and_storage_steps
   ]  
 }
@@ -991,6 +994,7 @@ resource "google_notebooks_instance" "umnb_server_creation" {
     module.administrator_role_grants,
     module.vpc_creation,
     time_sleep.sleep_after_network_and_storage_steps,
+    time_sleep.sleep_after_api_enabling,
     google_storage_bucket_object.bash_scripts_upload_to_gcs,
     google_storage_bucket_object.notebooks_vai_pipelines_upload_to_gcs
   ]  
@@ -1037,6 +1041,7 @@ resource "google_notebooks_runtime" "mnb_server_creation" {
   depends_on = [
     module.administrator_role_grants,
     module.vpc_creation,
+    time_sleep.sleep_after_api_enabling,
     google_compute_global_address.reserved_ip_for_psa_creation,
     google_service_networking_connection.private_connection_with_service_networking,
     time_sleep.sleep_after_network_and_storage_steps,
@@ -1117,8 +1122,8 @@ resource "google_composer_environment" "cloud_composer_env_creation" {
   depends_on = [
         module.administrator_role_grants,
         time_sleep.sleep_after_network_and_storage_steps,
-        google_dataproc_cluster.sphs_creation,
-        
+        time_sleep.sleep_after_api_enabling,
+        google_dataproc_cluster.sphs_creation  
   ] 
 
   timeouts {
