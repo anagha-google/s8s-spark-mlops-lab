@@ -28,15 +28,17 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 ## 8. What's covered from an ML perspective<br> 
 
 ### 8.1. Authoring Spark Machine Learning Experiments
+Dataproc Serveress Spark interactive Jupyter notebooks on Vertex AI Workbench, Managed Notebook instance is the recommended solution for interactive authoring of Spark code, both Data Engineering and Machine Learning. For operationalizing, create pyspark script versions of the code authored in the notebooks. Spark notebook scheduling is not supported yet. 
 
-| Experiment Step | Interactive Jupyter Notebook | Command line PySpark script execution | 
-| --- | :--- | :--- |
+| Step | Interactive Jupyter Notebook | Command line PySpark script execution | 
+| -- | :--- | :--- |
 | Preprocessing |  x | x |
 | Spark ML Model Training, Metrics, Explainability |  x | x |
 | Spark ML Model Hyperparameter Tuning |  x | x |
 | Spark ML Model Batch Scoring |  x | x |
 
 ### 8.2. Operationalizing Model Training
+Vertex AI managed pipelines is the recommended solution for operationalizing/orchestrating Spark ML model training on GCP. We will chain the PySpark scripts from 8.1, into a DAG and run it in a Vertex AI pipeline. The pipeline authoring will be done in a Jupyter notebook on Vertex AI Workbench, User-managed Notebook instance. For operationalizing, Cloud Composer cant be used as there is not yet an Airflow operator for Vertex AI pipelines. We will therefore use Cloud Function for executing the pipeline and Cloud Scheduler for scheduling.
 
 | # | Operationalizing Step | 
 | --- | :--- |
@@ -48,10 +50,11 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 
 
 ### 8.3. Operationalizing Batch Scoring
+Cloud Composer is a viable option for batch scoring on Serverless Spark as there is no model monitoring and explainability for Spark batch scoring throuh Vertex AI pipeline orchestration. 
 
 | # | Operationalizing Step | 
 | --- | :--- |
-| 1 | Author a Cloud Composer DAG for batch scoring |
+| 1 | Author an Apache Airflow DAG for batch scoring, schedule and run it |
 | 2 | Test DAG | 
 
 If you are not seeing a capability core to ML lifecycle, it was likely not supported at the time of the authoring of this lab. Keeping the lab current is best effort. Community contributions are welcome.
