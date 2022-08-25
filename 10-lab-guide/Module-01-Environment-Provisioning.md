@@ -174,7 +174,7 @@ This is not needed...and is informational only.<br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup<br>
 If -target does not work, try -replace
 ```
-terraform apply -target=google_notebooks_instance.mnb_server_creation \
+terraform apply -target=google_storage_bucket_object.upload_cc2_dag_to_airflow_dag_bucket \
 -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
   -var="project_number=${PROJECT_NBR}" \
