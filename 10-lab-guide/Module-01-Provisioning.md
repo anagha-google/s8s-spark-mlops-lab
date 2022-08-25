@@ -10,6 +10,9 @@ Note:<br>
 5. Terraform state is deliberately local for simplicity
 6. Be sure to check out section 3 for glitches/nuances and workarounds.
 
+For the best lab experience:<br>
+Browse the services set up in the order detailed in the table in section 1 below. This will give you a sound understanding of the setup.
+
 ## 1. Details about the environment that is setup by this module
 
 | # | Services provisioned | Purpose  | 
