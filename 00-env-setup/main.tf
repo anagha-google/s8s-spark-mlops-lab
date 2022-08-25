@@ -847,7 +847,7 @@ resource "google_storage_bucket_object" "bash_dir_create_in_gcs" {
   name = "${each.value}"
   bucket = "${local.s8s_code_bucket}"
   depends_on = [
-    time_sleep.sleep_after_bucket_creation,
+    time_sleep.sleep_after_bucket_creation,    
     null_resource.umnbs_post_startup_bash_creation,
     null_resource.mnbs_post_startup_bash_creation
   ]
@@ -975,6 +975,21 @@ resource "google_bigquery_dataset" "bq_dataset_creation" {
 12c. Vertex AI Workbench - User Managed Notebook Server Creation
 ******************************************************************/
 
+resource "google_storage_bucket_object" "bash_umnbs_script_upload_to_gcs" {
+  name   = "bash/umnbs-exec-post-startup.sh"
+  source = "../02-scripts/bash/umnbs-exec-post-startup.sh"  
+  bucket = "${local.s8s_code_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation,
+    time_sleep.sleep_after_network_and_storage_steps,
+    google_storage_bucket_object.bash_dir_create_in_gcs,
+    null_resource.umnbs_post_startup_bash_creation,
+    null_resource.mnbs_post_startup_bash_creation,
+    google_storage_bucket_object.bash_scripts_upload_to_gcs
+    
+  ]
+}
+
 resource "google_notebooks_instance" "umnb_server_creation" {
   project  = local.project_id 
   name = local.umnb_server_nm
@@ -996,13 +1011,29 @@ resource "google_notebooks_instance" "umnb_server_creation" {
     time_sleep.sleep_after_network_and_storage_steps,
     time_sleep.sleep_after_api_enabling,
     google_storage_bucket_object.bash_scripts_upload_to_gcs,
-    google_storage_bucket_object.notebooks_vai_pipelines_upload_to_gcs
+    google_storage_bucket_object.notebooks_vai_pipelines_upload_to_gcs,
+    google_storage_bucket_object.bash_umnbs_script_upload_to_gcs
   ]  
 }
 
 /******************************************************************
 12d. Vertex AI Workbench - Managed Notebook Server Creation
 ******************************************************************/
+
+resource "google_storage_bucket_object" "bash_mnbs_script_upload_to_gcs" {
+  name   = "bash/mnbs-exec-post-startup.sh"
+  source = "../02-scripts/bash/mnbs-exec-post-startup.sh"  
+  bucket = "${local.s8s_code_bucket}"
+  depends_on = [
+    time_sleep.sleep_after_bucket_creation,
+    time_sleep.sleep_after_network_and_storage_steps,
+    google_storage_bucket_object.bash_dir_create_in_gcs,
+    null_resource.umnbs_post_startup_bash_creation,
+    null_resource.mnbs_post_startup_bash_creation,
+    google_storage_bucket_object.bash_scripts_upload_to_gcs
+    
+  ]
+}
 
 resource "google_notebooks_runtime" "mnb_server_creation" {
   project              = local.project_id
@@ -1046,7 +1077,8 @@ resource "google_notebooks_runtime" "mnb_server_creation" {
     google_service_networking_connection.private_connection_with_service_networking,
     time_sleep.sleep_after_network_and_storage_steps,
     google_storage_bucket_object.bash_scripts_upload_to_gcs,
-    google_storage_bucket_object.notebooks_pyspark_upload_to_gcs
+    google_storage_bucket_object.notebooks_pyspark_upload_to_gcs,
+    google_storage_bucket_object.bash_mnbs_script_upload_to_gcs
   ]  
 }
 
