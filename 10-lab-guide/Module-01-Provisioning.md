@@ -8,6 +8,7 @@ Note:<br>
 3. Some of the organization policies many not apply for your company, modify appropriately
 4. The lab is intended for each attendee to have a full environment to themselves with "shared nothing"
 5. Terraform state is deliberately local for simplicity
+6. Be sure to check out section 3 for glitches/nuances and workarounds.
 
 ## 1. Details about the environment that is setup by this module
 
