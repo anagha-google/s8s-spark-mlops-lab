@@ -31,7 +31,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 ### 8.1. Authoring Spark Machine Learning Experiments
 
 | Experiment Step | Interactive Jupyter Notebook | Command line PySpark script execution | 
-| -- | :--- | :--- |
+| --- | :--- | :--- |
 | Preprocessing |  x | x |
 | Spark ML Model Training, metrics, explainability |  x | x |
 | Spark ML Model Hyperparameter tuning |  x | x |
