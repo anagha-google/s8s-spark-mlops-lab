@@ -151,25 +151,30 @@ terraform apply \
   -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
 ```
+## 4. What you should see
+
+### 4.1. Networking components
 
 
 
-## 3. Glitches/nuances to be mindful of
-**3.1. Cloud Composer 2**<br>
+
+
+## 4. Glitches/nuances to be mindful of
+**4.1. Cloud Composer 2**<br>
 If you edit the Terraform and run apply, Cloud Composer2 attempts to update the network and fails the deployment. <br>
 Workaround: Delete Cloud Composer manually and then rerun. 10+ minutes to delete, 20 minutes to recreate -> enough for a power nap. :)
 
-**3.2. Managed Notebook Instance on Vertex AI Workbench**<br>
+**4.2. Managed Notebook Instance on Vertex AI Workbench**<br>
 Changing ownership of notebooks (uploaded to /home/jupyter via Terrafrom) from owner root to jupyter:jupyter does not work currently as part of Terraform deployment.<br>
 Workaround: Clone the notebook and save.
 
-**3.3. Persistent Spark History Server (PHS)**<br>
+**4.3. Persistent Spark History Server (PHS)**<br>
 If you edit the Terraform and run apply, PHS gets destroyed and recreated. <br>
 Workaround: Not applicable. It just takes 90 seconds or less to destroy and 90 seconds to recreate.
 
-## 4. Terraform How-Tos
+## 5. Terraform How-Tos
 
-### 4.1. For selective replacement of specific services/units of deployment
+### 5.1. For selective replacement of specific services/units of deployment
 This is not needed...and is informational only.<br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup<br>
 If -target does not work, try -replace
@@ -190,7 +195,7 @@ terraform apply -target=google_storage_bucket_object.upload_cc2_dag_to_airflow_d
   --auto-approve
 ```
 
-### 4.2. To destroy the deployment
+### 5.2. To destroy the deployment
 You can (a) shutdown the project altogether in GCP Cloud Console or (b) use Terraform to destroy. Use (b) at your own risk as its a little glitchy while (a) is guaranteed to stop the billing meter pronto.
 <br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
@@ -211,5 +216,5 @@ terraform destroy \
   --auto-approve
   ```
 
-## 5. What's in the next module
+## 6. What's in the next module
 In the next module, we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
