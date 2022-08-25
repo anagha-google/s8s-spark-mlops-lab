@@ -1,8 +1,8 @@
 # About
 
 This module covers environment provisioning for the workshop. This module takes ~50 minutes to complete. 
-<br>
-Note:<br> 
+<br><br>
+**Note:**<br> 
 1. Ensure services in use in the workshop are available in the location of your preference and modify the variables in step 2.4.1 to reflect the same.
 2. Get any preview services allow-listed
 3. Some of the organization policies many not apply for your company, modify appropriately
@@ -10,7 +10,7 @@ Note:<br>
 5. Terraform state is deliberately local for simplicity
 6. Be sure to check out section 3 for glitches/nuances and workarounds.
 
-For the best lab experience:<br>
+**For the best lab experience:**<br>
 Browse the services set up in the order detailed in the table in section 1 below. This will give you a sound understanding of the setup.
 
 ## 1. Details about the environment that is setup by this module
