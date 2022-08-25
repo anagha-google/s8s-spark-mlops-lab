@@ -188,12 +188,18 @@ terraform destroy \
   --auto-approve
   ```
 
-#### 2.4.7. Glitches/nuances
-1. Cloud Composer 2<br>
+## 3. Glitches/nuances to be mindful of
+**3.1. Cloud Composer 2**<br>
 If you edit the Terraform and run apply, Cloud Composer2 attempts to update the network and fails the deployment. <br>
-Workaround: Delete Cloud Composer manually and then rerun
+Workaround: Delete Cloud Composer manually and then rerun. 10+ minutes to delete, 20 minutes to recreate.
 
+**3.2. Managed Notebook Instance on Vertex AI Workbench**<br>
+Changing ownership of notebooks (uploaded to /home/jupyter via Terrafrom) from owner root to jupyter:jupyter does not work currently as part of Terraform deployment.<br>
+Workaround: Clone the notebook and save.
 
+**3.3. Persistent Spark History Server (PHS)**<br>
+If you edit the Terraform and run apply, PHS gets destroyed and recreated. <br>
+Workaround: Not applicable. It just takes 90 seconds or less to destroy and 90 seconds to recreate.
 
 ## 4. What's in the next module
 In the next module, we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
