@@ -14,8 +14,7 @@ The level is arguable and depends on the individual's skills and experience with
 The intended audience is anyone with access to Google Cloud and interested in the features showcased and want to kick the tires.
 
 ## 5. Prerequisites
-Knowledge of Apache Spark, Machine Learning, and GCP products would be beneficial but is not entirely required, given the format of the lab.<br> 
-Access to Google Cloud is a must.
+Knowledge of Apache Spark, Machine Learning, and GCP products would be beneficial but is not entirely required, given the format of the lab. Access to Google Cloud is a must.
 
 ## 6. Goal
 Simplify your learning and adoption journey of our product stack for scalable data science with - <br> 
