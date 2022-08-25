@@ -40,7 +40,7 @@ Here is what is covered in the lab:
 | Spark ML Model Batch Scoring |  x | x |
 
 ### 8.2. Operationalizing Model Training
-Vertex AI managed pipelines is the recommended solution for operationalizing/orchestrating Spark ML model training on GCP. We will chain the PySpark scripts from 8.1, into a DAG and run it in a Vertex AI pipeline. The pipeline authoring will be done in a Jupyter notebook on Vertex AI Workbench, User-managed Notebook instance. For operationalizing, Cloud Composer cant be used as there is not yet an Airflow operator for Vertex AI pipelines. We will therefore use Cloud Function for executing the pipeline and Cloud Scheduler for scheduling.<br>
+Vertex AI managed pipelines is the recommended solution for operationalizing/orchestrating Spark ML model training on GCP. We will chain the PySpark scripts from 8.1, into a DAG and run it in a Vertex AI pipeline. The pipeline authoring will be done in a Jupyter notebook on Vertex AI Workbench, User-managed Notebook instance. For scheduling, Cloud Composer cant be used as there is not yet an Airflow operator for Vertex AI pipelines. We will therefore use Cloud Functions for executing the pipeline and Cloud Scheduler for scheduling.<br>
 
 Here is what is covered in the lab:
 
