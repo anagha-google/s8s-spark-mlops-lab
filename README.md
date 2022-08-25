@@ -33,24 +33,27 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 | Experiment Step | Interactive Jupyter Notebook | Command line PySpark script execution | 
 | --- | :--- | :--- |
 | Preprocessing |  x | x |
-| Spark ML Model Training, metrics, explainability |  x | x |
-| Spark ML Model Hyperparameter tuning |  x | x |
-| Spark ML Model Batch scoring |  x | x |
+| Spark ML Model Training, Metrics, Explainability |  x | x |
+| Spark ML Model Hyperparameter Tuning |  x | x |
+| Spark ML Model Batch Scoring |  x | x |
+
+### 8.2. Operationalizing Model Training
+
+| # | Operationalizing Step | 
+| --- | :--- |
+| 1 | Author a Vertex AI pipeline for Spark ML model training in a Jupyter Notebook |
+| 2 | Test the pipeline JSON via console | 
+| 3 | Create a Cloud Function to launch the pipeline on demand | 
+| 4 | Create a Cloud Scheduler job to call the Cloud Function for scheduled Spark ML model training | 
+| 5 | Review of artifacts created by the pipeline and traceability | 
 
 
+### 8.3. Operationalizing Batch Scoring
 
-(c) Train a RandomForest classification model<br> 
-(d) Evaluate the model - metrics and plots<br> 
-(e) Conditional hyperparameter tuning<br> 
-(f) a-e in a Vertex AI managed pipeline <br> 
-(b) Register managed dataset in Vertex AI<br> 
-(g) Event driven orchestration of Vertex AI managed pipeline execution with Cloud Scheduler<br> 
-
-### 7.2. Scoring
-(h) Batch scoring with the best model from 1(e), on Dataproc Serverless Spark <br>
-(i) Orchestration of batch scoring on Cloud Composer/Apache Airflow <br>
-(j) Stream scoring - Work in progress <br> 
-(k) Online serving (MLeap, Vertex AI serving) - Will be added based on demand <br>
+| # | Operationalizing Step | 
+| --- | :--- |
+| 1 | Author a Cloud Composer DAG for batch scoring |
+| 2 | Test DAG | 
 
 If you are not seeing a capability core to ML lifecycle, it was likely not supported at the time of the authoring of this lab. Keeping the lab current is best effort. Community contributions are welcome.
 
@@ -62,13 +65,7 @@ Follow in sequential order.
 | # | Module | 
 | -- | :--- |
 | 01 |  Terraform for environment provisioning |
-| 02 |  Preprocessing with serverless Spark interactive & Spark batches |
-| 03 |  Model training with serverless Spark interactive & Spark batches |
-| 04 |  Hyperparameter tuning  with serverless Spark interactive & Spark batches |
-| 05 |  Batch scoring with serverless Spark interactive & Spark batches |
-| 06 |  Authoring & testing a model training Vertex AI pipeline via notebook and UI |
-| 07 |  Scheduling a model training Vertex AI pipeline with Cloud Scheduler |
-| 08 |  Authoring an Airflow DAG for batch scoring and scheduling on Cloud Composer 2 |
+
 
 ## 10. Dont forget to 
 Shut down/delete resources when done
