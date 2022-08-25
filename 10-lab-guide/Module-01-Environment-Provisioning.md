@@ -51,8 +51,6 @@ and more..
 
 Lets get started!
 
-
-
 ## 2. Create the environment
 
 ### 2.1. Create a directory in Cloud Shell for the workshop
@@ -151,13 +149,8 @@ terraform apply \
   -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
 ```
-## 4. What you should see
-
-### 4.1. Networking components
-
-
-
-
+## 3. Validate the deployment
+You should see the services provisioned as shown in the screenshots at [link].
 
 ## 4. Glitches/nuances to be mindful of
 **4.1. Cloud Composer 2**<br>
