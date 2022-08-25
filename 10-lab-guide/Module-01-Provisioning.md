@@ -191,7 +191,7 @@ terraform destroy \
 ## 3. Glitches/nuances to be mindful of
 **3.1. Cloud Composer 2**<br>
 If you edit the Terraform and run apply, Cloud Composer2 attempts to update the network and fails the deployment. <br>
-Workaround: Delete Cloud Composer manually and then rerun. 10+ minutes to delete, 20 minutes to recreate.
+Workaround: Delete Cloud Composer manually and then rerun. 10+ minutes to delete, 20 minutes to recreate -> enough for a power nap. :)
 
 **3.2. Managed Notebook Instance on Vertex AI Workbench**<br>
 Changing ownership of notebooks (uploaded to /home/jupyter via Terrafrom) from owner root to jupyter:jupyter does not work currently as part of Terraform deployment.<br>
