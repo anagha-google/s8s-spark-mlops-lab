@@ -5,6 +5,23 @@ The following are the services that get provisioned in your environment.
 ## 1. IAM
 
 ## 2. Networking
+The following networking components are created as part of Terraform deployment-
+1. VPC
+![VPC](../06-images/module-1-networking-01.png)   
+
+<br><br>
+2. Subnet with private google access
+
+<br><br>
+3. Firewall rule for Data Serverless Spark
+
+<br><br>
+4. Reserved IP for VPC peering with Vertex AI tenant network for Vertex AI workbench, managed notebook instance with BYO network
+
+<br><br>
+5. VPC peering with Vertex AI tenant network for Vertex AI workbench, managed notebook instance with BYO network
+
+<br><br>
 
 ## 3. Cloud Storage
 
