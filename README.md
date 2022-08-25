@@ -28,12 +28,16 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 
 ## 8. What's covered from an ML perspective<br> 
 
-### 8.1. 
-First in PySpark interactive Jupyter notebooks, then via PySpark scripts<br> 
-1. Preprocessing <br> 
-2. Model training 
-3. Hyperparameter tuning
-4. Batch scoring
+### 8.1. Authoring Spark Machine Learning Experiments
+
+| Experiment Step | Interactive Jupyter Notebook | Command line PySpark script execution | 
+| -- | :--- | :--- |
+| Preprocessing |  x | x |
+| Spark ML Model Training, metrics, explainability |  x | x |
+| Spark ML Model Hyperparameter tuning |  x | x |
+| Spark ML Model Batch scoring |  x | x |
+
+
 
 (c) Train a RandomForest classification model<br> 
 (d) Evaluate the model - metrics and plots<br> 
