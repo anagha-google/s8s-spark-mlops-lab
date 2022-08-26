@@ -4,7 +4,7 @@ The following are the services that get provisioned in your environment.
 
 [1. IAM](Services-Created.md#1-iam) <br>
 [2. Networking](Services-Created.md#2-networking) <br>
-[3. Cloud Storage]() <br>
+[3. Cloud Storage](Services-Created.md#3-cloud-storage) <br>
 [4. BigQuery]() <br>
 [5. Persistent Spark History Server]() <br>
 [6a. Vertex AI Workbench - User Managed Notebook Server ]() <br>
