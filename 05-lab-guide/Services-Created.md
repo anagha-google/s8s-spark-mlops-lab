@@ -2,6 +2,9 @@
 
 The following are the services that get provisioned in your environment. 
 
+[1. IAM](https://github.com/anagha-google/s8s-spark-mlops/blob/main/05-lab-guide/Services-Created.md#1-iam)
+Networking
+
 ## 1. IAM
 A User Managed Service Account (UMSA) is created and granted requisite permissions and the lab attendee is granted permissions to impersonate the UMSA. There are a few other permissions granted to the default Google Managed Service Accounts of some services as requried. The Terraform main.tf is a good read to understand the permissions.
 
