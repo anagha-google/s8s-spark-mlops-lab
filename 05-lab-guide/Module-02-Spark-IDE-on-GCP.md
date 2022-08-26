@@ -1,7 +1,6 @@
 # About
 
-This module covers how to use Vertex AI Workbench's "Managed Notebook Instance" for authoring Spark code in an interactive manner with Dataproc Serverless Spark interactive. This is crucial for the next module where you will run sample machine learning experiments.
-<br><br>
+This module covers how to use Vertex AI Workbench's "Managed Notebook Instance" for authoring Spark code in an interactive manner with Dataproc Serverless Spark interactive. Understanding creation of serveless Spark interactive sessions and notebook nuances is crucial for the next module where you will run actual machine learning experiments.
 
 <hr>
 
@@ -180,7 +179,7 @@ Be sure to "keep session".
 
 <hr>
 
-This concludes the module.
+This concludes the module. In the next module, you will run a complete model trainng exercise with notebooks - pre-processing, model training, hyperparameter tuning, batch scoring. 
 
 
 
