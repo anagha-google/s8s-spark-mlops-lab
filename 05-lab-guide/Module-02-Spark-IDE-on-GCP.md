@@ -125,10 +125,13 @@ spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12
 ![UMNBS](../06-images/module-2-08.png)   
 <br><br>
 
+Click on "submit". In less than 2 minutes, you should see a session created.
+
 
 ![UMNBS](../06-images/module-2-09.png)   
 <br><br>
 
+### 8. Ensure you have the session you created, selected in the kernel picker dropdown
 
 ![UMNBS](../06-images/module-2-10.png)   
 <br><br>
@@ -137,6 +140,7 @@ spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12
 ![UMNBS](../06-images/module-2-11.png)   
 <br><br>
 
+### 9. Place your cursor in the first cell, then following the instructions below, run all cells or run each cell sequentially
 
 ![UMNBS](../06-images/module-2-12.png)   
 <br><br>
@@ -148,7 +152,9 @@ spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12
 <br><br>
 
 
+<hr>
 
+This concludes the module.
 
 
 
