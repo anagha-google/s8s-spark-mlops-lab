@@ -179,7 +179,8 @@ Workaround: Not applicable. It just takes 90 seconds or less to destroy and 90 s
 
 ## 5. Terraform How-Tos [DO NOT RUN THIS, ITS JUST FYI]
 
-### 5.1. For selective replacement of specific services/units of deployment
+### 5.1. For selective replacement of specific services/units of deployment [DO NOT RUN THIS, ITS JUST FYI]
+
 This is not needed...and is informational only.<br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup<br>
 If -target does not work, try -replace
@@ -200,7 +201,8 @@ terraform apply -target=google_storage_bucket_object.upload_cc2_dag_to_airflow_d
   --auto-approve
 ```
 
-### 5.2. To destroy the deployment
+### 5.2. To destroy the deployment [DO NOT RUN THIS, ITS JUST FYI]
+
 You can (a) shutdown the project altogether in GCP Cloud Console or (b) use Terraform to destroy. Use (b) at your own risk as its a little glitchy while (a) is guaranteed to stop the billing meter pronto.
 <br>
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
