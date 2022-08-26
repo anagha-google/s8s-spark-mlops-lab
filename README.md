@@ -70,7 +70,7 @@ If you are not seeing a capability core to ML lifecycle, it was likely not suppo
 Follow in sequential order.
 | # | Module | 
 | -- | :--- |
-| 01 |  Terraform for environment provisioning |
+| 01 |  Lab guide: [Terraform for environment provisioning](../05-lab-guide/Module-01-Environment-Provisioning.md)<br> Services created: [Pictorial walkthrough](../05-lab-guide/Services-Created.md) |
 
 
 ## 10. Dont forget to 
