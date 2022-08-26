@@ -7,7 +7,7 @@ The following are the services that get provisioned, and the code and configurat
 [3. Cloud Storage](Services-Created.md#3-cloud-storage) <br>
 [4. BigQuery](Services-Created.md#4-bigquery) <br>
 [5. Persistent Spark History Server](Services-Created.md#5-persistent-spark-history-server) <br>
-[6. Vertex AI Workbench - User Managed Notebook Server ]() | [Jupyter Notebook]() <br>
+[6. Vertex AI Workbench - User Managed Notebook Server ](Services-Created.md#6a-vertex-ai-workbench---managed-notebook-server) | [Jupyter Notebook](Services-Created.md#6b-vertex-ai-workbench---managed-notebook-server---jupyter-notebook) <br>
 [7. Vertex AI Workbench - Managed Notebook Server ]() | [Jupyter Notebooks]()  <br>
 [8. Google Container Registry]() <br>
 [9. Cloud Composer]() | [Airflow variables]() | [Airflow DAG]() <br>
