@@ -154,8 +154,13 @@ terraform apply \
   -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
 ```
+
+<hr>
+
 ## 3. Validate the deployment
-You should see the services provisioned as shown in the screenshots at [link].
+You should see the services provisioned as shown in the screenshots at [link](../05-lab-guide/Services-Created.md)
+
+<hr>
 
 ## 4. Glitches/nuances to be mindful of
 **4.1. Cloud Composer 2**<br>
@@ -169,6 +174,8 @@ Workaround: Clone the notebook and save.
 **4.3. Persistent Spark History Server (PHS)**<br>
 If you edit the Terraform and run apply, PHS gets destroyed and recreated. <br>
 Workaround: Not applicable. It just takes 90 seconds or less to destroy and 90 seconds to recreate.
+
+<hr>
 
 ## 5. Terraform How-Tos
 
@@ -212,7 +219,11 @@ terraform destroy \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
   -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
   --auto-approve
-  ```
+ ```
+
+<hr>
 
 ## 6. What's in the next module
 In the next module, we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
+
+<hr>
