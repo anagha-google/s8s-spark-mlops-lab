@@ -297,6 +297,8 @@ Are empty and used for peristing logs and/or MLOps artifacts
 <br><br>
 
 <hr>
+
 This is a summary of services that get provisioned for the lab. [Return to Module 1](../05-lab-guide/Module-01-Environment-Provisioning.md)
+
 <hr>
 
