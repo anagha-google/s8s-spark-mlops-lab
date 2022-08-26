@@ -89,7 +89,7 @@ Open JupyterLab as shown below
 
 ![UMNBS](../06-images/module-1-vai-wb-mnbs-02.png)   
 <br><br>
-06-images/module-2-01.png
+
 
 
 
