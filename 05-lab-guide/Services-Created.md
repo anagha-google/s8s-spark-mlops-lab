@@ -3,6 +3,20 @@
 The following are the services that get provisioned in your environment. 
 
 ## 1. IAM
+A User Managed Service Account (UMSA) is created and granted requisite permissions and the lab attendee is granted permissions to impersonate the UMSA. There are a few other permissions granted to the default Google Managed Service Accounts of some services as requried. The Terraform main.tf is a good read to understand the permissions.
+
+![IAM](../06-images/module-1-iam-01.png)   
+<br><br>
+
+![IAM](../06-images/module-1-iam-02.png)   
+<br><br>
+
+![IAM](../06-images/module-1-iam-03.png)   
+<br><br>
+
+![IAM](../06-images/module-1-iam-04.png)   
+<br><br>
+
 
 ## 2. Networking
 The following networking components are created as part of Terraform deployment-
