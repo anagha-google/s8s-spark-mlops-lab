@@ -3,6 +3,8 @@
 This module covers how to use Vertex AI Workbench's "Managed Notebook Instance" for authoring Spark code in an interactive manner with Dataproc Serverless Spark interactive. This is crucial for the next module where you will run sample machine learning experiments.
 <br><br>
 
+<hr>
+
 ### 1. About Dataproc Serverless Spark Interactive (README FIRST)
 Dataproc Serverless Spark Interactive is serverless Dataproc managed infrastructure for interactive Spark code authoring via a Jupyter notebook hosted on Vertex AI Managed Notebook instance. The following are steps to author Spark code in an interactive fashion in a Spark notebook on GCP-
 
@@ -34,6 +36,8 @@ To work a diffferent notebook,
 5. Click on the kernel picker on the right top of the open notebook and select the interactive session you created.
 6. You can then start working with Spark in the notebook
 
+<hr>
+
 ### 2. The exercise
 We will analyze Chicago crimes in this lab, based off of the Chicago Crimes public dataset in BigQuery. There is a precreated notebook that we will go through for the experience. 
 
@@ -43,6 +47,8 @@ We will analyze Chicago crimes in this lab, based off of the Chicago Crimes publ
 
 **Note:**
 If the notebook is not editable, make a copy and use the same.
+
+<hr>
 
 ### 3. Varibles you will need for this module
 
@@ -75,6 +81,8 @@ SPARK_BQ_CONNECTOR_PACKAGES=com.google.cloud.spark:spark-bigquery-with-dependenc
 spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2
 ```
 
+<hr>
+
 ### 4. Navigate on the Cloud Console to the Vertex AI Workbench, Managed Notebook Instance
 Open JupyterLab as shown below
 
@@ -84,16 +92,22 @@ Open JupyterLab as shown below
 ![UMNBS](../06-images/module-1-vai-wb-mnb-01.png)   
 <br><br>
 
+<hr>
+
 
 ### 5. Open the Chicago Crimes notebook 
 
 ![UMNBS](../06-images/module-2-01.png)   
 <br><br>
 
+<hr>
+
 ### 6. Click on "Launcher" to create an interactive Spark session 
 
 ![UMNBS](../06-images/module-2-02.png)   
 <br><br>
+
+<hr>
 
 ### 7. Key in/select from dropdown, details required
 Note that the varibles run in Cloud shell have all the values you need to create the session. Copy paste where needed.
@@ -134,6 +148,8 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 ![UMNBS](../06-images/module-2-09.png)   
 <br><br>
 
+<hr>
+
 ### 8. Ensure you have the session you created, selected in the kernel picker dropdown
 
 ![UMNBS](../06-images/module-2-10.png)   
@@ -143,10 +159,17 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 ![UMNBS](../06-images/module-2-11.png)   
 <br><br>
 
+<hr>
+
 ### 9. Place your cursor in the first cell, then following the instructions below, run all cells or run each cell sequentially
 
 ![UMNBS](../06-images/module-2-12.png)   
 <br><br>
+
+<hr>
+
+### 10. Close the notebook once the excerise is completed
+Be sure to "keep session".
 
 ![UMNBS](../06-images/module-2-13.png)   
 <br><br>
