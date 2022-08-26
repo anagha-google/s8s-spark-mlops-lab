@@ -172,7 +172,7 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 <hr>
 
 ### 10. Close the notebook once the excerise is completed
-Be sure to "keep session".
+Save or discard changes as needed. Be sure to "keep session" though when prompted as you close the notebook.
 
 ![UMNBS](../06-images/module-2-13.png)   
 <br><br>
