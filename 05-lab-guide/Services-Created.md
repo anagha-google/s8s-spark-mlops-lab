@@ -2,8 +2,8 @@
 
 The following are the services that get provisioned in your environment. 
 
-[1. IAM](https://github.com/anagha-google/s8s-spark-mlops/blob/main/05-lab-guide/Services-Created.md#1-iam)
-Networking
+[1. IAM](Services-Created.md#1-iam)
+[2. Networking](Services-Created.md#2-networking)
 
 ## 1. IAM
 A User Managed Service Account (UMSA) is created and granted requisite permissions and the lab attendee is granted permissions to impersonate the UMSA. There are a few other permissions granted to the default Google Managed Service Accounts of some services as requried. The Terraform main.tf is a good read to understand the permissions.
@@ -72,8 +72,10 @@ A number of buckets are created by te Terraform and some buckets are created by 
 <br><br>
 
 ### 3.2. The Data Bucket
+The following is the author's data bucket content-
+```
 
-
+```
 
 ### 3.3. The Code Bucket
 
