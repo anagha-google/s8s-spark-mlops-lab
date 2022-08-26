@@ -176,14 +176,23 @@ Are empty and used for peristing logs and/or MLOps artifacts
 ![PHS](../06-images/module-1-phs-05.png)   
 <br><br>
 
-![PHS](../06-images/module-1-phs-06.png)   
+## 6a. Vertex AI Workbench - Managed Notebook Server 
+
+![UMNBS](../06-images/module-1-vai-wb-01.png)   
 <br><br>
 
-## 6a. Vertex AI Workbench - User Managed Notebook Server 
+![UMNBS](../06-images/module-1-vai-wb-mnb-01.png)   
+<br><br>
 
-## 6b. Vertex AI Workbench - User Managed Notebook Server - Jupyter Notebook
+## 6b. Vertex AI Workbench - Managed Notebook Server - Jupyter Notebook
+
+![UMNBS](../06-images/module-1-vai-wb-mnbs-02.png)   
+<br><br>
 
 ## 7a. Vertex AI Workbench - Managed Notebook Server 
+
+![MNBS](../06-images/module-1-vai-wb-mnb-01.png)   
+<br><br>
 
 ## 7b. Vertex AI Workbench - Managed Notebook Server - Jupyter Notebooks
 
