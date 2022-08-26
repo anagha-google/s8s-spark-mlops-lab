@@ -6,7 +6,7 @@ The following are the services that get provisioned, and the code and configurat
 [2. Networking](Services-Created.md#2-networking) <br>
 [3. Cloud Storage](Services-Created.md#3-cloud-storage) <br>
 [4. BigQuery](Services-Created.md#4-bigquery) <br>
-[5. Persistent Spark History Server]() <br>
+[5. Persistent Spark History Server](Services-Created.md#5-persistent-spark-history-server) <br>
 [6a. Vertex AI Workbench - User Managed Notebook Server ]() <br>
 [6b. Vertex AI Workbench - User Managed Notebook Server - Jupyter Notebook]() <br>
 [7a. Vertex AI Workbench - Managed Notebook Server ]() <br>
@@ -88,7 +88,8 @@ A number of buckets are created by te Terraform and some buckets are created by 
 ### 3.2. The Data Bucket
 The following is the author's data bucket content-
 ```
-
+customer_churn_score_data.csv
+customer_churn_train_data.csv
 ```
 
 ### 3.3. The Code Bucket
@@ -96,53 +97,53 @@ The following is the author's data bucket content-
 The following is the author's code bucket content-
 ```
 # Cloud Composer - Airflow DAG
-gs://s8s_code_bucket-569379262211/airflow/pipeline.py
+airflow/pipeline.py
 
 # Shell Script for building custom container image for Serverless Spark
-gs://s8s_code_bucket-569379262211/bash/build-container-image.sh
+bash/build-container-image.sh
 
 # Post startup shell scripts to upload Jupyter notebooks in GCS to Vertex AI workbench notebook server instances
-gs://s8s_code_bucket-569379262211/bash/mnbs-exec-post-startup.sh
-gs://s8s_code_bucket-569379262211/bash/umnbs-exec-post-startup.sh
+bash/mnbs-exec-post-startup.sh
+bash/umnbs-exec-post-startup.sh
 
 # Pyspark scripts for Spark Machine Learning
-gs://s8s_code_bucket-569379262211/pyspark/batch_scoring.py
-gs://s8s_code_bucket-569379262211/pyspark/common_utils.py
-gs://s8s_code_bucket-569379262211/pyspark/hyperparameter_tuning.py
-gs://s8s_code_bucket-569379262211/pyspark/model_training.py
-gs://s8s_code_bucket-569379262211/pyspark/preprocessing.py
+pyspark/batch_scoring.py
+pyspark/common_utils.py
+pyspark/hyperparameter_tuning.py
+pyspark/model_training.py
+pyspark/preprocessing.py
 
 # Cloud Functions source code
-gs://s8s_code_bucket-569379262211/cloud-functions/function-source.zip
-gs://s8s_code_bucket-569379262211/cloud-functions/main.py
-gs://s8s_code_bucket-569379262211/cloud-functions/requirements.txt
+cloud-functions/function-source.zip
+cloud-functions/main.py
+cloud-functions/requirements.txt
 ```
 
 ### 3.4. The Notebook Bucket
 
 ```
 # PySpark development notebooks
-gs://s8s_notebook_bucket-569379262211/pyspark/batch_scoring.ipynb
-gs://s8s_notebook_bucket-569379262211/pyspark/hyperparameter_tuning.ipynb
-gs://s8s_notebook_bucket-569379262211/pyspark/model_training.ipynb
-gs://s8s_notebook_bucket-569379262211/pyspark/preprocessing.ipynb
+pyspark/batch_scoring.ipynb
+pyspark/hyperparameter_tuning.ipynb
+pyspark/model_training.ipynb
+pyspark/preprocessing.ipynb
 
 # Vertex AI pipeline development notebook
-gs://s8s_notebook_bucket-569379262211/vai-pipelines/customer_churn_training_pipeline.ipynb
+vai-pipelines/customer_churn_training_pipeline.ipynb
 ```
 
 ### 3.5. The Pipeline Bucket
 
 The customized (for your environment) JSON for scheduling a Vertex AI pipeline.
 ```
-gs://s8s_pipeline_bucket-569379262211/templates/customer_churn_vai_pipeline_template.json
+templates/customer_churn_vai_pipeline_template.json
 ```
 
 ### 3.6. The Functions Bucket
 
 Cloud Functions source code
 ```
-gs://s8s_functions_bucket-569379262211/function-source.zip
+function-source.zip
 ```
 
 ### 3.6. The rest of the buckets
@@ -152,7 +153,31 @@ Are empty and used for peristing logs and/or MLOps artifacts
 
 ## 4. BigQuery
 
+![BQ](../06-images/module-1-bq-01.png)   
+<br><br>
+
+![BQ](../06-images/module-1-bq-02.png)   
+<br><br>
+
 ## 5. Persistent Spark History Server
+
+![PHS](../06-images/module-1-phs-01.png)   
+<br><br>
+
+![PHS](../06-images/module-1-phs-02.png)   
+<br><br>
+
+![PHS](../06-images/module-1-phs-03.png)   
+<br><br>
+
+![PHS](../06-images/module-1-phs-04.png)   
+<br><br>
+
+![PHS](../06-images/module-1-phs-05.png)   
+<br><br>
+
+![PHS](../06-images/module-1-phs-06.png)   
+<br><br>
 
 ## 6a. Vertex AI Workbench - User Managed Notebook Server 
 
