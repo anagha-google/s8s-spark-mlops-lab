@@ -35,11 +35,14 @@ To work a diffferent notebook,
 6. You can then start working with Spark in the notebook
 
 ### 2. The exercise
-We will analyze Chicago crimes in this lab, based off of the Chicago Crimes public dataset in BigQuery.
+We will analyze Chicago crimes in this lab, based off of the Chicago Crimes public dataset in BigQuery. There is a precreated notebook that we will go through for the experience. 
 
 **Pre-requisite:**
 1. Ensure that any preview features are allow-listed by product engineering, ahead of time
 2. Provisioning from module 1 needs to be successfully completed
+
+**Note:**
+If the notebook is not editable, make a copy and use the same.
 
 ### 3. Varibles you will need for this module
 
