@@ -49,6 +49,8 @@ Further:
 
 and more..
 
+A pictorial overview is available [here](../05-lab-guide/Services-Created.md).
+
 Lets get started!
 
 ## 2. Create the environment
