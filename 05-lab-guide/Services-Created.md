@@ -189,12 +189,18 @@ Are empty and used for peristing logs and/or MLOps artifacts
 ![UMNBS](../06-images/module-1-vai-wb-mnbs-02.png)   
 <br><br>
 
-## 7a. Vertex AI Workbench - Managed Notebook Server 
+## 7a. Vertex AI Workbench - User Managed Notebook Server 
 
-![MNBS](../06-images/module-1-vai-wb-mnb-01.png)   
+![UMNBS](../06-images/module-1-vai-wb-umnb-01.png)   
 <br><br>
 
 ## 7b. Vertex AI Workbench - Managed Notebook Server - Jupyter Notebooks
+
+![UMNBS](../06-images/module-1-vai-wb-umnb-02.png)   
+<br><br>
+
+![UMNBS](../06-images/module-1-vai-wb-umnb-03.png)   
+<br><br>
 
 ## 8a. Google Container Registry
 
