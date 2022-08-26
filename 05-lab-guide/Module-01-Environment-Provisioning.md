@@ -47,11 +47,14 @@ Further:
 | 23. | Upload Vertex AI pipeline authoring notebook  | To Cloud Composer DAG folder |
 | 24. | Create Custom Spark Container image  | To simplify lab experience |
 
-and more..
+and more..<br><br>
 
-A pictorial overview is available [here](../05-lab-guide/Services-Created.md).
-
+**Pictorial overview of services provisioned-**<br>
+Available [here](../05-lab-guide/Services-Created.md)
+<br>
 Lets get started!
+
+<hr>
 
 ## 2. Create the environment
 
