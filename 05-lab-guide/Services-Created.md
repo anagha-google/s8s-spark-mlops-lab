@@ -2,8 +2,22 @@
 
 The following are the services that get provisioned in your environment. 
 
-[1. IAM](Services-Created.md#1-iam)
-[2. Networking](Services-Created.md#2-networking)
+[1. IAM](Services-Created.md#1-iam) <br>
+[2. Networking](Services-Created.md#2-networking) <br>
+[3. Cloud Storage]() <br>
+[4. BigQuery]() <br>
+[5. Persistent Spark History Server]() <br>
+[6a. Vertex AI Workbench - User Managed Notebook Server ]() <br>
+[6b. Vertex AI Workbench - User Managed Notebook Server - Jupyter Notebook]() <br>
+[7a. Vertex AI Workbench - Managed Notebook Server ]() <br>
+[7b. Vertex AI Workbench - Managed Notebook Server - Jupyter Notebooks]() <br>
+[8a. Google Container Registry]() <br>
+[9a. Cloud Composer]() <br>
+[9b. Cloud Composer - Airflow variables]() <br>
+[9c. Cloud Composer - Airflow DAG]() <br>
+[10. Google Cloud Function]() <br>
+[11. 	Cloud Scheduler]() <br>
+[12. Customized Vertex AI pipeline JSON in GCS]() <br>
 
 ## 1. IAM
 A User Managed Service Account (UMSA) is created and granted requisite permissions and the lab attendee is granted permissions to impersonate the UMSA. There are a few other permissions granted to the default Google Managed Service Accounts of some services as requried. The Terraform main.tf is a good read to understand the permissions.
