@@ -8,12 +8,12 @@ The following are the services that get provisioned, and the code and configurat
 [4. BigQuery](Services-Created.md#4-bigquery) <br>
 [5. Persistent Spark History Server](Services-Created.md#5-persistent-spark-history-server) <br>
 [6. Vertex AI Workbench - User Managed Notebook Server ](Services-Created.md#6a-vertex-ai-workbench---managed-notebook-server) | [Jupyter Notebook](Services-Created.md#6b-vertex-ai-workbench---managed-notebook-server---jupyter-notebook) <br>
-[7. Vertex AI Workbench - Managed Notebook Server ]() | [Jupyter Notebooks]()  <br>
-[8. Google Container Registry]() <br>
-[9. Cloud Composer]() | [Airflow variables]() | [Airflow DAG]() <br>
-[10. Google Cloud Function]() <br>
-[11. Cloud Scheduler]() <br>
-[12. Customized Vertex AI pipeline JSON in GCS]() <br>
+[7. Vertex AI Workbench - Managed Notebook Server ](Services-Created.md#7a-vertex-ai-workbench---user-managed-notebook-server) | [Jupyter Notebooks](Services-Created.md#7b-vertex-ai-workbench---managed-notebook-server---jupyter-notebooks)  <br>
+[8. Google Container Registry](Services-Created.md#8a-google-container-registry) | [Container image](Services-Created.md#8b-google-container-registry---container-image) <br>
+[9. Cloud Composer](Services-Created.md#9a-cloud-composer) | [Airflow variables](Services-Created.md#9b-cloud-composer---airflow-variables) | [Airflow DAG](Services-Created.md#9c-cloud-composer---airflow-dag) <br>
+[10. Google Cloud Function](Services-Created.md#10-google-cloud-function) <br>
+[11. Cloud Scheduler](Services-Created.md#11-cloud-scheduler) <br>
+[12. Customized Vertex AI pipeline JSON in GCS](Services-Created.md#12-customized-vertex-ai-pipeline-json-in-gcs) <br>
 
 ## 1. IAM
 A User Managed Service Account (UMSA) is created and granted requisite permissions and the lab attendee is granted permissions to impersonate the UMSA. There are a few other permissions granted to the default Google Managed Service Accounts of some services as requried. The Terraform main.tf is a good read to understand the permissions.
@@ -201,7 +201,13 @@ Are empty and used for peristing logs and/or MLOps artifacts
 
 ## 8a. Google Container Registry
 
+![UMNBS](../06-images/module-1-vai-wb-umnb-03.png)   
+<br><br>
+
 ## 8b. Google Container Registry - Container Image
+
+![GCR](../06-images/module-1-vai-wb-umnb-03.png)   
+<br><br>
 
 ## 9a. Cloud Composer
 
