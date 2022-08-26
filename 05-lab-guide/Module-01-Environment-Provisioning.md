@@ -49,10 +49,10 @@ Further:
 
 and more..<br><br>
 
-**Pictorial overview of services provisioned-**<br>
+## Pictorial overview of services provisioned
 Available [here](../05-lab-guide/Services-Created.md)
 <br>
-Lets get started!
+
 
 <hr>
 
