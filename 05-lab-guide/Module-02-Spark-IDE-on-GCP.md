@@ -81,13 +81,60 @@ Open JupyterLab as shown below
 ![UMNBS](../06-images/module-1-vai-wb-mnb-01.png)   
 <br><br>
 
-![UMNBS](../06-images/module-1-vai-wb-mnbs-02.png)   
-<br><br>
-
 
 ### 5. Open the Chicago Crimes notebook 
 
-![UMNBS](../06-images/module-1-vai-wb-mnbs-02.png)   
+![UMNBS](../06-images/module-2-01.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-02.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-03.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-04.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-05.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-06.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-07.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-08.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-09.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-10.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-11.png)   
+<br><br>
+
+
+![UMNBS](../06-images/module-2-12.png)   
+<br><br>
+
+![UMNBS](../06-images/module-2-13.png)   
+<br><br>
+
+![UMNBS](../06-images/module-2-14.png)   
 <br><br>
 
 
