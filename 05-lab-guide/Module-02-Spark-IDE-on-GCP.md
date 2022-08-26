@@ -157,12 +157,14 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 <br><br>
 
 
-![UMNBS](../06-images/module-2-11.png)   
-<br><br>
 
 <hr>
 
 ### 9. Place your cursor in the first cell, then following the instructions below, run all cells or run each cell sequentially
+
+
+![UMNBS](../06-images/module-2-11.png)   
+<br><br>
 
 ![UMNBS](../06-images/module-2-12.png)   
 <br><br>
