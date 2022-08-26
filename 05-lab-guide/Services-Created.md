@@ -177,10 +177,11 @@ Are empty and used for peristing logs and/or MLOps artifacts
 ![UMNBS](../06-images/module-1-vai-wb-01.png)   
 <br><br>
 
-![UMNBS](../06-images/module-1-vai-wb-mnb-01.png)   
-<br><br>
 
 ## 6b. Vertex AI Workbench - Managed Notebook Server - Jupyter Notebook
+
+![UMNBS](../06-images/module-1-vai-wb-mnb-01.png)   
+<br><br>
 
 ![UMNBS](../06-images/module-1-vai-wb-mnbs-02.png)   
 <br><br>
