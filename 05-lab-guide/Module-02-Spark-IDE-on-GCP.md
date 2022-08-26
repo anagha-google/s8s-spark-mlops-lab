@@ -5,7 +5,7 @@ This module covers how to use Vertex AI Workbench's "Managed Notebook Instance" 
 <hr>
 
 ### 1. About Dataproc Serverless Spark Interactive (README FIRST)
-Dataproc Serverless Spark Interactive is serverless Dataproc managed infrastructure for interactive Spark code authoring via a Jupyter notebook hosted on Vertex AI Managed Notebook instance. The following are steps to author Spark code in an interactive fashion in a Spark notebook on GCP.<br> <br> 
+Dataproc Serverless Spark Interactive is serverless Dataproc managed autoscaling infrastructure for interactive Spark code authoring via a Jupyter notebook hosted on Vertex AI Managed Notebook instance. The following are steps to author Spark code in an interactive fashion in a Spark notebook on GCP.<br> <br> 
 *This is a listing FYI, further in this module, there is a step by step pictorial walk through. *
 
 #### 1a. Create the notebook instance
@@ -27,8 +27,8 @@ Dataproc Serverless Spark Interactive is serverless Dataproc managed infrastruct
 15. You will see a kernel appear, pick the spark interactive session you created and hit select
 
 #### 1c. What about switching notebooks?
-A spark interactive session can be attached to just one notebook at any point of time. 
-To work a diffferent notebook, 
+A spark interactive session can be attached to just one notebook at any point of time, by design.<br> 
+To work on a diffferent notebook, 
 1. In the left hand navigation bar, right click on the notboook with interactive session attached to it, and click on shut down kernel
 2. Then close the notebook 
 3. You will see a dialog asking if you want to keep or terminate the session - select "keep session"
