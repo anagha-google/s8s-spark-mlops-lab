@@ -1,6 +1,6 @@
 # About
 
-The following are the services that get provisioned in your environment. 
+The following are the services that get provisioned, and the code and configuration that gets uploaded into your environment. The screenshots present a view of the author's environment, yours should be identical.
 
 [1. IAM](Services-Created.md#1-iam) <br>
 [2. Networking](Services-Created.md#2-networking) <br>
