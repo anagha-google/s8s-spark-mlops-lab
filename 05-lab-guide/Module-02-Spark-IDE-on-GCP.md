@@ -85,7 +85,7 @@ Open JupyterLab as shown below
 <br><br>
 
 
-### 4. Open the Chicago Crimes notebook 
+### 5. Open the Chicago Crimes notebook 
 
 ![UMNBS](../06-images/module-1-vai-wb-mnbs-02.png)   
 <br><br>
