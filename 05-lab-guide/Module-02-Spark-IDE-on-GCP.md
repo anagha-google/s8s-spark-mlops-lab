@@ -87,10 +87,13 @@ Open JupyterLab as shown below
 ![UMNBS](../06-images/module-2-01.png)   
 <br><br>
 
+### 6. Click on "Launcher" to create an interactive Spark session 
 
 ![UMNBS](../06-images/module-2-02.png)   
 <br><br>
 
+### 7. Key in/select from dropdown, details required
+Note that the varibles run in Cloud shell have all the values you need to create the session. Copy paste where needed.
 
 ![UMNBS](../06-images/module-2-03.png)   
 <br><br>
