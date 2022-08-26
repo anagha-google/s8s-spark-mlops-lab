@@ -10,7 +10,7 @@ The following are the services that get provisioned, and the code and configurat
 [6. Vertex AI Workbench - User Managed Notebook Server ](Services-Created.md#6a-vertex-ai-workbench---managed-notebook-server) | [Jupyter Notebook](Services-Created.md#6b-vertex-ai-workbench---managed-notebook-server---jupyter-notebook) <br>
 [7. Vertex AI Workbench - Managed Notebook Server ](Services-Created.md#7a-vertex-ai-workbench---user-managed-notebook-server) | [Jupyter Notebooks](Services-Created.md#7b-vertex-ai-workbench---managed-notebook-server---jupyter-notebooks)  <br>
 [8. Google Container Registry](Services-Created.md#8a-google-container-registry) | [Container image](Services-Created.md#8b-google-container-registry---container-image) <br>
-[9. Cloud Composer](Services-Created.md#9a-cloud-composer) | [Airflow variables](Services-Created.md#9b-cloud-composer---airflow-variables) | [Airflow DAG](Services-Created.md#9c-cloud-composer---airflow-dag) | [Airflow UI](Services-Created.md#9c-cloud-composer---airflow-ui) <br>
+[9. Cloud Composer](Services-Created.md#9a-cloud-composer) | [Airflow variables](Services-Created.md#9b-cloud-composer---airflow-variables) | [Airflow DAG](Services-Created.md#9c-cloud-composer---airflow-dag) | [Airflow UI](Services-Created.md#9d-cloud-composer---airflow-gui) <br>
 [10. Google Cloud Function]() <br>
 [11. Cloud Scheduler]() <br>
 [12. Customized Vertex AI pipeline JSON in GCS]() <br>
