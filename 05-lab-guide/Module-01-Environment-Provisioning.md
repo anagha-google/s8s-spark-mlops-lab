@@ -21,7 +21,7 @@ This module covers environment provisioning for the workshop. This module takes 
 ![PICT](../06-images/module-1-pictorial-03.png)   
 <br><br>
 
-## Pictorial overview of services provisioned
+## Pictorial walkthrough of services provisioned & customization
 Available [here](../05-lab-guide/Services-Created.md)
 
 <hr>
