@@ -14,7 +14,7 @@ This module covers environment provisioning for the workshop. This module takes 
 
 
 
-<img src="../06-images/module-1-pictorial-01.png" width="640" />
+<img src="../06-images/module-1-pictorial-01.png" width="200" />
 <br><br>
 
 ![PICT](../06-images/module-1-pictorial-02.png)   
