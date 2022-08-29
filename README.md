@@ -20,9 +20,9 @@ Knowledge of Apache Spark, Machine Learning, and GCP products would be beneficia
 
 ## 6. Goal
 Simplify your learning and adoption journey of our product stack for scalable data science with - <br> 
-(a) Just enough product knowledge of Dataproc Serverless Spark & Vertex AI integration for machine learning at scale on Google Cloud<br>
-(b) Quick start code for ML at scale with Spark that can be repurposed for your data and ML experiments<br>
-(c) Terraform for provisioning a variety of Google Cloud data services that can be repurposed for your use case<br>
+1. Just enough product knowledge of Dataproc Serverless Spark & Vertex AI integration for machine learning at scale on Google Cloud<br>
+2. Quick start code for ML at scale with Spark that can be repurposed for your data and ML experiments<br>
+3. Terraform for provisioning a variety of Google Cloud data services that can be repurposed for your use case<br>
 
 ## 7. Use case covered
 Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) and [Spark MLLib, Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
