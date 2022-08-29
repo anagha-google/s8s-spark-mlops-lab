@@ -81,9 +81,19 @@ For each notebook, there is complementary code in a PySpark script that will be 
 
 ## 5. Step 2: Model Training
 
+Now that we have preprocessed data, lets create a model model.
+
 ### 5.1. Run the model training notebook
+1. Close the preprocessing notebook
+2. Shutdown kernel, leave spark interactive session active. 
+3. Open the model training notebook
+4. Review the code, run all cells as showin section 4.3 above
+
+
 
 ### 5.2. Review the model persisted in GCS
+
+
 
 ### 5.3. Review the model metrics persisted in GCS
 
