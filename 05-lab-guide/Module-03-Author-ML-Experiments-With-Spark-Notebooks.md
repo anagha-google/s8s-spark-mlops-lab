@@ -129,8 +129,10 @@ The following tables are created and written to in append mode.
 ![M3](../06-images/module-3-16.png)   
 <br><br>
 
+**Notice the columns for the tables. There is a pipeline_id column and a pipeline_execution_dt for traceability/lineage tracking.**
+
 ### 5.6. Review the model feature importance scores persisted in BigQuery
-Run the below query in BigQuery-
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
 SELECT * FROM `customer_churn_ds.model_feature_importance_scores`
  WHERE operation='training'  
@@ -141,7 +143,7 @@ The following is the author's output-
 <br><br>
 
 ### 5.7. Review the model metrics persisted in BigQuery
-Run the below query in BigQuery-
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
 SELECT * FROM `customer_churn_ds.model_metrics` 
  WHERE operation='training'  
@@ -152,7 +154,7 @@ The following is the author's output-
 <br><br>
 
 ### 5.8. Review the model test results in BigQuery
-Run the below queries in BigQuery-
+Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 
 Just the predictions-
 ```
@@ -217,7 +219,7 @@ Again, this for the Vertex AI pipeline which we will cover in the module after t
 
 ### 6.5. Review the model metrics persisted in BigQuery
 
-Run the below query in BigQuery-
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
 SELECT * FROM `customer_churn_ds.model_metrics` 
  WHERE operation='hyperparameter-tuning'
@@ -263,8 +265,22 @@ In this sub-module, we will use the best model from the hyperparameter tuning ex
 ### 7.2. Run the batch scoring notebook
 Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes <5 minutes to complete. 
 
+#### Note
+You need to get the model version from the hyperparameter tuning step and replace the modelVersion assignment (modelVersion = YOUR_MODEL_VERSION_HERE - 3rd code cell, line 5). You can do so by running this query in BigQuery-
+```
+SELECT DISTINCT pipeline_id
+ FROM `customer_churn_ds.model_metrics` 
+ WHERE operation='hyperparameter-tuning' 
+ AND pipeline_execution_dt=(SELECT max(pipeline_execution_dt) FROM `customer_churn_ds.model_metrics` 
+ WHERE operation='hyperparameter-tuning')
+```
+
 ![M3](../06-images/module-3-35.png)   
 <br><br>
+
+![M3](../06-images/module-3-37.png)   
+<br><br>
+
 
 ### 7.3. Review the batch scoring results in BigQuery
 Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes <5 minutes to complete. 
@@ -280,6 +296,13 @@ The following is the author's output-
 
 ![M3](../06-images/module-3-36.png)   
 <br><br>
+
+<hr>
+
+## 8. Lineage/Traceability
+
+The author has created a pipeline ID and model version for tracking and the same attributes are added to all datasets, directories in GCS and wherever else applicable for traceability.
+
 
 <hr>
 
