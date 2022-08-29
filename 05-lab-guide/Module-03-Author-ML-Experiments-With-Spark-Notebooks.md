@@ -31,9 +31,14 @@ The environment for the module is Vertex AI Workbench, Managed notebook instance
 
 ### 4.1. About this step
 We will read customer churn raw source data for model training, in GCS, cleanse/transform and persist to BigQuery for use in the model training step.
-
+![M3](../06-images/module-3-04.png)   
+<br><br>
 
 ### 4.2. Run the pre-processing notebook
+Lets ensure we have the Serverless Spark kernel created in the prior module attached to the pre-processing notebook. Follow the screenshots below-
+
+![M3](../06-images/module-3-05.png)   
+<br><br>
 
 ### 4.3. Review the pre-processed data in BigQuery
 
