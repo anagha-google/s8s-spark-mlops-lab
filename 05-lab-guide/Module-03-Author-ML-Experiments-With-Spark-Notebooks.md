@@ -29,7 +29,7 @@ Training and scoring data are available in GCS in the data bucket and the data i
 
 ## 4. Step 1: Preprocessing
 
-### 4.1. About this step
+### 4.1. The exercise
 We will read customer churn raw source data for model training, in GCS, cleanse/transform and persist to BigQuery for use in the model training step.
 
 ![M3](../06-images/module-3-04.png)   
@@ -59,20 +59,24 @@ Navigate to BigQuery, and run the following query-
 SELECT * FROM `customer_churn_ds.training_data` LIMIT 1000
 ```
 The following is the author's results-
+
 ![M3](../06-images/module-3-10.png)   
 <br><br>
 
 
 ### 4.5. Visit the Dataproc UI for the session
+
 ![M3](../06-images/module-3-08.png)   
 <br><br>
 
 ### 4.6. Visit the Spark History Server UI for the session
+
 ![M3](../06-images/module-3-09.png)   
 <br><br>
 
 ### 4.6. Review the notebook equivalent PySpark script in GCS for this step
 For each notebook, there is complementary code in a PySpark script that will be used for operationalizing the model training Vertex AI pipeline.
+
 ![M3](../06-images/module-3-11.png)   
 <br><br>
 
@@ -114,7 +118,8 @@ Now that we have preprocessed data, lets create a model model.
 ![M3](../06-images/module-3-24.png)   
 <br><br>
 
-This JSON is persisted so it can be visualized in Vertex AI pipeline. For queryability, we also persist to BigQuery
+This JSON is persisted so it can be visualized in Vertex AI pipeline. For queryability, we also persist to BigQuery.
+
 ![M3](../06-images/module-3-25.png)   
 <br><br>
 
@@ -131,6 +136,7 @@ SELECT * FROM `customer_churn_ds.model_feature_importance_scores`
  WHERE operation='training'  
 ```
 The following is the author's output-
+
 ![M3](../06-images/module-3-21.png)   
 <br><br>
 
@@ -141,11 +147,20 @@ SELECT * FROM `customer_churn_ds.model_metrics`
  WHERE operation='training'  
 ```
 The following is the author's output-
+
 ![M3](../06-images/module-3-20.png)   
 <br><br>
 
 ### 5.8. Review the model test results in BigQuery
-Run the below query in BigQuery-
+Run the below queries in BigQuery-
+
+Just the predictions-
+```
+SELECT churn, prediction, *
+ FROM `customer_churn_ds.test_predictions` 
+ WHERE operation='training'
+```
+Confusion matrix-
 ```
 SELECT churn, prediction, count(*) as count
  FROM `customer_churn_ds.test_predictions` 
@@ -173,15 +188,67 @@ The confusion matrix-
 
 <hr>
 
-## 6. Step 3: Hyperparamater Tuning
+## 6. Step 3: Hyperparameter Tuning
 
-### 6.1. Run the model tuning notebook
+### 6.1. The exercise
 
-### 6.2. Review the model persisted in GCS
+This sub-module demonstrates hyperparameter tuning with Spark MLLib in an effort to improve model performance. 
 
-### 6.3. Review the model metrics persisted in BigQuery
+![M3](../06-images/module-3-28.png)   
+<br><br>
 
-### 6.4. Review the model test results in BigQuery
+### 6.2. Run the model tuning notebook
+Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes ~30 minutes to complete. If it fails midway, rerun the entire notebook.
+
+![M3](../06-images/module-3-29.png)   
+<br><br>
+
+### 6.3. Review the model persisted in GCS
+Notice that Spark Mllib creates a bestModel directory and persists the tuned model there. We will use the model in the bestModel directory for batch scoring.
+
+![M3](../06-images/module-3-31.png)   
+<br><br>
+
+### 6.4. Review the model metrics persisted in GCS
+Again, this for the Vertex AI pipeline which we will cover in the module after the next.
+
+![M3](../06-images/module-3-30.png)   
+<br><br>
+
+### 6.5. Review the model metrics persisted in BigQuery
+
+Run the below query in BigQuery-
+```
+SELECT * FROM `customer_churn_ds.model_metrics` 
+ WHERE operation='hyperparameter-tuning'
+```
+The following is the author's output-
+
+![M3](../06-images/module-3-32.png)   
+<br><br>
+
+
+### 6.5. Review the model test results in BigQuery
+
+Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
+```
+SELECT churn, prediction, *
+ FROM `customer_churn_ds.test_predictions` 
+ WHERE operation='hyperparameter-tuning'
+```
+
+```
+SELECT churn, prediction, count(*) as count
+ FROM `customer_churn_ds.test_predictions` 
+ WHERE operation='hyperparameter-tuning'
+GROUP BY churn, prediction ORDER BY churn
+```
+
+The following is the author's output-
+
+![M3](../06-images/module-3-33.png)   
+<br><br>
+
 
 <hr>
 
