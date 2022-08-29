@@ -46,11 +46,21 @@ Lets ensure we have the Serverless Spark kernel created in the prior module atta
 ![M3](../06-images/module-3-07.png)   
 <br><br>
 
-### 4.3. Run the pre-processing notebook
+### 4.3. Review the code in the pre-processing notebook and run the notebook
 
-
+![M3](../06-images/module-3-10.png)   
+<br><br>
 
 ### 4.4. Review the pre-processed data in BigQuery
+
+Navigate to BigQuery, and run the following query-
+```
+SELECT * FROM `customer_churn_ds.training_data` LIMIT 1000
+```
+The following is the author's results-
+![M3](../06-images/module-3-10.png)   
+<br><br>
+
 
 ### 4.5. Visit the Dataproc UI for the session
 ![M3](../06-images/module-3-08.png)   
@@ -61,7 +71,12 @@ Lets ensure we have the Serverless Spark kernel created in the prior module atta
 <br><br>
 
 ### 4.6. Review the notebook equivalent PySpark script in GCS for this step
+For each notebook, there is complementary code in a PySpark script that will be used for operationalizing the model training Vertex AI pipeline.
+![M3](../06-images/module-3-11.png)   
+<br><br>
 
+![M3](../06-images/module-3-12.png)   
+<br><br>
 <hr>
 
 ## 5. Step 2: Model Training
