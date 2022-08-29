@@ -15,6 +15,7 @@ This module covers environment provisioning for the workshop. This module takes 
 2. Read the lab guide for all the modules before trying out so you understand what its about.
 
 ## 1. Details about the environment that is setup by this module
+REPLACE WITH DIAGRAM
 
 | # | Services provisioned | Purpose  | 
 | -- | :--- | :--- |
