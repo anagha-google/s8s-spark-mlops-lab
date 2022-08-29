@@ -84,27 +84,36 @@ For each notebook, there is complementary code in a PySpark script that will be 
 
 Now that we have preprocessed data, lets create a model model.
 
-### 5.1. Run the model training notebook
+### 5.1. The exercise
+
+![M3](../06-images/module-3-15.png)   
+<br><br>
+
+### 5.2. Run the model training notebook
 1. Close the preprocessing notebook
 2. Shutdown kernel, leave spark interactive session active. 
 3. Open the model training notebook
 4. Review the code, run all cells as showin section 4.3 above
 
+![M3](../06-images/module-3-13.png)   
+<br><br>
+
+![M3](../06-images/module-3-14.png)   
+<br><br>
+
+### 5.3. Review the model persisted in GCS
 
 
-### 5.2. Review the model persisted in GCS
 
+### 5.4. Review the model metrics persisted in GCS
 
+### 5.5. Review the model metrics persisted in BigQuery
 
-### 5.3. Review the model metrics persisted in GCS
+### 5.6. Review the model feature importance scores persisted in BigQuery
 
-### 5.4. Review the model metrics persisted in BigQuery
+### 5.7. Review the model test results in BigQuery
 
-### 5.5. Review the model feature importance scores persisted in BigQuery
-
-### 5.6. Review the model test results in BigQuery
-
-### 5.7. Review the notebook equivalent PySpark script in GCS for this step
+### 5.8. Review the notebook equivalent PySpark script in GCS for this step
 
 <hr>
 
