@@ -4,29 +4,29 @@ This module covers how to use Vertex AI Workbench's "Managed Notebook Instance" 
 
 <hr>
 
-### 1. About Dataproc Serverless Spark Interactive
+## 1. About Dataproc Serverless Spark Interactive
 Dataproc Serverless Spark Interactive is serverless, Dataproc managed, autoscaling, private infrastructure for interactive Spark code authoring via a Jupyter notebook hosted on Vertex AI Managed Notebook instance. The following is an overview of what to expect. Further in this lab guide there is detailed instructions with a pictorial overview.
 
-#### 1a. Getting started - what's involved
+### 1a. Getting started - what's involved
 
 ![ABOUT](../06-images/module-2-summary-01.png)   
 <br><br>
 
 
-#### 1b. Create and using an Serverless Spark Interactive session in a notebook - what's involved
+### 1b. Create and using an Serverless Spark Interactive session in a notebook - what's involved
 
 ![ABOUT](../06-images/module-2-summary-02.png)   
 <br><br>
 
 
-#### 1c. Switching notebooks and reusing the Serverless Spark Interactive session
+### 1c. Switching notebooks and reusing the Serverless Spark Interactive session
 
 ![ABOUT](../06-images/module-2-summary-03.png)   
 <br><br>
 
 <hr>
 
-### 2. The exercise
+## 2. The exercise
 We will analyze Chicago Crimes in BigQuery from a Jupyer Notebook on Vertex AI Workbench - Managed Notebook Instance using dataproc Serverless Spark interactive sessions.
 
 ![EXERCISE](../06-images/module-2-summary-04.png)   
@@ -48,7 +48,7 @@ We will analyze Chicago Crimes in BigQuery from a Jupyer Notebook on Vertex AI W
 
 <hr>
 
-### 3. Varibles you will need for this module
+## 3. Varibles you will need for this module
 
 Run the below in Cloud Shell scoped to your project. The values in these variables are needed to create the interactive Spark session.
 
@@ -81,7 +81,7 @@ spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12
 
 <hr>
 
-### 4. Navigate on the Cloud Console to the Vertex AI Workbench, Managed Notebook Instance
+## 4. Navigate on the Cloud Console to the Vertex AI Workbench, Managed Notebook Instance
 Open JupyterLab as shown below
 
 ![UMNBS](../06-images/module-1-vai-wb-01.png)   
@@ -93,21 +93,21 @@ Open JupyterLab as shown below
 <hr>
 
 
-### 5. Open the Chicago Crimes notebook 
+## 5. Open the Chicago Crimes notebook 
 
 ![UMNBS](../06-images/module-2-01.png)   
 <br><br>
 
 <hr>
 
-### 6. Click on "Launcher" to create an interactive Spark session 
+## 6. Click on "Launcher" to create an interactive Spark session 
 
 ![UMNBS](../06-images/module-2-02.png)   
 <br><br>
 
 <hr>
 
-### 7. Key in/select from dropdown, details required
+## 7. Key in/select from dropdown, details required
 Note that the varibles run in Cloud shell have all the values you need to create the session. Copy paste where needed.
 
 ![UMNBS](../06-images/module-2-03.png)   
@@ -148,7 +148,7 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 
 <hr>
 
-### 8. Ensure you have the session you created, selected in the kernel picker dropdown
+## 8. Ensure you have the session you created, selected in the kernel picker dropdown
 
 ![UMNBS](../06-images/module-2-10.png)   
 <br><br>
@@ -157,7 +157,7 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 
 <hr>
 
-### 9. Place your cursor in the first cell, then following the instructions below, run all cells or run each cell sequentially
+## 9. Place your cursor in the first cell, then following the instructions below, run all cells or run each cell sequentially
 
 
 ![UMNBS](../06-images/module-2-11.png)   
@@ -168,7 +168,7 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 
 <hr>
 
-### 10. Close the notebook once the excerise is completed
+## 10. Close the notebook once the excerise is completed
 Save or discard changes as needed. Be sure to "keep session" though when prompted as you close the notebook.
 
 ![UMNBS](../06-images/module-2-13.png)   
