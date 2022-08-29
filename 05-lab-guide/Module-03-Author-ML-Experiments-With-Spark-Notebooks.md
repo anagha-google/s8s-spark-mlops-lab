@@ -31,6 +31,7 @@ Training and scoring data are available in GCS in the data bucket and the data i
 
 ### 4.1. About this step
 We will read customer churn raw source data for model training, in GCS, cleanse/transform and persist to BigQuery for use in the model training step.
+
 ![M3](../06-images/module-3-04.png)   
 <br><br>
 
