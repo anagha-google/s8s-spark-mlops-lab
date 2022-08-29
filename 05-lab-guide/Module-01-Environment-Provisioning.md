@@ -223,6 +223,6 @@ terraform destroy \
 <hr>
 
 ## 6. What's in the next module
-In the next module, we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
+In the [next module](../05-lab-guide/Module-02-Spark-IDE-on-GCP.md), we will learn how to use Serverless Spark interactive notebooks for machine learning model development with Spark MLLib on Dataproc Serverless Spark.
 
 <hr>
