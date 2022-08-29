@@ -34,14 +34,7 @@ We will read customer churn raw source data for model training, in GCS, cleanse/
 ![M3](../06-images/module-3-04.png)   
 <br><br>
 
-Quick recap - we created an interactive spark session in the prior module. The following show how to track the same in the Dataproc "Sessions" UI and also how to get to the Spark UI-
-![M3](../06-images/module-3-08.png)   
-<br><br>
-
-![M3](../06-images/module-3-09.png)   
-<br><br>
-
-### 4.2. Run the pre-processing notebook
+### 4.2. Switch the spark interactive kernel to the pre-processing notebook
 Lets ensure we have the Serverless Spark kernel created in the prior module attached to the pre-processing notebook. Follow the screenshots below-
 
 ![M3](../06-images/module-3-05.png)   
@@ -53,13 +46,19 @@ Lets ensure we have the Serverless Spark kernel created in the prior module atta
 ![M3](../06-images/module-3-07.png)   
 <br><br>
 
+### 4.3. Run the pre-processing notebook
 
 
-### 4.3. Review the pre-processed data in BigQuery
 
-### 4.4. Visit the Dataproc UI for the session
+### 4.4. Review the pre-processed data in BigQuery
 
-### 4.5. Visit the Spark History Server UI for the session
+### 4.5. Visit the Dataproc UI for the session
+![M3](../06-images/module-3-08.png)   
+<br><br>
+
+### 4.6. Visit the Spark History Server UI for the session
+![M3](../06-images/module-3-09.png)   
+<br><br>
 
 ### 4.6. Review the notebook equivalent PySpark script in GCS for this step
 
