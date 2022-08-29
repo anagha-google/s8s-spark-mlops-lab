@@ -45,7 +45,8 @@ Shut down/delete resources when done
 | # | Collaborator | Contribution  | 
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
-| 2. | Thomas Abraham<br>Ivan Nardini<br>Win Woo | Consultation, Integration samples, Vertex AI & Spark integration roadmap, & more |
+| 2. | Dr. Thomas Abraham | Guidance, testing and feedback |
+| 3. | Ivan Nardini<br>Win Woo | Consultation, integration samples, Vertex AI & Spark integration roadmap, & more |
 
 ## 12. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
