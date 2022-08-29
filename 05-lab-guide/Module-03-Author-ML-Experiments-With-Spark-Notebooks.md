@@ -19,7 +19,7 @@ Training and scoring data are available in GCS in the data bucket and the data i
 
 <hr>
 
-## 3. The environment for the module
+## 3. The environment & exercises in the module
 Vertex AI Workbench, Managed notebook instance all of which was pre-created as part of the Terraform deployent. We will reuse kernel created in the prior module.
 
 ![M3](../06-images/module-3-03.png)   
@@ -27,56 +27,51 @@ Vertex AI Workbench, Managed notebook instance all of which was pre-created as p
 
 <hr>
 
-## 4. The exercises in the module
+## 4. Step 1: Preprocessing
 
+### 4.1. Run the pre-processing notebook
 
-<hr>
+### 4.2. Review the pre-processed data in BigQuery
 
-## 5. Step 1: Preprocessing
+### 4.3. Visit the Dataproc UI for the session
 
-### 5.1. Run the pre-processing notebook
+### 4.4. Visit the Spark History Server UI for the session
 
-### 5.2. Review the pre-processed data in BigQuery
-
-### 5.3. Visit the Dataproc UI for the session
-
-### 5.4. Visit the Spark History Server UI for the session
-
-### 5.5. Review the notebook equivalent PySpark script in GCS for this step
+### 4.5. Review the notebook equivalent PySpark script in GCS for this step
 
 <hr>
 
-## 6. Step 2: Model Training
+## 5. Step 2: Model Training
 
-### 6.1. Run the model training notebook
+### 5.1. Run the model training notebook
+
+### 5.2. Review the model persisted in GCS
+
+### 5.3. Review the model metrics persisted in GCS
+
+### 5.4. Review the model metrics persisted in BigQuery
+
+### 5.5. Review the model feature importance scores persisted in BigQuery
+
+### 5.6. Review the model test results in BigQuery
+
+### 5.7. Review the notebook equivalent PySpark script in GCS for this step
+
+<hr>
+
+## 6. Step 3: Hyperparamater Tuning
+
+### 6.1. Run the model tuning notebook
 
 ### 6.2. Review the model persisted in GCS
 
-### 6.3. Review the model metrics persisted in GCS
+### 6.3. Review the model metrics persisted in BigQuery
 
-### 6.4. Review the model metrics persisted in BigQuery
-
-### 6.5. Review the model feature importance scores persisted in BigQuery
-
-### 6.6. Review the model test results in BigQuery
-
-### 6.7. Review the notebook equivalent PySpark script in GCS for this step
+### 6.4. Review the model test results in BigQuery
 
 <hr>
 
-## 7. Step 3: Hyperparamater Tuning
-
-### 7.1. Run the model tuning notebook
-
-### 7.2. Review the model persisted in GCS
-
-### 7.3. Review the model metrics persisted in BigQuery
-
-### 7.4. Review the model test results in BigQuery
-
-<hr>
-
-## 8. Step 4: Batch Scoring
+## 7. Step 4: Batch Scoring
 
 <hr>
 
