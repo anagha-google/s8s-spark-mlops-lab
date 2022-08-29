@@ -11,45 +11,18 @@ This module covers environment provisioning for the workshop. This module takes 
 6. Be sure to check out section 5 for glitches/nuances and workarounds.
 
 ## 1. Details about the environment that is setup by this module
-REPLACE WITH DIAGRAM
 
-| # | Services provisioned | Purpose  | 
-| -- | :--- | :--- |
-| 1. | VPC network | Many services in this workshop are VPC native |
-| 2. | Subnet | Same as above |
-| 3. | Reserved IP | For Private Service Access for Vertex AI Managed Notebook with BYO network |
-| 4. | VPC peering | To peer our VPC from #1 with that of Vertex AI tenant for Vertex AI Managed Notebook with BYO network |
-| 5. | Firewall rules | For Dataproc Spark Serverless |
-| 6. | Google Cloud Storage | Buckets for data, code, notebooks, pipelines, models, and more |
-| 7. | Persistent Spark History Server | For troubleshooting Dataproc Serverless Spark jobs |
-| 8. | BigQuery | For curated data for model training and prediction results, model metrics, feature important scores and more |
-| 9. | Vertex AI Workbench - User Managed Notebook Server | For authoring Vertex AI pipeline for MLOps |
-| 10. | Vertex AI Workbench - Managed Notebook Server | For interactive Serverless Spark notebooks  |
-| 11. | Google Container Registry |  For Serverless Spark custom container images |
-| 12. | Cloud Composer | For orchestrating batch scoring |
-| 13. | Dataproc Metastore | Placeholder for future evolution of the workshop |
-| 14. | Google Cloud Function  | To execute VAI pipeline for model training |
-| 15. | Cloud Scheduler | To invoke the cloud function on schedule to train models |
+![PICT](../06-images/module-1-pictorial-01.png)   
+<br><br>
 
-Further:
-| # | Other tasks in the Terraform | Purpose  | 
-| -- | :--- | :--- |
-| 16. | Enable Google APIs | For using services |
-| 17. | Update Organization policies | For provisioning services without errors |
-| 18. | Create User Managed Service Account  | For all operations |
-| 19. | Grant IAM permissions  | To self and to the service account |
-| 20. | Customize code  | Update various attributes within PySpark code, bash scripts, notebooks and more to reflect your deployment |
-| 21. | Upload Airflow DAG  | To Cloud Composer DAG folder<br> for ease |
-| 22. | Upload precreated (customized for your deployment) notebooks  | - To Vertex AI Managed Notebook instance<br> - To Vertex AI User-Managed Notebook instance <br> for ease|
-| 23. | Upload Vertex AI pipeline authoring notebook  | To Cloud Composer DAG folder |
-| 24. | Create Custom Spark Container image  | To simplify lab experience |
+![PICT](../06-images/module-1-pictorial-02.png)   
+<br><br>
 
-and more..<br><br>
+![PICT](../06-images/module-1-pictorial-03.png)   
+<br><br>
 
 ## Pictorial overview of services provisioned
 Available [here](../05-lab-guide/Services-Created.md)
-<br>
-
 
 <hr>
 
