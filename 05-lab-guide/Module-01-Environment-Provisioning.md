@@ -12,7 +12,9 @@ This module covers environment provisioning for the workshop. This module takes 
 
 ## 1. Details about the environment that is setup by this module
 
-![PICT](../06-images/module-1-pictorial-01.png | width=100)   
+
+
+<img src="../06-images/module-1-pictorial-01.png" width="200" height="400" />
 <br><br>
 
 ![PICT](../06-images/module-1-pictorial-02.png)   
