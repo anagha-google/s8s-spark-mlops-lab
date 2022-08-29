@@ -1,11 +1,11 @@
 # About
 
-This module covers how to use Vertex AI Workbench's "Managed Notebook Instance" for authoring Spark code in an interactive manner with Dataproc Serverless Spark interactive. Understanding creation of serveless Spark interactive sessions and notebook nuances is crucial for the next module where you will run actual machine learning experiments.
+This module covers how to use Vertex AI Workbench's "Managed Notebook Instance" for authoring Spark code in an interactive manner with Dataproc Serverless Spark interactive sessions. Understanding creation of serveless Spark interactive sessions and notebook nuances is crucial for the next module where you will run actual machine learning experiments.
 
 <hr>
 
 ### 1. About Dataproc Serverless Spark Interactive (README FIRST)
-Dataproc Serverless Spark Interactive is serverless Dataproc managed autoscaling infrastructure for interactive Spark code authoring via a Jupyter notebook hosted on Vertex AI Managed Notebook instance. The following are steps to author Spark code in an interactive fashion in a Spark notebook on GCP.<br>
+Dataproc Serverless Spark Interactive is serverless Dataproc with managed autoscaling private infrastructure for interactive Spark code authoring via a Jupyter notebook hosted on Vertex AI Managed Notebook instance. The following are steps to author Spark code in an interactive fashion in a Spark notebook on GCP.<br>
 
 *This is a listing FYI, further in this module, there is a step by step pictorial walk through.*
 
