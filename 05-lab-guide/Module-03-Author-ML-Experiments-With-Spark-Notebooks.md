@@ -165,7 +165,11 @@ The confusion matrix-
 
 ### 5.9. Review the notebook equivalent PySpark script in GCS for this step
 
+![M3](../06-images/module-3-26.png)   
+<br><br>
 
+![M3](../06-images/module-3-27.png)   
+<br><br>
 
 <hr>
 
