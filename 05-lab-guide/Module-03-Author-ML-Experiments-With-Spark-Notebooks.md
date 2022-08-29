@@ -8,21 +8,21 @@ Telco Customer Churn Prediction with a Kaggle dataset and Spark MLLib, Random Fo
 
 <hr>
 
-## 2. The data used in the experiment
+## 2. The environment & exercises in the module
+The environment for the module is Vertex AI Workbench, Managed notebook instance, custom container image for serverless Spark - pre-created as part of the Terraform deployent. We will reuse kernel created in the prior module. The following are the four exercises in the module.
+
+![M3](../06-images/module-3-03.png)   
+<br><br>
+
+<hr>
+
+## 3. The data used in the experiment
 Training and scoring data are available in GCS in the data bucket and the data is in CSV format.
 
 ![M3](../06-images/module-3-01.png)   
 <br><br>
 
 ![M3](../06-images/module-3-02.png)   
-<br><br>
-
-<hr>
-
-## 3. The environment & exercises in the module
-The environment for the module is Vertex AI Workbench, Managed notebook instance, custom container image for serverless Spark - pre-created as part of the Terraform deployent. We will reuse kernel created in the prior module. The following are the four exercises in the module.
-
-![M3](../06-images/module-3-03.png)   
 <br><br>
 
 <hr>
