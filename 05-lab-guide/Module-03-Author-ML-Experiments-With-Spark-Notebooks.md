@@ -153,11 +153,13 @@ SELECT churn, prediction, count(*) as count
 GROUP BY churn, prediction ORDER BY churn
 ```
 
-The following is the author's output.
+The following is the author's output-
+
 ![M3](../06-images/module-3-17.png)   
 <br><br>
 
 The confusion matrix-
+
 ![M3](../06-images/module-3-18.png)   
 <br><br>
 
