@@ -40,6 +40,18 @@ Lets ensure we have the Serverless Spark kernel created in the prior module atta
 ![M3](../06-images/module-3-05.png)   
 <br><br>
 
+![M3](../06-images/module-3-06.png)   
+<br><br>
+
+![M3](../06-images/module-3-07.png)   
+<br><br>
+
+![M3](../06-images/module-3-08.png)   
+<br><br>
+
+![M3](../06-images/module-3-09.png)   
+<br><br>
+
 ### 4.3. Review the pre-processed data in BigQuery
 
 ### 4.4. Visit the Dataproc UI for the session
