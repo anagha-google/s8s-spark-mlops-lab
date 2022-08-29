@@ -2,13 +2,15 @@
 
 
 ## 1. About
+
+REWRITE THIS<br>
 This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI AIML platform. The focus is on demystifying the products and integration (and not about a perfect model), and features a minimum viable example of telco **Customer Churn Prediction** with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn), and using [Random Forest classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier).
 
 ## 2. Format
 The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, notebooks, orchestration, commands, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience.
 
 ## 3. Level
-The level is arguable and depends on the individual's skills and experience with the paradigm, technology and cloud platform. In the author's opinion, the lab is loosely L300. 
+L300. 
 
 ## 4. Audience
 The intended audience is anyone with access to Google Cloud and interested in the features showcased and want to kick the tires.
@@ -26,6 +28,8 @@ Simplify your learning and adoption journey of our product stack for scalable da
 Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) and [Spark MLLib, Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
 
 ## 8. What's covered from an ML perspective<br> 
+
+REWRITE THIS, use diagram instead<br>
 
 ### 8.1. Authoring Spark Machine Learning Experiments
 Dataproc Serveress Spark interactive Jupyter notebooks on Vertex AI Workbench, Managed Notebook instance is the recommended solution for interactive authoring of Spark code, both Data Engineering and Machine Learning. For operationalizing, create pyspark script versions of the code authored in the notebooks. Spark notebook scheduling is not supported yet. <br>
@@ -64,7 +68,7 @@ Cloud Composer is a viable option for batch scoring on Serverless Spark as there
 If you are not seeing a capability core to ML lifecycle, it was likely not supported at the time of the authoring of this lab. Keeping the lab current is best effort. Community contributions are welcome.
 
 ## 8. Solution Architecture
-
+MOVE THIS FURTHER UP <br>
 
 ## 9. The lab modules
 Follow in sequential order.
