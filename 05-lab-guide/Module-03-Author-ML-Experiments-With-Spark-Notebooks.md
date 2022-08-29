@@ -103,11 +103,24 @@ Now that we have preprocessed data, lets create a model model.
 
 ### 5.3. Review the model persisted in GCS
 
-
+![M3](../06-images/module-3-22.png)   
+<br><br>
 
 ### 5.4. Review the model metrics persisted in GCS
 
+![M3](../06-images/module-3-23.png)   
+<br><br>
+
+![M3](../06-images/module-3-24.png)   
+<br><br>
+
+This JSON is persisted so it can be visualized in Vertex AI pipeline. For queryability, we also persist to BigQuery
+![M3](../06-images/module-3-25.png)   
+<br><br>
+
 ### 5.5. Review the model metrics persisted in BigQuery
+
+
 
 ### 5.6. Review the model feature importance scores persisted in BigQuery
 
