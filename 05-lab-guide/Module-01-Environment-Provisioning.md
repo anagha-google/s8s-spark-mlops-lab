@@ -12,13 +12,13 @@ This module covers environment provisioning for the workshop. This module takes 
 
 ## 1. Details about the environment that is setup by this module
 
-![PICT](../06-images/module-1-pictorial-01.png)   
+![PICT1](../06-images/module-1-pictorial-01.png)   
 <br><br>
 
-![PICT](../06-images/module-1-pictorial-02.png)   
+![PICT2](../06-images/module-1-pictorial-02.png)   
 <br><br>
 
-![PICT](../06-images/module-1-pictorial-03.png)   
+![PICT3](../06-images/module-1-pictorial-03.png)   
 <br><br>
 
 ## Pictorial walkthrough of services provisioned & customization
