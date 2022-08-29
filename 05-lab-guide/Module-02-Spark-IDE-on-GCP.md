@@ -9,38 +9,21 @@ Dataproc Serverless Spark Interactive is serverless Dataproc with managed autosc
 
 *This is a listing FYI, further in this module, there is a step by step pictorial walk through.*
 
-#### 1a. Create the notebook instance
-1. Create a Vertex AI Workbench managed notebook instance (one time)
-2. Open JupyterLab in #1
+#### 1a. Getting started - what's involved
 
-#### 1b. Create the Serverless Spark Interactive session in Jupyterlab
-4. Click on launcher
-5. Click on Serverless Spark
-6. Create an interactive session (needs allowlisting if not GA)
-7. Enter a session name
-8. Key in your User Managed Service Account
-9. Ensure the correct network settings are pre-populated
-10. Select the metastore if applicable
-11. Select the Persistent Spark History Server
-12. Enter the fully qualified path for the Spark custom container image
-13. Enter the package name for Spark BQ connector jar in the properties dialog
-14. Click submit
-15. You will see a kernel appear, pick the spark interactive session you created and hit select. And start authroing Spark code.
 
-#### 1c. What about switching notebooks?
-A spark interactive session can be attached to **just one notebook at any point of time**, by design.<br> 
-To work on a diffferent notebook, 
-1. In the left hand navigation bar, right click on the notboook with interactive session attached to it, and click on shut down kernel
-2. Then close the notebook 
-3. You will see a dialog asking if you want to keep or terminate the session - select "keep session"
-4. Open the next notebook
-5. Click on the kernel picker on the right top of the open notebook and select the interactive session you created.
-6. You can then start working with Spark in the notebook
+#### 1b. Create and using an Serverless Spark Interactive session in a notebook - what's involved
+
+
+#### 1c. Switching notebooks and reusing the Serverless Spark Interactive session
+
 
 <hr>
 
 ### 2. The exercise
-We will analyze Chicago crimes in this lab, based off of the Chicago Crimes public dataset in BigQuery. Vertex AI workbench is pre-created along with upload of a pre-created Chicago Crimes Analytics notebook into the managed notebook instance's /home/jupyter directory, ready for use. 
+We will analyze Chicago Crimes in BigQuery from a Jupyer Notebook on Vertex AI Workbench - Managed Notebook Instance using dataproc Serverless Spark interactive sessions.
+
+
 
 **Goals:**
 1. Understand how to create and attach a Dataproc Serverless Spark interactive session to your Jupyter notebook  
