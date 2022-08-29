@@ -16,7 +16,12 @@ The environment for the module is Vertex AI Workbench, Managed notebook instance
 
 <hr>
 
-## 3. The data used in the experiment
+## 3. Where we are in the model development lifecycle
+
+![M3](../06-images/module-3-38.png)   
+<br><br>
+
+## 4. The data used in the experiment
 Training and scoring data are available in GCS in the data bucket and the data is in CSV format.
 
 ![M3](../06-images/module-3-01.png)   
@@ -27,15 +32,15 @@ Training and scoring data are available in GCS in the data bucket and the data i
 
 <hr>
 
-## 4. Step 1: Preprocessing
+## 5. Step 1: Preprocessing
 
-### 4.1. The exercise
+### 5.1. The exercise
 We will read customer churn raw source data for model training, in GCS, cleanse/transform and persist to BigQuery for use in the model training step.
 
 ![M3](../06-images/module-3-04.png)   
 <br><br>
 
-### 4.2. Switch the spark interactive kernel to the pre-processing notebook
+### 5.2. Switch the spark interactive kernel to the pre-processing notebook
 Lets ensure we have the Serverless Spark kernel created in the prior module attached to the pre-processing notebook. Follow the screenshots below-
 
 ![M3](../06-images/module-3-05.png)   
@@ -47,12 +52,12 @@ Lets ensure we have the Serverless Spark kernel created in the prior module atta
 ![M3](../06-images/module-3-07.png)   
 <br><br>
 
-### 4.3. Review the code in the pre-processing notebook and run the notebook
+### 5.3. Review the code in the pre-processing notebook and run the notebook
 
 ![M3](../06-images/module-3-10.png)   
 <br><br>
 
-### 4.4. Review the pre-processed data in BigQuery
+### 5.4. Review the pre-processed data in BigQuery
 
 Navigate to BigQuery, and run the following query-
 ```
@@ -64,17 +69,17 @@ The following is the author's results-
 <br><br>
 
 
-### 4.5. Visit the Dataproc UI for the session
+### 5.5. Visit the Dataproc UI for the session
 
 ![M3](../06-images/module-3-08.png)   
 <br><br>
 
-### 4.6. Visit the Spark History Server UI for the session
+### 5.6. Visit the Spark History Server UI for the session
 
 ![M3](../06-images/module-3-09.png)   
 <br><br>
 
-### 4.6. Review the notebook equivalent PySpark script in GCS for this step
+### 5.7. Review the notebook equivalent PySpark script in GCS for this step
 For each notebook, there is complementary code in a PySpark script that will be used for operationalizing the model training Vertex AI pipeline.
 
 ![M3](../06-images/module-3-11.png)   
@@ -84,16 +89,16 @@ For each notebook, there is complementary code in a PySpark script that will be 
 <br><br>
 <hr>
 
-## 5. Step 2: Model Training
+## 6. Step 2: Model Training
 
 Now that we have preprocessed data, lets create a model model.
 
-### 5.1. The exercise
+### 6.1. The exercise
 
 ![M3](../06-images/module-3-15.png)   
 <br><br>
 
-### 5.2. Run the model training notebook
+### 6.2. Run the model training notebook
 1. Close the preprocessing notebook
 2. Shutdown kernel, leave spark interactive session active. 
 3. Open the model training notebook
@@ -105,12 +110,12 @@ Now that we have preprocessed data, lets create a model model.
 ![M3](../06-images/module-3-14.png)   
 <br><br>
 
-### 5.3. Review the model persisted in GCS
+### 6.3. Review the model persisted in GCS
 
 ![M3](../06-images/module-3-22.png)   
 <br><br>
 
-### 5.4. Review the model metrics persisted in GCS
+### 6.4. Review the model metrics persisted in GCS
 
 ![M3](../06-images/module-3-23.png)   
 <br><br>
@@ -123,7 +128,7 @@ This JSON is persisted so it can be visualized in Vertex AI pipeline. For querya
 ![M3](../06-images/module-3-25.png)   
 <br><br>
 
-### 5.5. The tables created in BigQuery for the experiment
+### 6.5. The tables created in BigQuery for the experiment
 The following tables are created and written to in append mode.
 
 ![M3](../06-images/module-3-16.png)   
@@ -131,7 +136,7 @@ The following tables are created and written to in append mode.
 
 **Notice the columns for the tables. There is a pipeline_id column and a pipeline_execution_dt for traceability/lineage tracking.**
 
-### 5.6. Review the model feature importance scores persisted in BigQuery
+### 6.6. Review the model feature importance scores persisted in BigQuery
 Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
 SELECT * FROM `customer_churn_ds.model_feature_importance_scores`
@@ -142,7 +147,7 @@ The following is the author's output-
 ![M3](../06-images/module-3-21.png)   
 <br><br>
 
-### 5.7. Review the model metrics persisted in BigQuery
+### 6.7. Review the model metrics persisted in BigQuery
 Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
 SELECT * FROM `customer_churn_ds.model_metrics` 
@@ -153,7 +158,7 @@ The following is the author's output-
 ![M3](../06-images/module-3-20.png)   
 <br><br>
 
-### 5.8. Review the model test results in BigQuery
+### 6.8. Review the model test results in BigQuery
 Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 
 Just the predictions-
@@ -180,7 +185,7 @@ The confusion matrix-
 ![M3](../06-images/module-3-18.png)   
 <br><br>
 
-### 5.9. Review the notebook equivalent PySpark script in GCS for this step
+### 6.9. Review the notebook equivalent PySpark script in GCS for this step
 
 ![M3](../06-images/module-3-26.png)   
 <br><br>
@@ -190,34 +195,34 @@ The confusion matrix-
 
 <hr>
 
-## 6. Step 3: Hyperparameter Tuning
+## 7. Step 3: Hyperparameter Tuning
 
-### 6.1. The exercise
+### 7.1. The exercise
 
 This sub-module demonstrates hyperparameter tuning with Spark MLLib in an effort to improve model performance. 
 
 ![M3](../06-images/module-3-28.png)   
 <br><br>
 
-### 6.2. Run the model tuning notebook
+### 7.2. Run the model tuning notebook
 Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes ~30 minutes to complete. If it fails midway, rerun the entire notebook.
 
 ![M3](../06-images/module-3-29.png)   
 <br><br>
 
-### 6.3. Review the model persisted in GCS
+### 7.3. Review the model persisted in GCS
 Notice that Spark Mllib creates a bestModel directory and persists the tuned model there. We will use the model in the bestModel directory for batch scoring.
 
 ![M3](../06-images/module-3-31.png)   
 <br><br>
 
-### 6.4. Review the model metrics persisted in GCS
+### 7.4. Review the model metrics persisted in GCS
 Again, this for the Vertex AI pipeline which we will cover in the module after the next.
 
 ![M3](../06-images/module-3-30.png)   
 <br><br>
 
-### 6.5. Review the model metrics persisted in BigQuery
+### 7.5. Review the model metrics persisted in BigQuery
 
 Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
@@ -230,7 +235,7 @@ The following is the author's output-
 <br><br>
 
 
-### 6.5. Review the model test results in BigQuery
+### 7.6. Review the model test results in BigQuery
 
 Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
@@ -254,15 +259,15 @@ The following is the author's output-
 
 <hr>
 
-## 7. Step 4: Batch Scoring
+## 8. Step 4: Batch Scoring
 
-### 7.1. The exercise
+### 8.1. The exercise
 In this sub-module, we will use the best model from the hyperparameter tuning exercise and complete batch scoring. The source is in GCS. We will transform, run predictions and persist results to BigQuery.
 
 ![M3](../06-images/module-3-34.png)   
 <br><br>
 
-### 7.2. Run the batch scoring notebook
+### 8.2. Run the batch scoring notebook
 Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes <5 minutes to complete. 
 
 #### Note
@@ -282,7 +287,7 @@ SELECT DISTINCT pipeline_id
 <br><br>
 
 
-### 7.3. Review the batch scoring results in BigQuery
+### 8.3. Review the batch scoring results in BigQuery
 Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes <5 minutes to complete. 
 
 Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
@@ -299,7 +304,7 @@ The following is the author's output-
 
 <hr>
 
-## 8. Lineage/Traceability
+## 9. Lineage/Traceability
 
 The author has created a pipeline ID and model version for tracking and the same attributes are added to all datasets, directories in GCS and wherever else applicable for traceability.
 
