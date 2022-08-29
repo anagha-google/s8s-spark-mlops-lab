@@ -50,7 +50,7 @@ We will analyze Chicago Crimes in BigQuery from a Jupyer Notebook on Vertex AI W
 
 ## 3. Varibles you will need for this module
 
-Run the below in Cloud Shell scoped to your project. The values in these variables are needed to create the interactive Spark session.
+Run the below in Cloud Shell scoped to your project. The values in these variables are needed to create the interactive Spark session - you will need to paste these into the User Interface.
 
 ```
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
