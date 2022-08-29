@@ -127,8 +127,9 @@ terraform apply \
 
 <hr>
 
-## 3. Validate the deployment
-You should see the services provisioned as shown in the screenshots at [link](../05-lab-guide/Services-Created.md)
+## 3. Validate your Terraform deployment against a pictorial overview of services provisioned & customization
+Available [here](../05-lab-guide/Services-Created.md)
+
 
 <hr>
 
