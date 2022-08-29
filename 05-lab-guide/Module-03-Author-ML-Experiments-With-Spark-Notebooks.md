@@ -20,7 +20,7 @@ Training and scoring data are available in GCS in the data bucket and the data i
 <hr>
 
 ## 3. The environment & exercises in the module
-Vertex AI Workbench, Managed notebook instance all of which was pre-created as part of the Terraform deployent. We will reuse kernel created in the prior module.
+The environment for the module is Vertex AI Workbench, Managed notebook instance - pre-created as part of the Terraform deployent. We will reuse kernel created in the prior module. The following are the four exercises in the module.
 
 ![M3](../06-images/module-3-03.png)   
 <br><br>
