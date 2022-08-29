@@ -25,10 +25,10 @@ Dataproc Serverless Spark Interactive is serverless Dataproc with managed autosc
 12. Enter the fully qualified path for the Spark custom container image
 13. Enter the package name for Spark BQ connector jar in the properties dialog
 14. Click submit
-15. You will see a kernel appear, pick the spark interactive session you created and hit select
+15. You will see a kernel appear, pick the spark interactive session you created and hit select. And start authroing Spark code.
 
 #### 1c. What about switching notebooks?
-A spark interactive session can be attached to just one notebook at any point of time, by design.<br> 
+A spark interactive session can be attached to **just one notebook at any point of time**, by design.<br> 
 To work on a diffferent notebook, 
 1. In the left hand navigation bar, right click on the notboook with interactive session attached to it, and click on shut down kernel
 2. Then close the notebook 
