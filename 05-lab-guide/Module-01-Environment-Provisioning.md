@@ -12,8 +12,8 @@ This module covers environment provisioning for the workshop. This module takes 
 
 ## 1. Details about the environment that is setup by this module
 
-Enable Google APIs<br>
-Update organization policies <br>
+Enables Google APIs<br>
+Updates organization policies <br>
 And then..
 <br><br>
 
