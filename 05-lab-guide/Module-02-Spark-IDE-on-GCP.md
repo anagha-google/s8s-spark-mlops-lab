@@ -40,7 +40,14 @@ To work on a diffferent notebook,
 <hr>
 
 ### 2. The exercise
-We will analyze Chicago crimes in this lab, based off of the Chicago Crimes public dataset in BigQuery. There is a precreated notebook that we will go through for the experience. 
+We will analyze Chicago crimes in this lab, based off of the Chicago Crimes public dataset in BigQuery. Vertex AI workbench is pre-created along with upload of a pre-created Chicago Crimes Analytics notebook into the managed notebook instance's /home/jupyter directory, ready for use. 
+
+**Goals:**
+1. Understand how to create and attach a Dataproc Serverless Spark interactive session to your Jupyter notebook  
+2. Learn how to switch the Dataproc Serverless Spark interactive session created, between notebooks
+3. Learn to navigate Dataproc UI for the Serverless Spark interactive session 
+4. Browse the Spark UI of the persistent Spark History Server, for the Serverless Spark interactive session 
+5. Learn how to anayze data in BigQuery using the BigQuery Spark connector.
 
 **Pre-requisite:**
 1. Ensure that any preview features are allow-listed by product engineering, ahead of time
