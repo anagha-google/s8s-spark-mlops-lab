@@ -70,8 +70,8 @@ If you are not seeing a capability core to ML lifecycle, it was likely not suppo
 Follow in sequential order.
 | # | Module | 
 | -- | :--- |
-| 01 |  [Terraform for environment provisioning](../05-lab-guide/Module-01-Environment-Provisioning.md)|
-| 02 |  [Tutorial on Dataproc Serverless Spark Interactive Sessions for authroing Spark code](../05-lab-guide/Module-02-Spark-IDE-on-GCP.md)|
+| 01 |  [Terraform for environment provisioning](05-lab-guide/Module-01-Environment-Provisioning.md))|
+| 02 |  [Tutorial on Dataproc Serverless Spark Interactive Sessions for authroing Spark code](05-lab-guide/Module-02-Spark-IDE-on-GCP.md)|
 
 ## 10. Dont forget to 
 Shut down/delete resources when done
