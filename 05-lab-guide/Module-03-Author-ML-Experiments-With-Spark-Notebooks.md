@@ -124,13 +124,46 @@ The following tables are created and written to in append mode.
 ![M3](../06-images/module-3-16.png)   
 <br><br>
 
-
-
 ### 5.6. Review the model feature importance scores persisted in BigQuery
+Run the below query in BigQuery-
+```
+SELECT * FROM `customer_churn_ds.model_feature_importance_scores`
+ WHERE operation='training'  
+```
+The following is the author's output-
+![M3](../06-images/module-3-21.png)   
+<br><br>
 
-### 5.7. Review the model test results in BigQuery
+### 5.7. Review the model metrics persisted in BigQuery
+Run the below query in BigQuery-
+```
+SELECT * FROM `customer_churn_ds.model_metrics` 
+ WHERE operation='training'  
+```
+The following is the author's output-
+![M3](../06-images/module-3-20.png)   
+<br><br>
 
-### 5.8. Review the notebook equivalent PySpark script in GCS for this step
+### 5.8. Review the model test results in BigQuery
+Run the below query in BigQuery-
+```
+SELECT churn, prediction, count(*) as count
+ FROM `customer_churn_ds.test_predictions` 
+ WHERE operation='training'
+GROUP BY churn, prediction ORDER BY churn
+```
+
+The following is the author's output.
+![M3](../06-images/module-3-17.png)   
+<br><br>
+
+The confusion matrix-
+![M3](../06-images/module-3-18.png)   
+<br><br>
+
+### 5.9. Review the notebook equivalent PySpark script in GCS for this step
+
+
 
 <hr>
 
