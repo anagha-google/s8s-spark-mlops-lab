@@ -76,7 +76,7 @@ Follow in sequential order.
 ## 10. Dont forget to 
 Shut down/delete resources when done
 
-## 11. Credits & Resources
+## 11. Credits
 | # | Collaborator | Contribution  | 
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Author - workshop vision, design, code, terraform automation, lab guide |
