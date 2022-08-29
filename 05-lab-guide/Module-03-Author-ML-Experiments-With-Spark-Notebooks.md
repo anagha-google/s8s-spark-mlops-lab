@@ -118,7 +118,11 @@ This JSON is persisted so it can be visualized in Vertex AI pipeline. For querya
 ![M3](../06-images/module-3-25.png)   
 <br><br>
 
-### 5.5. Review the model metrics persisted in BigQuery
+### 5.5. The tables created in BigQuery for the experiment
+The following tables are created and written to in append mode.
+
+![M3](../06-images/module-3-16.png)   
+<br><br>
 
 
 
