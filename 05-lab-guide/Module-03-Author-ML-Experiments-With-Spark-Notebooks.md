@@ -29,15 +29,19 @@ The environment for the module is Vertex AI Workbench, Managed notebook instance
 
 ## 4. Step 1: Preprocessing
 
-### 4.1. Run the pre-processing notebook
+### 4.1. About this step
+We will read customer churn raw source data for model training, in GCS, cleanse/transform and persist to BigQuery for use in the model training step.
 
-### 4.2. Review the pre-processed data in BigQuery
 
-### 4.3. Visit the Dataproc UI for the session
+### 4.2. Run the pre-processing notebook
 
-### 4.4. Visit the Spark History Server UI for the session
+### 4.3. Review the pre-processed data in BigQuery
 
-### 4.5. Review the notebook equivalent PySpark script in GCS for this step
+### 4.4. Visit the Dataproc UI for the session
+
+### 4.5. Visit the Spark History Server UI for the session
+
+### 4.6. Review the notebook equivalent PySpark script in GCS for this step
 
 <hr>
 
