@@ -254,6 +254,33 @@ The following is the author's output-
 
 ## 7. Step 4: Batch Scoring
 
+### 7.1. The exercise
+In this sub-module, we will use the best model from the hyperparameter tuning exercise and complete batch scoring. The source is in GCS. We will transform, run predictions and persist results to BigQuery.
+
+![M3](../06-images/module-3-34.png)   
+<br><br>
+
+### 7.2. Run the batch scoring notebook
+Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes <5 minutes to complete. 
+
+![M3](../06-images/module-3-35.png)   
+<br><br>
+
+### 7.3. Review the batch scoring results in BigQuery
+Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes <5 minutes to complete. 
+
+Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
+```
+SELECT *
+ FROM `customer_churn_ds.test_predictions` 
+ WHERE operation='hyperparameter-tuning'
+```
+
+The following is the author's output-
+
+![M3](../06-images/module-3-36.png)   
+<br><br>
+
 <hr>
 
-This concludes the lab module where you learned to author ML experiments on interactive Spark notebooks. Proceed to the next module where you will learn to execute equivalent Spark ML PySpark scripts via command line powered by Dataproc Serverless Spark batches.
+This concludes the lab module where you learned to author ML experiments on interactive Spark notebooks. Proceed to the [next module](../05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md) where you will learn to execute equivalent Spark ML PySpark scripts via command line powered by Dataproc Serverless Spark batches.
