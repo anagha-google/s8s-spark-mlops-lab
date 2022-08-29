@@ -54,7 +54,7 @@ We will analyze Chicago crimes in this lab, based off of the Chicago Crimes publ
 2. Provisioning from module 1 needs to be successfully completed
 
 **Note:**
-If the notebook is not editable, make a copy and use the same.
+<br>If the notebook is not editable, make a copy and use the same.
 
 <hr>
 
