@@ -183,6 +183,8 @@ with models.DAG(
 
 ### 7.2. Edit the Airflow varibale for Model Version
 
+Takes about 10 minutes to update.
+
 ![M8](../06-images/module-8-05.png)   
 <br><br>
 
@@ -197,3 +199,60 @@ with models.DAG(
 
 ![M8](../06-images/module-8-08.png)   
 <br><br>
+
+### 7.3. Open the Customer Churn DAG in the Airflow UI & trigger its execution manually
+
+![M8](../06-images/module-8-09.png)   
+<br><br>
+
+### 7.4. Monitor the DAG execution
+
+![M8](../06-images/module-8-10.png)   
+<br><br>
+
+![M8](../06-images/module-8-11.png)   
+<br><br>
+
+![M8](../06-images/module-8-12.png)   
+<br><br>
+
+![M8](../06-images/module-8-13.png)   
+<br><br>
+
+![M8](../06-images/module-8-14.png)   
+<br><br>
+
+![M8](../06-images/module-8-15.png)   
+<br><br>
+
+![M8](../06-images/module-8-16.png)   
+<br><br>
+
+![M8](../06-images/module-8-17.png)   
+<br><br>
+
+
+
+### 7.5. Review the results in BigQuery
+Find your pipeline_id in the Dataproc batches UI and edit the query below to reflect your pipeline_id.
+```
+SELECT * FROM `customer_churn_ds.batch_predictions` 
+WHERE pipeline_id='YOUR_PIPELINE_ID'
+```
+
+![M8](../06-images/module-8-18.png)   
+<br><br>
+
+![M8](../06-images/module-8-19.png)   
+<br><br>
+
+The following is the author's results-
+
+
+
+<hr>
+
+This concludes the lab. Be sure to shut down the project to avoid incurring billing charges. Return to [lab home](../../README.md).
+
+<hr>
+
