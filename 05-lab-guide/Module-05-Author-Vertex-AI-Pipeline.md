@@ -40,7 +40,7 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 | 1 | Development Environment for Model Training<br>and<br>corressponding Spark Infrastructure| Yes | Vertex AI Workbench Managed Notebook<br>with<br>Dataproc Serverless Spark Interactive Sessions | | Preview as of 8/22|
 | 2 | Orchestration solution for Model Training | Yes | Vertex AI Managed Pipelines | | Preview as of 8/22|
 | 3 | Development Environment for Model Training Orchestration | Yes | Vertex AI Workbench User-Managed Notebooks | | |
-| 4 | Spark Infrastructure for Orchestrated Model Training  | Yes | Dataproc Serverless Spark Batches | | |
+| 4 | Spark Infrastructure for Model Training Orchestration  | Yes | Dataproc Serverless Spark Batches | | |
 | 5 | Scheduling solution for Model Training Pipeline  | Yes | Cloud Scheduler<br>calling<br>Cloud Function<br>calling<br>Vertex AI pipeline REST API | | |
 | 6 | Model Registry  | No | | Persist to GCS | |
 | 7 | Training Dataset  | Yes | Vertex AI managed datasets |  | |
