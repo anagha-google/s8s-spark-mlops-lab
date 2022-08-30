@@ -126,7 +126,7 @@ Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and D
 <br><br>
 
 
-#### 6.5.2. Model training
+#### 6.5.3. Model training
 
 ![M5](../06-images/module-5-15.png)   
 <br><br>
@@ -135,19 +135,70 @@ Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and D
 <br><br>
 
 
-### 6.7. View the metrics from the model training step
+#### 6.7. Model evaluation 
 
+![M5](../06-images/module-5-17.png)   
+<br><br>
 
+##### 6.7.1. Metrics
 
-### 6.8. View the plots from the model training step
+Click on the metrics artifact icon on the canvas and review the metrics on the right side of the canvas.
 
+![M5](../06-images/module-5-18.png)   
+<br><br>
 
-### 6.9. Study the pipeline JSON - last cell of the notebook
+##### 6.7.2. Plots
 
+Click on the plots artifact icon on the canvas and review the Confusion Matrix on the right side of the canvas.
 
+![M5](../06-images/module-5-19.png)   
+<br><br>
+
+Scroll to see the RoC curve below the Confusion Matrix
+
+![M5](../06-images/module-5-20.png)   
+<br><br>
+
+### 6.8. Conditional hyperparameter tuning
+
+Review the notebook code for the AUPR threshold set and observe the hyperparameter tuning conditional execution
+
+![M5](../06-images/module-5-21.png)   
+<br><br>
+
+![M5](../06-images/module-5-22.png)   
+<br><br>
+
+Observe that the best model is persisted in GCS. We will use this for batch scoring.
+
+![M5](../06-images/module-5-23.png)   
+<br><br>
+
+### 6.9. Pipeline completion
+
+![M5](../06-images/module-5-26.png)   
+<br><br>
+
+![M5](../06-images/module-5-27.png)   
+<br><br>
+
+### 6.9. Study the pipeline JSON 
+
+![M5](../06-images/module-5-24.png)   
+<br><br>
+
+![M5](../06-images/module-5-25.png)   
+<br><br>
 
 ## 7. Test the JSON via Vertex AI pipeline UI
 
+- All the 3 PySpark jobs expect a pipeline ID parameter
+- The pipeline ID is intended to be the same for lineage/traceability/versioning
+- Notice that the pipeline JSON has the pipeline ID hardcoded from the execution via the notebook
+- Download the JSON to your machine
+- Lets upload it to the UI
+- We will have to modify all the parameters where there is an existing pipeline ID. Lets replace with 123456 as the pipeline ID and run it
+- Submit the pipeline via the UI after the notebook submission completes - you may not have enough compute cores for parallel runs although they wont clash whatsoever
 
 
 
