@@ -10,7 +10,7 @@ This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/late
 The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, notebooks, orchestration, commands, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience.
 
 ## 3. Level
-L300. 
+L300 - framework (Spark), services/products, integration 
 
 ## 4. Audience
 The intended audience is anyone with (access to Google Cloud and) interest in the features showcased.
