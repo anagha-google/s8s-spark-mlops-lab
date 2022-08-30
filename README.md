@@ -49,7 +49,7 @@ Complete the lab modules in a sequential manner. For a better lab experience, re
 Shut down/delete resources when done
 
 ## 13. Credits
-| # | Google Cloud Collaborator | Contribution  | 
+| # | Google Cloud Collaborators | Contribution  | 
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
 | 2. | Dr. Thomas Abraham | Guidance, testing, best practices and feedback |
