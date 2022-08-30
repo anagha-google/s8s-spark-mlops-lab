@@ -217,6 +217,32 @@ Open the JSON and review all the nodes and elements in it. The runtime parameter
 - Submit the pipeline via the UI after the notebook submission completes - you may not have enough compute cores for parallel runs although they wont clash whatsoever
 
 
+![M5](../06-images/module-5-26.png)   
+<br><br>
+
+![M5](../06-images/module-5-27.png)   
+<br><br>
+
+![M5](../06-images/module-5-28.png)   
+<br><br>
+
+![M5](../06-images/module-5-29.png)   
+<br><br>
+
+![M5](../06-images/module-5-30.png)   
+<br><br>
+
+![M5](../06-images/module-5-31.png)   
+<br><br>
+
+![M5](../06-images/module-5-32.png)   
+<br><br>
+
+![M5](../06-images/module-5-33.png)   
+<br><br>
+
+![M5](../06-images/module-5-34.png)   
+<br><br>
 
 <hr>
 
