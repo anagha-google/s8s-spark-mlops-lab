@@ -293,7 +293,7 @@ Switch the serverless Spark interactive kernel to this notebook and run the enti
 Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
 SELECT *
- FROM `customer_churn_ds.test_predictions` 
+ FROM `customer_churn_ds.batch_predictions` 
  WHERE operation='hyperparameter-tuning'
 ```
 
