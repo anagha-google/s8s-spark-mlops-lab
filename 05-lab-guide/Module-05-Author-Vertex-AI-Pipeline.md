@@ -37,7 +37,10 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 
 | # | Feature | Supported? |  Recommended Product/Service | Workaround | Nuances/Comments | 
 | -- | :--- | :--- |:--- |:--- |:--- |
-| 1 | Model training development | Yes | Vertex AI Workbench Managed Notebook with Dataproc Serverless Spark Interactive sessions | | Preview|
+| 1 | Model training development | Yes | Vertex AI Workbench Managed Notebook with Dataproc Serverless Spark Interactive sessions | | Preview as of 8/22|
+| 2 | Model training orchestration  | Yes | Vertex AI Managed Pipelines | | Preview as of 8/22|
+| 3 | Model training orchestration development | Yes | Vertex AI Workbench User-Managed Notebooks | | |
+| 4 | Spark infrastructure for orchestrated model training  | Yes | Dataproc Serverless Spark Batches | | |
 
 ### 4.3. Taking a pipeline developed in a notebook to production - steps involved
 
