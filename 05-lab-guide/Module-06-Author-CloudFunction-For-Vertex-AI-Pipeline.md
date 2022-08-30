@@ -121,7 +121,10 @@ Follow at least a couple steps through completion.
 <br><br>
 
 <hr>
+
 This concludes the module. In the [next module](../05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md), we will create a Cloud Scheduler job for time based execution of the model training pipeline.
+
 <hr>
+
 
 
