@@ -6,8 +6,10 @@
 REWRITE THIS<br>
 This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI AIML platform. The focus is on demystifying the products and integration (and not about a perfect model), and features a minimum viable end to end machine learning use case.
 
-## 2. Format
-The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, notebooks, orchestration, commands, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience.
+<br><br>
+
+## 2. Format & Duration
+The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, notebooks, orchestration, commands, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience. Expect to spend 5-6 hours to fully understand and execute if new to GCP and the services.
 
 ## 3. Level
 L300 - framework (Spark), services/products, integration 
@@ -27,11 +29,13 @@ Simplify your learning and adoption journey of our product stack for scalable da
 ## 7. Use case covered
 Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) and [Spark MLLib, Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
 
-## 8. Solution Architecture
+## 8. GCP services used in the lab
 
-## 9. Flow of the lab<br> 
+## 9. Solution Architecture
 
-## 10. The lab modules
+## 10. Flow of the lab
+
+## 11. The lab modules
 Follow in sequential order.
 | # | Module | 
 | -- | :--- |
@@ -44,16 +48,16 @@ Follow in sequential order.
 | 07 |  [Create a Cloud Scheduler job that invokes the Cloud Function you created](../05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md)|
 | 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](../05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)|
 
-## 10. Dont forget to 
+## 12. Dont forget to 
 Shut down/delete resources when done
 
-## 11. Credits
+## 13. Credits
 | # | Collaborator | Contribution  | 
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
 | 2. | Dr. Thomas Abraham | Guidance, testing and feedback |
 | 3. | Ivan Nardini<br>Win Woo | Consultation, integration samples, Vertex AI & Spark integration roadmap, & more |
 
-## 12. Contributions welcome
+## 14. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
 
