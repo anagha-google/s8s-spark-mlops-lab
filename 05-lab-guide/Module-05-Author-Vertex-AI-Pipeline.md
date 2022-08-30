@@ -35,12 +35,22 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 
 ### 4.2. What is supported/recommended for Spark ML models in Vertex AI from an MLOps perspective?
 
-| # | Feature | Supported? |  Recommended Product/Service | Workaround | Nuances/Comments | 
+| # | Feature/Function | Supported? |  Recommended Product/Service | Workaround | Nuances/Comments | 
 | -- | :--- | :--- |:--- |:--- |:--- |
-| 1 | Model training development environment<br>and<br>Spark infrastructure for development | Yes | Vertex AI Workbench Managed Notebook<br>with<br>Dataproc Serverless Spark Interactive sessions | | Preview as of 8/22|
-| 2 | Model training orchestration  | Yes | Vertex AI Managed Pipelines | | Preview as of 8/22|
-| 3 | Model training orchestration development | Yes | Vertex AI Workbench User-Managed Notebooks | | |
-| 4 | Spark infrastructure for orchestrated model training  | Yes | Dataproc Serverless Spark Batches | | |
+| 1 | Development Environment for Model Training<br>and<br>corressponding Spark Infrastructure| Yes | Vertex AI Workbench Managed Notebook<br>with<br>Dataproc Serverless Spark Interactive sessions | | Preview as of 8/22|
+| 2 | Orchestration solution for Model Training | Yes | Vertex AI Managed Pipelines | | Preview as of 8/22|
+| 3 | Development Environment for Model Training Orchestration | Yes | Vertex AI Workbench User-Managed Notebooks | | |
+| 4 | Spark Infrastructure for Orchestrated Model Training  | Yes | Dataproc Serverless Spark Batches | | |
+| 5 | Scheduling solution for Model Training Pipeline  | Yes | Cloud Scheduler<br>calling<br>Cloud Function<br>calling<br>Vertex AI pipeline REST API | | |
+| 6 | Model Registry  | No | | Persist to GCS | |
+| 7 | Training Dataset  | Yes | Vertex AI managed datasets |  | |
+| 8 | Feature Store  | Yes | Vertex AI managed datasets |  | |
+| 9 | Model Metadata  | Yes | Vertex AI metadata |  | |
+| 10 | Solution for Batch Scoring  | Yes | Dataproc Serverless Spark Batches  |  | Vertex AI batches can be used but requires MLEAP package which does not support recent versions of Spark |
+| 11 | Solution for (near) Real Time/Stream Scoring  | Yes | Dataproc Spark on GCE  |  |  |
+| 12 | Solution for Online/On-demand Scoring  | Yes | Vertex AI online serving  |  | Requires MLEAP package which does not support recent versions of Spark |
+| 13 | Explainability | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP package which does not support recent versions of Spark |
+| 14 | Model Monitoring | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP package which does not support recent versions of Spark |
 
 ### 4.3. Taking a pipeline developed in a notebook to production - steps involved
 
