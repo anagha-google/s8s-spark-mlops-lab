@@ -1,5 +1,5 @@
 
-# About
+# About Module 6
 
 In this module we will create a Cloud Function that executes a Vertex AI pipeline on-demand based off of a pipeline JSON in GCS. This module takes 15 minutes to review, and almost an hour to run.
 
