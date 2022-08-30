@@ -176,11 +176,6 @@ echo $PIPELINE_ID
 
 ### 8.4. Review the model feature importance scores persisted in BigQuery
 
-The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
-```
-echo $PIPELINE_ID
-```
-
 Run the below query in BigQuery. Be sure to add pipeline_id to the where clause.
 ```
 SELECT * FROM `customer_churn_ds.model_feature_importance_scores`
@@ -188,7 +183,7 @@ SELECT * FROM `customer_churn_ds.model_feature_importance_scores`
 ```
 
 ### 8.5. Review the model metrics persisted in BigQuery
-Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause.
 
 ```
 SELECT * FROM `customer_churn_ds.model_metrics` 
@@ -196,7 +191,7 @@ SELECT * FROM `customer_churn_ds.model_metrics`
 ```
 
 ### 8.6. Review the model test results in BigQuery
-Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
+Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause.
 
 Query the predictions-
 ```
@@ -207,8 +202,11 @@ SELECT churn, prediction, *
 ```
 <hr>
 
-## Hyperparameter tuning
+## 9. Hyperparameter tuning
 
+### 9.1. Execute the command in cloud shell
+
+Takes ~30 minutes to complete.
 ```
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
@@ -225,8 +223,45 @@ gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
 
-## Batch scoring
+### 9.2. Validate completion in the Dataproc UI 
 
+![M4](../06-images/module-4-16.png)   
+<br><br>
+
+
+### 9.3. Validate availabity of artifacts in Cloud Storage
+
+The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
+```
+echo $PIPELINE_ID
+```
+
+![M4](../06-images/module-4-17.png)   
+<br><br>
+
+### 9.4. Review the model metrics persisted in BigQuery
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause.
+
+```
+SELECT * FROM `customer_churn_ds.model_metrics` 
+ WHERE operation='hyperparameter-tuning' AND PIPELINE_ID='REPLACE_WITH_YOUR_PIPELINE_ID' 
+```
+
+### 9.5. Review the model test results in BigQuery
+Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause.
+
+Query the predictions-
+```
+SELECT churn, prediction, *
+ FROM `customer_churn_ds.test_predictions` 
+ WHERE operation='hyperparameter-tuning'
+ AND PIPELINE_ID='REPLACE_WITH_YOUR_PIPELINE_ID' 
+```
+<hr>
+
+## 10. Batch scoring
+
+### 10.1. Execute the command in cloud shell
 ```
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/batch_scoring.py \
@@ -242,4 +277,15 @@ gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True --modelVersion=${PIPELINE_ID}
 ```
+
+### 10.2. Review the batch predictions in BigQuery
+Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause.
+
+Query the predictions-
+```
+SELECT *
+ FROM `customer_churn_ds.batch_predictions` 
+ WHERE PIPELINE_ID='REPLACE_WITH_YOUR_PIPELINE_ID' 
+```
+<hr>
 
