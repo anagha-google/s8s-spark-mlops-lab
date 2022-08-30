@@ -2,10 +2,14 @@
 
 In Module 3, we authored Spark ML code in interactive Spark notebooks. Vertex AI Wortbench and Dataproc do not support notebook scheduling. We therefore need to create PySpark scripts and test them out, before operationalizing into a Vertex AI pipeline. In this module, we will test pre-created PySpark scripts that are more or less a replica of the notebooks from Module 3 - the scripts accept runtime parameters.
 
+<hr>
+
 ## 1. Where we are in the model development lifecycle
 
 ![M4](../06-images/module-4-01.png)   
 <br><br>
+
+<hr>
 
 ## 2. The exercise
 In this module we will test PySpark scripts provided as part of the lab individually in preparation of authoring a Vertex AI pipeline, in the next module, that orchestrates the execution.
@@ -13,21 +17,28 @@ In this module we will test PySpark scripts provided as part of the lab individu
 ![M4](../06-images/module-4-02.png)   
 <br><br>
 
+<hr>
 
 ## 3. The lab environment
 
 ![M4](../06-images/module-4-03.png)   
 <br><br>
 
+<hr>
+
 ## 4. The exercise
 
 ![M4](../06-images/module-4-04.png)   
 <br><br>
 
+<hr>
+
 ## 5. The code
 
 ![M4](../06-images/module-4-05.png)   
 <br><br>
+
+<hr>
 
 ## 6. The variables
 
@@ -56,6 +67,8 @@ BQ_CONNECTOR_PACKAGES="com.google.cloud.spark:spark-bigquery-with-dependencies_2
 PIPELINE_ID=$RANDOM
 LOCATION=us-central1
 ```
+
+<hr>
 
 ## 7. Preprocessing
 
@@ -117,6 +130,8 @@ Even better, find the SQL from the output and run it.
 
 ![M4](../06-images/module-4-13.png)   
 <br><br>
+
+<hr>
 
 ## Model training
 
