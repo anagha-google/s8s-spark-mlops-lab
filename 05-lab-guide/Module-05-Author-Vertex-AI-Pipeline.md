@@ -24,7 +24,7 @@ In this module, we will author and test a Vertex AI pipeline to orchestrate the 
 
 <hr>
 
-## 4. About authoring a Vertex AI pipeline 
+## 4. About Vertex AI pipelines & support for Spark ML Models in Vertex AI platform
 We will use Vertex AI User Managed Notebook environment for this exercise and this is already created for you. When you open JupyterLab, you will also see a pre-created, customized notebook to get quick-started with learning pipeline authoring.
 
 ### 4.1. Vertex AI pipelines - basics
@@ -54,20 +54,62 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 | 13 | Explainability | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP package which does not support recent versions of Spark |
 | 14 | Model Monitoring | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP package which does not support recent versions of Spark |
 
-### 4.3. Taking a pipeline developed in a notebook to production - steps involved
+<hr>
+
+## 5. Authoring and operationalizing Vertex AI pipelines
+
+### 5.1. Authoring a pipeline in a notebook - what's involved
+
+![M5](../06-images/module-5-05.png)   
+<br><br>
+
+### 5.2. Taking a pipeline developed in a notebook to production - steps involved
 
 ![M5](../06-images/module-5-04.png)   
 <br><br>
 
-<hr>
+## 6. Review and execute the pre-authored Vertex AI pipeline from the Jupyter notebook
 
-## 5. Review and execute a Vertex AI pipeline from a notebook
+### 6.1. Open the pipeline notebook
+
+![M5](../06-images/module-5-06.png)   
+<br><br>
+
+![M5](../06-images/module-5-07.png)   
+<br><br>
+
+### 6.2. Install dependencies
+
+Be sure to uncomment the cell that installs dependencies and restarts kernel, once and comment it back.
+![M5](../06-images/module-5-08.png)   
+<br><br>
+
+### 6.3. Study the notebook
+Read through the notebook before you run it.
+
+- Note how it calls all the PySpark batch jobs we tested in module 3
+- Note how it uses your network (instead of Vertex AI network)
+- Note how it does not use caching at a task/component/step level and at a pipeline job level
+- Note how it uses a custom pipeline name
+
+### 6.4. Run the pipeline notebook in entirety
+
+
+### 6.5. Click on the Pipeline link and study it
+
+
+### 6.6. Visit the Dataproc Batches UI and monitor the pipeline steps
 
 
 
+### 6.7. View the metrics from the model training step
 
-## 6. Study the pipeline JSON
 
+
+### 6.8. View the plots from the model training step
+
+
+### 6.9. Study the pipeline JSON - last cell of the notebook
 
 
 
