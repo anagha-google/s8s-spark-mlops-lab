@@ -71,11 +71,10 @@ The Cloud Function is already deployed in your environment. The folowing is the 
 
 ### 7.1. What is happening inside the function?
 
-![M6](../06-images/module-6-11.png)   
-<br><br>
-
 ![M6](../06-images/module-6-12.png)   
 <br><br>
+
+### 7.2. Runtime variables
 
 ![M6](../06-images/module-6-13.png)   
 <br><br>
@@ -83,10 +82,10 @@ The Cloud Function is already deployed in your environment. The folowing is the 
 ![M6](../06-images/module-6-14.png)   
 <br><br>
 
-### 7.2. Source code - requirements
+### 7.3. Source code - requirements
 
 
-### 7.3. Source code - main.py
+### 7.4. Source code - main.py
 
 
 <hr>
