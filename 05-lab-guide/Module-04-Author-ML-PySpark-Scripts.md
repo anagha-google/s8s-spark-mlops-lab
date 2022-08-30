@@ -68,6 +68,11 @@ PIPELINE_ID=$RANDOM
 LOCATION=us-central1
 ```
 
+The PIPELINE_ID is particularly important as we will use it for traceablity/lineage.
+```
+echo $PIPELINE_ID
+```
+
 <hr>
 
 ## 7. Preprocessing
