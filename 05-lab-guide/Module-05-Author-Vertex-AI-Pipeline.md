@@ -248,6 +248,16 @@ Open the JSON and review all the nodes and elements in it. The runtime parameter
 
 ## 15. Edit the JSON for on-demand REST calls & persist in GCS
 
+- This step has been completed for you.
+- The author has essentially replaced hard-coded values of pipeline ID from the authroing & execution via the notebook with a keyword that will be replaced with a runtime generated pipeline ID in the Cloud function
+- The updated JSON for use with the Cloud Function is in your pipeline bucket inside the templates directory
+- Note that your version of the pipeline JSON template has your project details - ID, number, your service account - completely customized
+
+![M5](../06-images/module-5-35.png)   
+<br><br>
+
+![M5](../06-images/module-5-36.png)   
+<br><br>
 
 
 <hr>
