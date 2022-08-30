@@ -294,7 +294,6 @@ Run the below queries in BigQuery. Be sure to add pipeline_id to the where claus
 ```
 SELECT *
  FROM `customer_churn_ds.batch_predictions` 
- WHERE operation='hyperparameter-tuning'
 ```
 
 The following is the author's output-
