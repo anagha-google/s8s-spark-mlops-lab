@@ -110,18 +110,12 @@ Navigate to BigQuery, and run the following query-
 SELECT * FROM `customer_churn_ds.training_data` LIMIT 1000
 ```
 
+Even better, find the SQL from the output and run it.
+
 ![M4](../06-images/module-4-12.png)   
 <br><br>
 
 ![M4](../06-images/module-4-13.png)   
-<br><br>
-
-Even better, find the SQL from the output-
-```
-SELECT * FROM `customer_churn_ds.training_data` WHERE pipeline_id=26957 LIMIT 1000
-```
-
-![M4](../06-images/module-4-14.png)   
 <br><br>
 
 ## Model training
