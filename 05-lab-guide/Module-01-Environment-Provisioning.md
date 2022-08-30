@@ -48,7 +48,7 @@ cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ### 2.4. Provision the environment
 
 #### 2.4.1. Define variables for use
-Modify the below as appropriate for your deployment..e.g. region, zone etc.
+Modify the below as appropriate for your deployment..e.g. region, zone etc. Be sure to use the right case for GCP region & zone.
 ```
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
 PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d':' -f2 |  tr -d "'" | xargs`
