@@ -43,7 +43,7 @@ https://cloud.google.com/vertex-ai/docs/pipelines/schedule-cloud-scheduler
 
 ## 6. Cloud Function deployment pictorial overview
 
-The folowing is the author's deployment from the Terraform script. Yours should be identical.
+The Cloud Function is already deployed in your environment. The folowing is the author's deployment from the Terraform script. Yours should be identical.
 
 ![M6](../06-images/module-6-05.png)   
 <br><br>
