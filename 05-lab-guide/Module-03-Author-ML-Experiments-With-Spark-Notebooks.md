@@ -4,7 +4,7 @@ The recommended GCP solution for scalable Spark based ML code interactive author
 <hr>
 
 ## 1. Use case recap
-Telco Customer Churn Prediction with a Kaggle dataset and Spark MLLib, Random Forest Classifer
+Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) and [Spark MLLib, Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
 
 <hr>
 
