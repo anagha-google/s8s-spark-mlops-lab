@@ -294,3 +294,7 @@ SELECT *
 ```
 <hr>
 
+This concludes the module. Proceed to the [next module](../05-lab-guide/Module-05-Author-Vertex-AI-Pipeline.md) where we will operationalize the scripts we just tested into a Vertex AI pipeline.
+
+<hr>
+
