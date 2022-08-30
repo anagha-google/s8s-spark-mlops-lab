@@ -82,14 +82,43 @@ The Cloud Function is already deployed in your environment. The folowing is the 
 ![M6](../06-images/module-6-14.png)   
 <br><br>
 
-### 7.3. Source code - requirements
+### 7.3. Source code - requirements.txt
 
+The latest requirements.txt is avialable here-<br>
+https://github.com/anagha-google/s8s-spark-mlops/blob/main/02-scripts/cloud-functions/requirements.txt
 
 ### 7.4. Source code - main.py
-
-
+The latest source code is avialable here-<br>
+https://github.com/anagha-google/s8s-spark-mlops/blob/main/02-scripts/cloud-functions/main.py
 <hr>
 
-## 7. Execute the Cloud Function and monitor for pipeline execution through completion
+## 8. Execute the Cloud Function and monitor for pipeline execution through completion
+The Cloud Function is generation 2 and does not have a "click to test" button feature yet. We need to grab the command line execution from the UI and run it in Cloud Shell.
+
+### 8.1. Grab the command for executing the Cloud Function
+![M6](../06-images/module-6-15.png)   
+<br><br>
+
+### 8.2. Run the command in Cloud Shell
+![M6](../06-images/module-6-16.png)   
+<br><br>
+
+### 8.3. Monitor the Vertex AI pipeline for any errors
+![M6](../06-images/module-6-17.png)   
+<br><br>
+
+### 8.4. Monitor the Dataplex Batches UI for new jobs
+Follow at least a couple steps through completion.
+
+![M6](../06-images/module-6-18.png)   
+<br><br>
+
+### 8.5. Monitor the overall completion of the pipeline execution
+![M6](../06-images/module-6-19.png)   
+<br><br>
 
 <hr>
+This concludes the module. In the [next module](../05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md), we will create a Cloud Scheduler job for time based execution of the model training pipeline.
+<hr>
+
+
