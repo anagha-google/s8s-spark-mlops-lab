@@ -113,8 +113,11 @@ Follow at least a couple steps through completion.
 ![M6](../06-images/module-6-18.png)   
 <br><br>
 
-### 8.5. Monitor the overall completion of the pipeline execution
 ![M6](../06-images/module-6-19.png)   
+<br><br>
+
+### 8.5. Monitor the overall completion of the pipeline execution
+![M6](../06-images/module-6-20.png)   
 <br><br>
 
 <hr>
