@@ -135,19 +135,19 @@ Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and D
 <br><br>
 
 
-#### 6.7. Model evaluation 
+#### 6.5.4. Model evaluation 
 
 ![M5](../06-images/module-5-17.png)   
 <br><br>
 
-##### 6.7.1. Metrics
+##### 6.5.4.1. Metrics
 
 Click on the metrics artifact icon on the canvas and review the metrics on the right side of the canvas.
 
 ![M5](../06-images/module-5-18.png)   
 <br><br>
 
-##### 6.7.2. Plots
+##### 6.5.4.2. Plots
 
 Click on the plots artifact icon on the canvas and review the Confusion Matrix on the right side of the canvas.
 
@@ -159,7 +159,7 @@ Scroll to see the RoC curve below the Confusion Matrix
 ![M5](../06-images/module-5-20.png)   
 <br><br>
 
-### 6.8. Conditional hyperparameter tuning
+### 6.5.5. Conditional hyperparameter tuning
 
 Review the notebook code for the AUPR threshold set and observe the hyperparameter tuning conditional execution
 
@@ -174,7 +174,7 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 ![M5](../06-images/module-5-23.png)   
 <br><br>
 
-### 6.9. Pipeline completion
+### 6.5.6. Pipeline completion
 
 ![M5](../06-images/module-5-26.png)   
 <br><br>
@@ -182,7 +182,7 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 ![M5](../06-images/module-5-27.png)   
 <br><br>
 
-### 6.9. Study the pipeline JSON 
+## 7. Study the pipeline JSON 
 
 ![M5](../06-images/module-5-24.png)   
 <br><br>
@@ -190,7 +190,7 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 ![M5](../06-images/module-5-25.png)   
 <br><br>
 
-## 7. Test the JSON via Vertex AI pipeline UI
+## 8. Test the JSON via Vertex AI pipeline UI
 
 - All the 3 PySpark jobs expect a pipeline ID parameter
 - The pipeline ID is intended to be the same for lineage/traceability/versioning
@@ -202,7 +202,8 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 
 
 
-## 8. Edit the JSON for on-demand REST calls & persist in GCS
+
+## 9. Edit the JSON for on-demand REST calls & persist in GCS
 
 
 
