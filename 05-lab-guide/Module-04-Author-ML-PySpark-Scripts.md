@@ -14,7 +14,7 @@ In this module we will test PySpark scripts provided as part of the lab individu
 <br><br>
 
 
-## 3. Lab module environment
+## 3. Lab environment
 
 ![M4](../06-images/module-4-03.png)   
 <br><br>
