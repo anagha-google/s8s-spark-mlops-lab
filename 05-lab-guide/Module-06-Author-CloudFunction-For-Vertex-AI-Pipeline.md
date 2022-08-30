@@ -60,7 +60,11 @@ The Cloud Function is already deployed in your environment. The folowing is the 
 ![M6](../06-images/module-6-09.png)   
 <br><br>
 
+![M6](../06-images/module-6-10.png)   
+<br><br>
 
+![M6](../06-images/module-6-11.png)   
+<br><br>
 
 
 ## 7. Review of the Cloud Function code for executing the Vertex AI Spark ML Model Training Pipeline
