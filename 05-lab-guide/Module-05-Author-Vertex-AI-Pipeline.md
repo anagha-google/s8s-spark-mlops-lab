@@ -29,10 +29,15 @@ We will use Vertex AI User Managed Notebook environment for this exercise and th
 
 ### 4.1. About Vertex AI pipelines
 
+Vertex AI Pipelines helps you to automate, monitor, and govern your ML systems by orchestrating your ML workflow in a serverless manner, and storing your workflow's artifacts using Vertex ML Metadata. By storing the artifacts of your ML workflow in Vertex ML Metadata, you can analyze the lineage of your workflow's artifacts — for example, an ML model's lineage may include the training data, hyperparameters, and code that were used to create the model.
 
+Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) and [read the documentation](https://cloud.google.com/vertex-ai/docs/pipelines/introduction).
 
-### 4.2. What is supported for Spark ML models in Vertex AI from an MLOps perspective?
+### 4.2. What is supported/recommended for Spark ML models in Vertex AI from an MLOps perspective?
 
+| # | Feature | Supported? |  Recommended Product/Service | Workaround | Nuances/Comments | 
+| -- | :--- | :--- |:--- |:--- |:--- |
+| 1 | Model training development | Yes | Vertex AI Workbench Managed Notebook with Dataproc Serverless Spark Interactive sessions | | Preview|
 
 ### 4.3. Taking a pipeline developed in a notebook to production - steps involved
 
