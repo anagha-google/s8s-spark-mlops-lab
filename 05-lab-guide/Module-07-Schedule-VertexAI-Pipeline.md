@@ -3,20 +3,28 @@
 
 This module covers creating a Cloud Scheduler job to trigger the Vertex AI Spark ML model training pipeline via the Cloud Function we created in the prior module. The approximate time for the module content review is 15 minutes but the pipeline execution could take an hour.
 
+<hr>
+
 ## 1. Where we are in the SparK ML model lifecycle
 
 ![M8](../06-images/module-7-01.png)   
 <br><br>
+
+<hr>
 
 ## 2. The lab environment
 
 ![M8](../06-images/module-7-02.png)   
 <br><br>
 
+<hr>
+
 ## 3. The exercise
 
 ![M8](../06-images/module-7-03.png)   
 <br><br>
+
+<hr>
 
 ## 4. Review the Cloud Scheduler job configuration
 
@@ -37,10 +45,14 @@ A Cloud Scheduler job has been precreated for you that calls the Cloud Function 
 ![CS](../06-images/module-1-cloud-scheduler-05.png)   
 <br><br>
 
+<hr>
+
 ## 5. Run the Cloud Scheduler job manually to test it
 
 ![M8](../06-images/module-7-04.png)   
 <br><br>
+
+<hr>
 
 ## 6. Monitor the exeuction through completion of the pipeline execution
 ~ 1 hour
@@ -53,4 +65,10 @@ A Cloud Scheduler job has been precreated for you that calls the Cloud Function 
 
 ![M8](../06-images/module-7-07.png)   
 <br><br>
+
+<hr>
+
+This concludes the lab module. Proceed to the [next module](../05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md) where we will operationalize batch scoring on Cloud Composer.
+
+<hr>
 
