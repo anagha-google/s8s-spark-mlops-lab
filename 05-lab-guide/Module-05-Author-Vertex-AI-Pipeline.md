@@ -109,7 +109,9 @@ Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and D
 ![M5](../06-images/module-5-10.png)   
 <br><br>
 
-#### 6.5.1. Preprocessing
+<hr>
+
+## 7. Preprocessing
 
 ![M5](../06-images/module-5-11.png)   
 <br><br>
@@ -117,7 +119,9 @@ Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and D
 ![M5](../06-images/module-5-12.png)   
 <br><br>
 
-#### 6.5.2. Managed Dataset registration in Vertex AI
+<hr>
+
+## 8. Managed Dataset registration in Vertex AI
 
 ![M5](../06-images/module-5-13.png)   
 <br><br>
@@ -125,8 +129,9 @@ Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and D
 ![M5](../06-images/module-5-14.png)   
 <br><br>
 
+<hr>
 
-#### 6.5.3. Model training
+## 9. Model training
 
 ![M5](../06-images/module-5-15.png)   
 <br><br>
@@ -134,20 +139,21 @@ Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and D
 ![M5](../06-images/module-5-16.png)   
 <br><br>
 
+<hr>
 
-#### 6.5.4. Model evaluation 
+## 10. Model evaluation 
 
 ![M5](../06-images/module-5-17.png)   
 <br><br>
 
-##### 6.5.4.1. Metrics
+### 10.1. Metrics
 
 Click on the metrics artifact icon on the canvas and review the metrics on the right side of the canvas.
 
 ![M5](../06-images/module-5-18.png)   
 <br><br>
 
-##### 6.5.4.2. Plots
+### 10.2. Plots
 
 Click on the plots artifact icon on the canvas and review the Confusion Matrix on the right side of the canvas.
 
@@ -159,7 +165,9 @@ Scroll to see the RoC curve below the Confusion Matrix
 ![M5](../06-images/module-5-20.png)   
 <br><br>
 
-### 6.5.5. Conditional hyperparameter tuning
+<hr>
+
+## 11. Conditional hyperparameter tuning
 
 Review the notebook code for the AUPR threshold set and observe the hyperparameter tuning conditional execution
 
@@ -174,7 +182,9 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 ![M5](../06-images/module-5-23.png)   
 <br><br>
 
-### 6.5.6. Pipeline completion
+<hr>
+
+## 12. Pipeline completion
 
 ![M5](../06-images/module-5-26.png)   
 <br><br>
@@ -182,7 +192,9 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 ![M5](../06-images/module-5-27.png)   
 <br><br>
 
-## 7. Study the pipeline JSON 
+<hr>
+
+## 13. Study the pipeline JSON 
 
 ![M5](../06-images/module-5-24.png)   
 <br><br>
@@ -190,7 +202,11 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 ![M5](../06-images/module-5-25.png)   
 <br><br>
 
-## 8. Test the JSON via Vertex AI pipeline UI
+Open the JSON and review all the nodes and elements in it. The runtime parameters at the very end of the JSON are most critical.
+
+<hr>
+
+## 14. Test the JSON via Vertex AI pipeline UI
 
 - All the 3 PySpark jobs expect a pipeline ID parameter
 - The pipeline ID is intended to be the same for lineage/traceability/versioning
@@ -202,8 +218,9 @@ Observe that the best model is persisted in GCS. We will use this for batch scor
 
 
 
+<hr>
 
-## 9. Edit the JSON for on-demand REST calls & persist in GCS
+## 15. Edit the JSON for on-demand REST calls & persist in GCS
 
 
 
