@@ -26,7 +26,7 @@ In this module we will test PySpark scripts provided as part of the lab individu
 
 <hr>
 
-## 4. The exercise
+## 4. For each step of the model development lifecycle
 
 ![M4](../06-images/module-4-04.png)   
 <br><br>
