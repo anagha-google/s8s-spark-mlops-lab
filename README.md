@@ -41,7 +41,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 <hr>
 
 ## 8. Solution Architecture
-
+**ANAGHA TODO**
 <hr>
 
 ## 9. Flow of the lab
