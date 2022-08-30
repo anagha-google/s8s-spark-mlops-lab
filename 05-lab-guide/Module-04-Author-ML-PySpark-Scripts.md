@@ -24,12 +24,19 @@ In this module we will test PySpark scripts provided as part of the lab individu
 ![M4](../06-images/module-4-04.png)   
 <br><br>
 
-## 5. The variables
+## 5. The code
+
+![M4](../06-images/module-4-05.png)   
+<br><br>
+
+## 6. The variables
 
 The follow are variables for running via CLI on cloud shell. Paste the same into Cloud Shell authorized for your identity and scoped to the project we deployed resources into in module 1.<br>
+
 **Note:**
-1. Ensure you are in the right project and your cloud shell is configured to execute against the project.
-2. Be sure to modify location variable (last variable) after ensuring all services are available in your region.
+1. Ensure you are in the **right project** and your cloud shell is configured to execute against the project.
+2. Be sure to modify location (region) variable (last variable) after ensuring all services are available in **your region**.
+
 ```
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
 PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d':' -f2 |  tr -d "'" | xargs`
@@ -50,9 +57,9 @@ PIPELINE_ID=$RANDOM
 LOCATION=us-central1
 ```
 
-## 6. Preprocessing
+## 7. Preprocessing
 
-### 6.1. Execute the command in cloud shell
+### 7.1. Execute the command in cloud shell
 ```
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/preprocessing.py \
@@ -69,11 +76,53 @@ gs://$CODE_BUCKET/pyspark/preprocessing.py \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
 
-### 6.2. Validate completion in the Dataproc UI
+You should see an output like this-
+```
+Batch [customer-churn-preprocessing-10179] submitted.
+```
+As the job progresses, the output is printed to the terminal.
+
+### 7.2. Validate completion in the Dataproc UI
+
+![M4](../06-images/module-4-06.png)   
+<br><br>
+
+![M4](../06-images/module-4-07.png)   
+<br><br>
+
+![M4](../06-images/module-4-08.png)   
+<br><br>
+
+![M4](../06-images/module-4-09.png)   
+<br><br>
+
+![M4](../06-images/module-4-10.png)   
+<br><br>
+
+![M4](../06-images/module-4-11.png)   
+<br><br>
 
 
-### 6.3. Validate creation of the training data table in BigQuery
+### 7.3. Validate creation of the training data table in BigQuery
 
+Navigate to BigQuery, and run the following query-
+```
+SELECT * FROM `customer_churn_ds.training_data` LIMIT 1000
+```
+
+![M4](../06-images/module-4-12.png)   
+<br><br>
+
+![M4](../06-images/module-4-13.png)   
+<br><br>
+
+Even better, find the SQL from the output-
+```
+SELECT * FROM `customer_churn_ds.training_data` WHERE pipeline_id=26957 LIMIT 1000
+```
+
+![M4](../06-images/module-4-14.png)   
+<br><br>
 
 ## Model training
 
