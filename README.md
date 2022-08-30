@@ -53,7 +53,7 @@ Shut down/delete resources when done
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
 | 2. | Dr. Thomas Abraham | Guidance, testing and feedback |
-| 3. | Ivan Nardini<br>Win Woo | Consultation, [integration samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb), Vertex AI & Spark integration roadmap, & more |
+| 3. | Ivan Nardini<br>Win Woo | Consultation, [integration samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb) |
 
 ## 14. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
