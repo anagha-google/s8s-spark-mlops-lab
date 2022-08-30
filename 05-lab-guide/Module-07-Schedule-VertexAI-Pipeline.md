@@ -36,3 +36,21 @@ A Cloud Scheduler job has been precreated for you that calls the Cloud Function 
 
 ![CS](../06-images/module-1-cloud-scheduler-05.png)   
 <br><br>
+
+## 5. Run the Cloud Scheduler job manually to test it
+
+![M8](../06-images/module-7-04.png)   
+<br><br>
+
+## 6. Monitor the exeuction through completion of the pipeline execution
+~ 1 hour
+
+![M8](../06-images/module-7-05.png)   
+<br><br>
+
+![M8](../06-images/module-7-06.png)   
+<br><br>
+
+![M8](../06-images/module-7-07.png)   
+<br><br>
+
