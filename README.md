@@ -26,13 +26,11 @@ Simplify your learning and adoption journey of our product stack for scalable da
 ## 7. Use case covered
 Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) and [Spark MLLib, Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
 
-## 8. GCP services used in the lab & rationalization
+## 8. Solution Architecture
 
-## 9. Solution Architecture
+## 9. Flow of the lab
 
-## 10. Flow of the lab
-
-## 11. The lab modules
+## 10. The lab modules
 Complete the lab modules in a sequential manner. For a better lab experience, read *all* the modules and then start working on them.
 | # | Module | 
 | -- | :--- |
@@ -45,16 +43,16 @@ Complete the lab modules in a sequential manner. For a better lab experience, re
 | 07 |  [Create a Cloud Scheduler job that invokes the Cloud Function you created](05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md)|
 | 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)|
 
-## 12. Dont forget to 
+## 11. Dont forget to 
 Shut down/delete resources when done
 
-## 13. Credits
+## 12. Credits
 | # | Google Cloud Collaborators | Contribution  | 
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
 | 2. | Dr. Thomas Abraham | Guidance, testing, best practices and feedback |
 | 3. | Ivan Nardini<br>Win Woo | Consultation, inspriation through [samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb) and [blogs](https://medium.com/google-cloud/sparkling-vertex-ai-pipeline-cfe6e19334f7) |
 
-## 14. Contributions welcome
+## 13. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
 
