@@ -478,18 +478,13 @@ docker push $DOCKER_IMAGE_FQN
 echo "Completed docker image push to GCR"
 ```
 
-### How to reference the image while submitting jobs?
+### 11.5. How to reference the image while submitting jobs?
 Check the commands in this lab module. Review the next module for the same.
 
-### Resources about creating custom images
+### 11.6. Resources about creating custom images
 https://cloud.google.com/dataproc-serverless/docs/guides/custom-containers
 
-
-
-
-
-
-
+<hr>
 
 This concludes the module. Proceed to the [next module](../05-lab-guide/Module-05-Author-Vertex-AI-Pipeline.md) where we will operationalize the scripts we just tested into a Vertex AI pipeline.
 
