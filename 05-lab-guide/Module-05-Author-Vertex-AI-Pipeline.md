@@ -1,7 +1,7 @@
 
 # About
 
-In this module, we will author and test a Vertex AI pipeline to orchestrate the Spark ML model training and prepare for operationalizing the same. The module takes about an hour to complete.
+In this module, we will author and test a Vertex AI pipeline to orchestrate the Spark ML model training and prepare for operationalizing the same. The module takes about two and half hours to complete, but you need to actually only spend about 40 minutes, the rest is execution time - waiting for completion.
 
 ## 1. Where we are in the model development lifecycle
 
