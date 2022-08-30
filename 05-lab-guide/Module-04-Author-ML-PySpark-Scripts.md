@@ -12,7 +12,7 @@ In Module 3, we authored Spark ML code in interactive Spark notebooks. Vertex AI
 <hr>
 
 ## 2. The exercise, at a high level
-In this module we will test PySpark scripts provided as part of the lab individually in preparation of authoring a Vertex AI pipeline, in the next module, that orchestrates the execution.
+In this module we will test PySpark scripts provided as part of the lab, each script individually, in preparation of authoring a Vertex AI pipeline that chains/orchestrates the ML experiment steps into a DAG, in the next module.
 
 ![M4](../06-images/module-4-02.png)   
 <br><br>
