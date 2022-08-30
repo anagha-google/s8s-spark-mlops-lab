@@ -1,5 +1,5 @@
 
-# About
+# About Module 7
 
 This module covers creating a Cloud Scheduler job to trigger the Vertex AI Spark ML model training pipeline via the Cloud Function we created in the prior module. The approximate time for the module content review is 15 minutes but the pipeline execution could take an hour.
 
