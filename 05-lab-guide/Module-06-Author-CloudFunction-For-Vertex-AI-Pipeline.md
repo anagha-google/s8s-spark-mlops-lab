@@ -36,7 +36,7 @@ We completed #1 in the prior module. #2 is already available for you in GCS.
 
 ## 5. Documentation for scheduling Vertex AI pipelines
 
-Read the documentation for schedulng ahead of working on the next step to better understand on-demand execution of a pipeline with a simpler example than the one in the lab.<br>
+Read the documentation for scheduling Vertex AI pipelines ahead of working on the next step to better understand on-demand execution through a simpler example than the one in the lab.<br>
 https://cloud.google.com/vertex-ai/docs/pipelines/schedule-cloud-scheduler
 
 <hr>
