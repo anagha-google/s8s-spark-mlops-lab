@@ -36,7 +36,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 ## 10. Flow of the lab
 
 ## 11. The lab modules
-Follow in sequential order.
+Complete the lab modules in a sequential manner. For a better lab experience, read *all* the modules and then start working on them.
 | # | Module | 
 | -- | :--- |
 | 01 |  [Terraform for environment provisioning](05-lab-guide/Module-01-Environment-Provisioning.md)|
