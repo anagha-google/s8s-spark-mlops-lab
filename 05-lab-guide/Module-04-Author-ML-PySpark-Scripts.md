@@ -1,6 +1,6 @@
 # About
 
-In Module 3, we authored Spark ML code in interactive Spark notebooks. Vertex AI Wortbench and Dataproc do not support notebook scheduling. We therefore need to create PySpark scripts and test them out, before operationalizing into a Vertex AI pipeline. In this module, we will test pre-created PySpark scripts that are more or less a replica of the notebooks from Module 3 - the scripts accept runtime parameters.
+In Module 3, we authored Spark ML code in interactive Spark notebooks. Vertex AI Workbench with Dataproc Serverless Spark interactive sessions does not support notebook scheduling. We therefore need to create PySpark scripts and test them out, before orchestrating into a Vertex AI pipeline. In this module, we will test pre-created PySpark scripts that are more or less a replica of the notebooks from Module 3 (the scripts accept runtime parameters instead).
 
 <hr>
 
