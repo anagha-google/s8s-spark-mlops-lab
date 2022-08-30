@@ -107,7 +107,7 @@ The Cloud Function is generation 2 and does not have a "click to test" button fe
 ![M6](../06-images/module-6-17.png)   
 <br><br>
 
-### 8.4. Monitor the Dataplex Batches UI for new jobs
+### 8.4. Monitor the Dataproc Batches UI for new jobs
 Follow at least a couple steps through completion.
 
 ![M6](../06-images/module-6-18.png)   
