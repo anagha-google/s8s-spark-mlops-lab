@@ -235,7 +235,10 @@ Open the JSON and review all the nodes and elements in it. The runtime parameter
 ![M5](../06-images/module-5-31.png)   
 <br><br>
 
-![M5](../06-images/module-5-32.png)   
+![M5](../06-images/module-5-32a.png)   
+<br><br>
+
+![M5](../06-images/module-5-32b.png)   
 <br><br>
 
 ![M5](../06-images/module-5-33.png)   
