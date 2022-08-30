@@ -52,7 +52,7 @@ Shut down/delete resources when done
 | # | Collaborator | Contribution  | 
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
-| 2. | Dr. Thomas Abraham | Guidance, testing and feedback |
+| 2. | Dr. Thomas Abraham | Guidance, testing, best practices and feedback |
 | 3. | Ivan Nardini<br>Win Woo | Consultation, inspriation through [samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb) and [blogs](https://medium.com/google-cloud/sparkling-vertex-ai-pipeline-cfe6e19334f7) |
 
 ## 14. Contributions welcome
