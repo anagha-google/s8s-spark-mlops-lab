@@ -180,7 +180,7 @@ Save or discard changes as needed. Be sure to "keep session" though when prompte
 
 <hr>
 
-This concludes the module. In the next module, you will run a complete model trainng exercise with notebooks - pre-processing, model training, hyperparameter tuning, batch scoring. 
+This concludes the module. In the [next module](../05-lab-guide/Module-03-Author-ML-Experiments-With-Spark-Notebooks.md), you will run a complete model trainng exercise with notebooks - pre-processing, model training, hyperparameter tuning, batch scoring. 
 
 
 
