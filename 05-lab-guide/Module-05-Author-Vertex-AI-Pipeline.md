@@ -45,8 +45,8 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 | 4 | Spark Infrastructure for Model Training Orchestration  | Yes | Dataproc Serverless Spark Batches | | |
 | 5 | Scheduling solution for Model Training Pipeline  | Yes | Cloud Scheduler<br>calling<br>Cloud Function<br>calling<br>Vertex AI pipeline REST API | | |
 | 6 | Model Registry  | No | | Persist to GCS | |
-| 7 | Training Dataset  | Yes | Vertex AI managed datasets |  | |
-| 8 | Feature Store  | Yes | Vertex AI managed datasets |  | |
+| 7 | Training Dataset  | Yes | Vertex AI managed datasets |  | No Spark reader support, therefore omitted |
+| 8 | Feature Store  | Yes | Vertex AI feature store |  | |
 | 9 | Model Metadata  | Yes | Vertex AI metadata |  | |
 | 10 | Solution for Batch Scoring  | Yes | Dataproc Serverless Spark Batches  |  | Vertex AI batches can be used but requires MLEAP package which does not support recent versions of Spark |
 | 11 | Solution for (near) Real Time/Stream Scoring  | Yes | Dataproc Spark on GCE  |  |  |
@@ -68,6 +68,8 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 ![M5](../06-images/module-5-04.png)   
 <br><br>
 
+<hr>
+
 ## 6. Review and execute the pre-authored Vertex AI pipeline from the Jupyter notebook
 
 ### 6.1. Open the pipeline notebook
@@ -81,6 +83,7 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 ### 6.2. Install dependencies
 
 Be sure to uncomment the cell that installs dependencies and restarts kernel, once and comment it back.
+
 ![M5](../06-images/module-5-08.png)   
 <br><br>
 
@@ -94,12 +97,42 @@ Read through the notebook before you run it.
 
 ### 6.4. Run the pipeline notebook in entirety
 
+In section 7, a URL is output, click on it.
 
-### 6.5. Click on the Pipeline link and study it
+![M5](../06-images/module-5-09.png)   
+<br><br>
+
+### 6.5. Study and monitor the pipeline execution between Vertex AI pipeline step and Dataproc Batches UI
+
+Takes about ~an hour to complete. Toggle between the Vertex AI pipeline UI and Dataproc Batches UI to monitor to completion.
+
+![M5](../06-images/module-5-10.png)   
+<br><br>
+
+#### 6.5.1. Preprocessing
+
+![M5](../06-images/module-5-11.png)   
+<br><br>
+
+![M5](../06-images/module-5-12.png)   
+<br><br>
+
+#### 6.5.2. Managed Dataset registration in Vertex AI
+
+![M5](../06-images/module-5-13.png)   
+<br><br>
+
+![M5](../06-images/module-5-14.png)   
+<br><br>
 
 
-### 6.6. Visit the Dataproc Batches UI and monitor the pipeline steps
+#### 6.5.2. Model training
 
+![M5](../06-images/module-5-15.png)   
+<br><br>
+
+![M5](../06-images/module-5-16.png)   
+<br><br>
 
 
 ### 6.7. View the metrics from the model training step
