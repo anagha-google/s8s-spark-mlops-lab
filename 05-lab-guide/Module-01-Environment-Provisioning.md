@@ -22,7 +22,7 @@ This module covers environment provisioning for the workshop. This module takes 
 <br><br>
 
 ## Pictorial walkthrough of services provisioned & customization
-Available [here](../05-lab-guide/Services-Created.md)
+The author's environment is showcased [here](../05-lab-guide/Services-Created.md)
 
 <hr>
 
