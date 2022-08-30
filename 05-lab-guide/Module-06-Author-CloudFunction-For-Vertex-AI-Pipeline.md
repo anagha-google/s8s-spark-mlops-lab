@@ -3,14 +3,27 @@
 
 In this module we will create a Cloud Function that executes a Vertex AI pipeline on-demand based off of a pipeline JSON in GCS. This module takes 15 minutes to review, and almost an hour to run.
 
-## 1. The lab environment
+## 1. Where we are in the model training lifecycle
+
+![M6](../06-images/module-6-01.png)   
 
 
 <hr>
 
-## 2. The exercise
+## 2. The lab environment
+
+![M6](../06-images/module-6-02.png)   
+
 
 <hr>
+
+## 3. The exercise
+
+![M6](../06-images/module-6-03.png)   
+
+
+<hr>
+
 
 ## 3. The pipeline JSON
 
