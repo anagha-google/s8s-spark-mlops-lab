@@ -11,7 +11,7 @@ In Module 3, we authored Spark ML code in interactive Spark notebooks. Vertex AI
 
 <hr>
 
-## 2. The exercise
+## 2. The exercise, at a high level
 In this module we will test PySpark scripts provided as part of the lab individually in preparation of authoring a Vertex AI pipeline, in the next module, that orchestrates the execution.
 
 ![M4](../06-images/module-4-02.png)   
@@ -26,7 +26,7 @@ In this module we will test PySpark scripts provided as part of the lab individu
 
 <hr>
 
-## 4. For each step of the model development lifecycle
+## 4. The exercise, for each step of the model development lifecycle
 
 ![M4](../06-images/module-4-04.png)   
 <br><br>
@@ -133,8 +133,9 @@ Even better, find the SQL from the output and run it.
 
 <hr>
 
-## Model training
+## 8. Model training
 
+### 8.1. Execute the command in cloud shell
 ```
 gcloud dataproc batches submit pyspark \
 gs://$CODE_BUCKET/pyspark/model_training.py \
@@ -150,6 +151,61 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
+
+You should see an output like this-
+```
+Batch [customer-churn-preprocessing-10179] submitted.
+```
+As the job progresses, the output is printed to the terminal.
+
+### 8.2. Validate completion in the Dataproc UI 
+
+![M4](../06-images/module-4-14.png)   
+<br><br>
+
+
+### 8.3. Validate availabity of artifacts in Cloud Storage
+
+The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
+```
+echo $PIPELINE_ID
+```
+
+![M4](../06-images/module-4-15.png)   
+<br><br>
+
+### 8.4. Review the model feature importance scores persisted in BigQuery
+
+The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
+```
+echo $PIPELINE_ID
+```
+
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause.
+```
+SELECT * FROM `customer_churn_ds.model_feature_importance_scores`
+ WHERE operation='training' AND PIPELINE_ID='REPLACE_WITH_YOUR_PIPELINE_ID' 
+```
+
+### 8.5. Review the model metrics persisted in BigQuery
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
+
+```
+SELECT * FROM `customer_churn_ds.model_metrics` 
+ WHERE operation='training' AND PIPELINE_ID='REPLACE_WITH_YOUR_PIPELINE_ID' 
+```
+
+### 8.6. Review the model test results in BigQuery
+Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
+
+Query the predictions-
+```
+SELECT churn, prediction, *
+ FROM `customer_churn_ds.test_predictions` 
+ WHERE operation='training'
+ AND PIPELINE_ID='REPLACE_WITH_YOUR_PIPELINE_ID' 
+```
+<hr>
 
 ## Hyperparameter tuning
 
