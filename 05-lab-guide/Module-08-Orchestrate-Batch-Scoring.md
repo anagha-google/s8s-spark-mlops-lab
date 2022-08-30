@@ -243,12 +243,10 @@ WHERE pipeline_id='YOUR_PIPELINE_ID'
 ![M8](../06-images/module-8-18.png)   
 <br><br>
 
-![M8](../06-images/module-8-19.png)   
-<br><br>
-
 The following is the author's results-
 
-
+![M8](../06-images/module-8-19.png)   
+<br><br>
 
 <hr>
 
