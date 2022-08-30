@@ -56,6 +56,9 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 
 ### 4.3. Taking a pipeline developed in a notebook to production - steps involved
 
+![M5](../06-images/module-5-04.png)   
+<br><br>
+
 <hr>
 
 ## 5. Review and execute a Vertex AI pipeline from a notebook
