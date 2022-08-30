@@ -54,10 +54,18 @@ Module 1 created and configured your Cloud Composer environment, including Airfl
 ![CC2](../06-images/module-1-composer-06.png)   
 <br><br>
 
-## 5. Review of the Apache Airflow DAG for batch scoring
+## 5. Documentation on orchestrating Dataproc Serverless Spark batches with Apache Airflow
+
+Read the documentation at the link below for clear understanding of a simple example before you delve into the next session.<br>
+https://cloud.google.com/composer/docs/composer-2/run-dataproc-workloads
+
+
+## 6. Review of the Apache Airflow DAG for batch scoring
 
 The latest version of the source code is here-<br>
-https://github.com/anagha-google/s8s-spark-mlops/blob/main/02-scripts/airflow/pipeline.py
+https://github.com/anagha-google/s8s-spark-mlops/blob/main/02-scripts/airflow/pipeline.py<br>
+
+Review the code and understand the flow.
 
 ```
 # ======================================================================================
@@ -162,4 +170,30 @@ with models.DAG(
     customerChurnPredictionStep 
 ```
 
+**Note that a runtime Airflow variable expected is "Model Version". **
 
+<hr>
+
+## 7. Test the Apache Airflow DAG on Cloud Composer for batch scoring
+
+### 7.1. Identify the model version you want to use
+
+![M8](../06-images/module-8-04.png)   
+<br><br>
+
+### 7.2. Edit the Airflow varibale for Model Version
+
+![M8](../06-images/module-8-05.png)   
+<br><br>
+
+![M8](../06-images/module-1-composer-04.png)   
+<br><br>
+
+![M8](../06-images/module-8-06.png)   
+<br><br>
+
+![M8](../06-images/module-8-07.png)   
+<br><br>
+
+![M8](../06-images/module-8-08.png)   
+<br><br>
