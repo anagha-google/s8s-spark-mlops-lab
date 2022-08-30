@@ -1,4 +1,4 @@
-# About
+# About Module 1
 
 This module covers environment provisioning for the workshop. This module takes ~50-60 minutes to complete. 
 <br><br>
