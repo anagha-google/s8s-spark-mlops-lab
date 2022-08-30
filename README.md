@@ -1,4 +1,4 @@
-# Practical Machine Learning at scale with Dataproc Serverless Spark on GCP and Vertex AI
+# Practical Machine Learning at scale with Serverless Spark on GCP and Vertex AI
 
 
 ## 1. About
