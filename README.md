@@ -37,6 +37,8 @@ Follow in sequential order.
 | -- | :--- |
 | 01 |  [Terraform for environment provisioning](05-lab-guide/Module-01-Environment-Provisioning.md)|
 | 02 |  [Tutorial on Dataproc Serverless Spark Interactive Sessions for authoring Spark code](05-lab-guide/Module-02-Spark-IDE-on-GCP.md)|
+| 03 |  [Spark ML experiments with Serverless Spark Interactive notebooks](../05-lab-guide/Module-03-Author-ML-Experiments-With-Spark-Notebooks.md)|
+| 04 |  [Author PySpark ML scripts in preparation for operationalizing model training](../05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md)|
 
 ## 10. Dont forget to 
 Shut down/delete resources when done
