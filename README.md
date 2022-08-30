@@ -5,17 +5,27 @@
 
 This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI AIML platform. The focus is on demystifying the products and integration (and not about a perfect model), and features a minimum viable end to end machine learning use case.
 
+<hr>
+
 ## 2. Format & Duration
 The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, commands, notebooks, orchestration, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience. Expect to spend a minimum of 5-6 hours to fully understand and execute if new to GCP and the services.
+
+<hr>
 
 ## 3. Level
 L300 - framework (Spark), services/products, integration 
 
+<hr>
+
 ## 4. Audience
 The intended audience is anyone with (access to Google Cloud and) interest in the usecase, products and features showcased.
 
+<hr>
+
 ## 5. Prerequisites
 Knowledge of Apache Spark, Machine Learning, and GCP products would be beneficial but is not entirely required, given the format of the lab. Access to Google Cloud is a must unless you want to just read the content.
+
+<hr>
 
 ## 6. Goal
 Simplify your learning and adoption journey of our product stack for scalable data science with - <br> 
@@ -23,15 +33,24 @@ Simplify your learning and adoption journey of our product stack for scalable da
 2. Quick start code for ML at scale with Spark that can be repurposed for your data and ML experiments<br>
 3. Terraform for provisioning a variety of Google Cloud data services in the Spark ML context, that can be repurposed for your use case<br>
 
+<hr>
+
 ## 7. Use case covered
 Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) and [Spark MLLib, Random Forest Classifer](https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forest-classifier)<br> 
 
+<hr>
+
 ## 8. Solution Architecture
+
+<hr>
 
 ## 9. Flow of the lab
 
 ![README](06-images/landing-page-01.png)   
 <br><br>
+For your convenience, all the code is pre-authored, so you can focus on understading product features and integration.
+
+<hr>
 
 ## 10. The lab modules
 Complete the lab modules in a sequential manner. For a better lab experience, read *all* the modules and then start working on them.
@@ -47,7 +66,9 @@ Complete the lab modules in a sequential manner. For a better lab experience, re
 | 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)|
 
 ## 11. Dont forget to 
-Shut down/delete resources when done
+Shut down/delete resources when done to avid unnecessary billing.
+
+<hr>
 
 ## 12. Credits
 | # | Google Cloud Collaborators | Contribution  | 
@@ -56,6 +77,10 @@ Shut down/delete resources when done
 | 2. | Dr. Thomas Abraham | Guidance, testing, best practices and feedback |
 | 3. | Ivan Nardini<br>Win Woo | Consultation, inspriation through [samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb) and [blogs](https://medium.com/google-cloud/sparkling-vertex-ai-pipeline-cfe6e19334f7) |
 
+<hr>
+
 ## 13. Contributions welcome
 Community contribution to improve the lab is very much appreciated. <br>
+
+<hr>
 
