@@ -8,8 +8,9 @@ This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/late
 <hr>
 
 ## 2. Format & Duration
-The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, commands, notebooks, orchestration, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience. <br>
-Expect to spend a minimum of 5-6 hours to fully understand and execute if new to GCP and the services.
+The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, commands, notebooks, orchestration, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience. <br><br>
+
+Expect to spend a minimum of 6 hours to fully understand and execute if new to GCP and the services.
 
 <hr>
 
@@ -70,16 +71,16 @@ For your convenience, all the code is pre-authored, so you can focus on understa
 
 ## 10. The lab modules
 Complete the lab modules in a sequential manner. For a better lab experience, read *all* the modules and then start working on them.
-| # | Module | 
-| -- | :--- |
-| 01 |  [Terraform for environment provisioning](05-lab-guide/Module-01-Environment-Provisioning.md)|
-| 02 |  [Tutorial on Dataproc Serverless Spark Interactive Sessions for authoring Spark code](05-lab-guide/Module-02-Spark-IDE-on-GCP.md)|
-| 03 |  [Author PySpark ML experiments with Serverless Spark Interactive notebooks](05-lab-guide/Module-03-Author-ML-Experiments-With-Spark-Notebooks.md)|
-| 04 |  [Author PySpark ML scripts in preparation for authoring a model training pipeline](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md)|
-| 05 |  [Author a Vertex AI model training pipeline](05-lab-guide/Module-05-Author-Vertex-AI-Pipeline.md)|
-| 06 |  [Author a Cloud Function that calls your Vertex AI model training pipeline](05-lab-guide/Module-06-Author-CloudFunction-For-Vertex-AI-Pipeline.md)|
-| 07 |  [Create a Cloud Scheduler job that invokes the Cloud Function you created](05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md)|
-| 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)|
+| # | Module | Duration | 
+| -- | :--- | :--- |
+| 01 |  [Terraform for environment provisioning](05-lab-guide/Module-01-Environment-Provisioning.md)| 1 hour |
+| 02 |  [Tutorial on Dataproc Serverless Spark Interactive Sessions for authoring Spark code](05-lab-guide/Module-02-Spark-IDE-on-GCP.md)| 15 minutes |
+| 03 |  [Author PySpark ML experiments with Serverless Spark Interactive notebooks](05-lab-guide/Module-03-Author-ML-Experiments-With-Spark-Notebooks.md)| 1 hour |
+| 04 |  [Author PySpark ML scripts in preparation for authoring a model training pipeline](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md)| 1 hour |
+| 05 |  [Author a Vertex AI model training pipeline](05-lab-guide/Module-05-Author-Vertex-AI-Pipeline.md)| 1 hour |
+| 06 |  [Author a Cloud Function that calls your Vertex AI model training pipeline](05-lab-guide/Module-06-Author-CloudFunction-For-Vertex-AI-Pipeline.md)| 1 hour |
+| 07 |  [Create a Cloud Scheduler job that invokes the Cloud Function you created](05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md)| 15 minutes |
+| 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)| 15 minutes |
 
 Although the ML usecase in this lab does not need a custom container image, the lab includes container image creation and usage for the purpose of education in [Module 4](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md#11-creating-a-custom-container-image).
 
