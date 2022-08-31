@@ -63,7 +63,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 
 ![README](06-images/landing-page-01.png)   
 <br><br>
-For your convenience, all the code is pre-authored, so you can focus on understading product features and integration.
+For your convenience, all the code is pre-authored, so you can focus on understanding product features and integration.
 
 <hr>
 
