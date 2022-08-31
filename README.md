@@ -3,7 +3,7 @@
 
 ## 1. About
 
-This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI AIML platform. The focus is on demystifying the products and integration (and not about a perfect model), and features a minimum viable end to end machine learning use case.
+This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/latest/ml-guide.html) based scalable machine learning on Google Cloud, powered by Dataproc Serverless Spark and showcases integration with Vertex AI AIML platform. The focus is on demystifying the products and integration (and not about a perfect model), and features a minimum viable end to end machine learning use case.
 
 <hr>
 
