@@ -105,3 +105,8 @@ Community contribution to improve the lab is very much appreciated. <br>
 
 <hr>
 
+## 14. Getting help
+If you have any questions or if you found any problems with this repository, please report through GitHub issues.
+
+<hr>
+
