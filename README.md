@@ -41,7 +41,18 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 <hr>
 
 ## 8. Solution Architecture
-**ANAGHA TODO**
+
+### 8.1. Experimenting with model training, tuning and batch scoring
+
+![README](06-images/landing-page-02.png)   
+<br><br>
+
+### 8.2. Operationalizing model development
+**ANAGHA WORK IN PROGRESS**
+
+### 8.3. Operationalizing batch scoring
+**ANAGHA WORK IN PROGRESS**
+
 <hr>
 
 ## 9. Flow of the lab
