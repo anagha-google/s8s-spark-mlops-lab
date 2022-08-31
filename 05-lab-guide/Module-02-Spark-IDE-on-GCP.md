@@ -13,7 +13,7 @@ Dataproc Serverless Spark Interactive is serverless, Dataproc managed, autoscali
 <br><br>
 
 
-### 1b. Create and using an Serverless Spark Interactive session in a notebook - what's involved
+### 1b. Creating and using an Serverless Spark Interactive session in a notebook - what's involved
 
 ![ABOUT](../06-images/module-2-summary-02.png)   
 <br><br>
