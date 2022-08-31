@@ -56,8 +56,8 @@ Run the below in Cloud Shell scoped to your project. The values in these variabl
 PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
 PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d':' -f2 |  tr -d "'" | xargs`
 UMSA_FQN=s8s-lab-sa@$PROJECT_ID.iam.gserviceaccount.com
-SPARK_CUSTOM_CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
 SPARK_BQ_CONNECTOR_PACKAGES="com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2"
+SPARK_CUSTOM_CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
 
 echo "PROJECT_ID=$PROJECT_ID"
 echo "PROJECT_NBR=$PROJECT_NBR"
