@@ -53,7 +53,9 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 <br><br>
 
 ### 8.3. Operationalizing batch scoring
-**ANAGHA WORK IN PROGRESS**
+
+![README](06-images/landing-page-04.png)   
+<br><br>
 
 <hr>
 
