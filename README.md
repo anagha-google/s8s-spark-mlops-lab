@@ -78,7 +78,7 @@ Complete the lab modules in a sequential manner. For a better lab experience, re
 | 03 |  [Author PySpark ML experiments with Serverless Spark Interactive notebooks](05-lab-guide/Module-03-Author-ML-Experiments-With-Spark-Notebooks.md)| 1 hour |
 | 04 |  [Author PySpark ML scripts in preparation for authoring a model training pipeline](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md)| 1 hour |
 | 05 |  [Author a Vertex AI model training pipeline](05-lab-guide/Module-05-Author-Vertex-AI-Pipeline.md)| 1 hour |
-| 06 |  [Author a Cloud Function that calls your Vertex AI model training pipeline](05-lab-guide/Module-06-Author-CloudFunction-For-Vertex-AI-Pipeline.md)| 1 hour |
+| 06 |  [Author a Cloud Function that calls your Vertex AI model training pipeline](05-lab-guide/Module-06-Author-CloudFunction-For-Vertex-AI-Pipeline.md)| 15 minutes |
 | 07 |  [Create a Cloud Scheduler job that invokes the Cloud Function you created](05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md)| 15 minutes |
 | 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)| 15 minutes |
 
