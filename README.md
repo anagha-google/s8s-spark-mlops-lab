@@ -10,7 +10,7 @@ This repo is a hands on lab for [Spark MLlib](https://spark.apache.org/docs/late
 ## 2. Format & Duration
 The lab is fully scripted (no research needed), with (fully automated) environment setup, data, code, commands, notebooks, orchestration, and configuration. Clone the repo and follow the step by step instructions for an end to end MLOps experience. <br><br>
 
-Expect to spend a minimum of 6 hours to fully understand and execute if new to GCP and the services.
+Expect to spend ~8 hours to fully understand and execute if new to GCP and the services and at least ~6 hours otherwise.
 
 <hr>
 
