@@ -42,17 +42,17 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 
 ## 8. Solution Architecture
 
-### 8.1. Experimenting with model training, tuning and batch scoring
+### 8.1. Experimenting with Spark model training, tuning and batch scoring
 
 ![README](06-images/landing-page-02.png)   
 <br><br>
 
-### 8.2. Operationalizing model development
+### 8.2. Operationalizing Spark model development
 
 ![README](06-images/landing-page-03.png)   
 <br><br>
 
-### 8.3. Operationalizing batch scoring
+### 8.3. Operationalizing Spark batch scoring
 
 ![README](06-images/landing-page-04.png)   
 <br><br>
