@@ -82,7 +82,7 @@ Complete the lab modules in a sequential manner. For a better lab experience, re
 | 07 |  [Create a Cloud Scheduler job that invokes the Cloud Function you created](05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md)| 15 minutes |
 | 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)| 15 minutes |
 
-Although the ML usecase in this lab does not need a custom container image, the lab includes container image creation and usage for the purpose of education in [Module 4](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md#11-creating-a-custom-container-image).
+Although the ML usecase in this lab does not need a custom container image, the lab includes [container image creation](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md#11-creating-a-custom-container-image) and usage for the purpose of education.
 
 ## 11. Dont forget to 
 Shut down/delete resources when done to avid unnecessary billing.
