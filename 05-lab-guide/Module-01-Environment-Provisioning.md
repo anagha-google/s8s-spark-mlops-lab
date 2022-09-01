@@ -57,7 +57,6 @@ PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d'
 PROJECT_NAME=`gcloud projects describe ${PROJECT_ID} | grep name | cut -d':' -f2 | xargs`
 GCP_ACCOUNT_NAME=`gcloud auth list --filter=status:ACTIVE --format="value(account)"`
 ORG_ID=`gcloud organizations list --format="value(name)"`
-LOCATION=us-central1
 VPC_NM=s8s-vpc-$PROJECT_NBR
 SPARK_SERVERLESS_SUBNET=spark-snet
 PERSISTENT_HISTORY_SERVER_NM=s8s-sphs-${PROJECT_NBR}
@@ -65,6 +64,7 @@ UMSA_FQN=s8s-lab-sa@$PROJECT_ID.iam.gserviceaccount.com
 DATA_BUCKET=s8s_data_bucket-${PROJECT_NBR}
 CODE_BUCKET=s8s_code_bucket-${PROJECT_NBR}
 MODEL_BUCKET=s8s_model_bucket-${PROJECT_NBR}
+LOCATION=us-central1
 YOUR_GCP_REGION="us-central1"
 YOUR_GCP_ZONE="us-central1-a"
 YOUR_GCP_MULTI_REGION="US"
