@@ -150,6 +150,26 @@ Click on "submit". In less than 2 minutes, you should see a session created.
 
 ## 8. Ensure you have the session you created, selected in the kernel picker dropdown
 
+### 8.1. The kernel picker - where to find it
+
+![UMNBS](../06-images/module-2-15.png)   
+<br><br>
+
+![UMNBS](../06-images/module-2-16.png)   
+<br><br>
+
+![UMNBS](../06-images/module-2-17.png)   
+<br><br>
+
+![UMNBS](../06-images/module-2-18.png)   
+<br><br>
+
+![UMNBS](../06-images/module-2-19.png)   
+<br><br>
+
+
+### 8.2. Choosing the interactive spark kernel
+
 ![UMNBS](../06-images/module-2-10.png)   
 <br><br>
 
