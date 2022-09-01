@@ -174,7 +174,7 @@ Are empty and used for peristing logs and/or MLOps artifacts
 
 ## 6a. Vertex AI Workbench - Managed Notebook Server 
 
-**Be sure to select the right region in the dropdown.**
+
 
 
 ![UMNBS](../06-images/module-1-vai-wb-01.png)   
@@ -182,6 +182,8 @@ Are empty and used for peristing logs and/or MLOps artifacts
 
 
 ## 6b. Vertex AI Workbench - Managed Notebook Server - Jupyter Notebook
+
+**Be sure to select the right region in the dropdown.**
 
 ![UMNBS](../06-images/module-1-vai-wb-mnb-01.png)   
 <br><br>
