@@ -64,7 +64,6 @@ UMSA_FQN=s8s-lab-sa@$PROJECT_ID.iam.gserviceaccount.com
 DATA_BUCKET=s8s_data_bucket-${PROJECT_NBR}
 CODE_BUCKET=s8s_code_bucket-${PROJECT_NBR}
 MODEL_BUCKET=s8s_model_bucket-${PROJECT_NBR}
-LOCATION=us-central1
 YOUR_GCP_REGION="us-central1"
 YOUR_GCP_ZONE="us-central1-a"
 YOUR_GCP_MULTI_REGION="US"
