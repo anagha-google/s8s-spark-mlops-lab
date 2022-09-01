@@ -187,6 +187,7 @@ Are empty and used for peristing logs and/or MLOps artifacts
 <br><br>
 
 ## 7a. Vertex AI Workbench - User Managed Notebook Server 
+Be sure to select the right region in the dropdown.
 
 ![UMNBS](../06-images/module-1-vai-wb-umnb-01.png)   
 <br><br>
