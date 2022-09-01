@@ -64,12 +64,12 @@ UMSA_FQN=s8s-lab-sa@$PROJECT_ID.iam.gserviceaccount.com
 DATA_BUCKET=s8s_data_bucket-${PROJECT_NBR}
 CODE_BUCKET=s8s_code_bucket-${PROJECT_NBR}
 MODEL_BUCKET=s8s_model_bucket-${PROJECT_NBR}
-YOUR_GCP_REGION="us-central1"
-YOUR_GCP_ZONE="us-central1-a"
-YOUR_GCP_MULTI_REGION="US"
 BQ_CONNECTOR_JAR_GCS_URI="gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
 CLOUD_COMPOSER_IMG_VERSION="composer-2.0.11-airflow-2.2.3"
 SPARK_CUSTOM_CONTAINER_IMAGE_TAG="1.0.0"
+YOUR_GCP_REGION="us-central1"
+YOUR_GCP_ZONE="us-central1-a"
+YOUR_GCP_MULTI_REGION="US"
 CLOUD_SCHEDULER_TIME_ZONE="America/Chicago"
 
 echo "PROJECT_ID=$PROJECT_ID"
