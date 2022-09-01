@@ -85,7 +85,7 @@ Complete the lab modules in a sequential manner. For a better lab experience, re
 Although the ML usecase in this lab does not need a custom container image, the lab includes [container image creation](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md#11-creating-a-custom-container-image) and usage for the purpose of education.
 
 ## 11. Dont forget to 
-Shut down/delete resources when done to avid unnecessary billing.
+Shut down/delete resources when done to avoid unnecessary billing.
 
 <hr>
 
