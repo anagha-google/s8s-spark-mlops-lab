@@ -87,6 +87,8 @@ Open JupyterLab as shown below
 ![UMNBS](../06-images/module-1-vai-wb-01.png)   
 <br><br>
 
+**Be sure to select the right region in the dropdown.**
+
 ![UMNBS](../06-images/module-1-vai-wb-mnb-01.png)   
 <br><br>
 
