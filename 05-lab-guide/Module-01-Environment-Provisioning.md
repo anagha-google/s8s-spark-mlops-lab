@@ -91,6 +91,8 @@ terraform init
 #### 2.4.3. Review the Terraform deployment plan
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+
 terraform plan \
   -var="project_id=${PROJECT_ID}" \
   -var="project_name=${PROJECT_NAME}" \
@@ -109,6 +111,7 @@ terraform plan \
 #### 2.4.4. Provision the environment
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 
 terraform apply \
   -var="project_id=${PROJECT_ID}" \
