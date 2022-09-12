@@ -85,6 +85,8 @@ echo "CODE_BUCKET=$CODE_BUCKET"
 ### 2.4.2. Initialize Terraform
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+
 terraform init
 ```
 
