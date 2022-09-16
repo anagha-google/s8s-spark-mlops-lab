@@ -155,7 +155,7 @@ def fnMain(logger, args):
         logger.info('....Format column names for consistency')
         persistDF = modelTrainingReadyDF.select("customerID", "gender", "SeniorCitizen", "Partner", "Dependents", "tenure", "Tenure_Group", "PhoneService", "MultipleLines", "InternetService", "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling", "PaymentMethod", "MonthlyCharges", "TotalCharges","Churn") \
                                         .toDF("customer_id", "gender", "senior_citizen", "partner", "dependents", "tenure", "tenure_group", "phone_service", "multiple_lines", "internet_service", "online_security", "online_backup", "device_protection", "tech_support", "streaming_tv", "streaming_movies", "contract", "paperless_billing", "payment_method", "monthly_charges", "total_charges","churn") \
-                                        .withColumn("pipeline_id", lit(pipelineID)) \
+                                        .withColumn("pipeline_id", lit(pipelineID).cast("string")) \
                                         .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) 
 
         persistDF.printSchema()
