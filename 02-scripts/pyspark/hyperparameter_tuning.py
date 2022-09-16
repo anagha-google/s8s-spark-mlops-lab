@@ -226,8 +226,8 @@ def fnMain(logger, args):
         predictionsDF.show(2)
 
         # 13. Persist model testing results to BigQuery
-        predictionsWithPipelineIdDF = predictionsDF.withColumn("pipeline_id", lit(pipelineID)) \
-                                        .withColumn("model_version", lit(pipelineID)) \
+        predictionsWithPipelineIdDF = predictionsDF.withColumn("pipeline_id", lit(pipelineID).cast("string")) \
+                                        .withColumn("model_version", lit(pipelineID).cast("string")) \
                                         .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
                                         .withColumn("operation", lit(operation)) 
 
@@ -283,8 +283,8 @@ def fnMain(logger, args):
 
         # 14c. Persist metrics subset to BigQuery
         metricsDF = spark.createDataFrame(modelMetrics.items(), ["metric_nm", "metric_value"]) 
-        metricsWithPipelineIdDF = metricsDF.withColumn("pipeline_id", lit(pipelineID)) \
-                                        .withColumn("model_version", lit(pipelineID)) \
+        metricsWithPipelineIdDF = metricsDF.withColumn("pipeline_id", lit(pipelineID).cast("string")) \
+                                        .withColumn("model_version", lit(pipelineID).cast("string")) \
                                         .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
                                         .withColumn("operation", lit(appNameSuffix)) 
 
