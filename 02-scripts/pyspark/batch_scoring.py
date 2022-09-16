@@ -161,8 +161,8 @@ def fnMain(logger, args):
         # 12. Batch scoring
         print('....Scoring: Execute model.transform') 
         batchScoreResultsDF = model.transform(scorableDF) \
-                                .withColumn("model_version", lit(modelVersion)) \
-                                .withColumn("pipeline_id", lit(pipelineID)) \
+                                .withColumn("model_version", lit(modelVersion).cast("string")) \
+                                .withColumn("pipeline_id", lit(pipelineID).cast("string")) \
                                 .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) 
 
         if displayPrintStatements:
