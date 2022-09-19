@@ -50,9 +50,9 @@ Watch this [short video on vertex AI pipelines](https://youtu.be/Jrh-QLrVCvM) an
 | 9 | Model Metadata  | Yes | Vertex AI metadata |  | |
 | 10 | Solution for Batch Scoring  | Yes | Dataproc Serverless Spark Batches  |  | Option 1: Small-scale - Vertex AI predictions service can be used - requires MLEAP<br>Option 2: Large-scale - Use Dataproc Serverless Spark |
 | 11 | Solution for (near) Real Time/Stream Scoring  | Yes | Dataproc Spark on GCE  |  |  |
-| 12 | Solution for Online/On-demand Scoring  | Yes | Vertex AI online serving  |  | Requires MLEAP package  |
-| 13 | Explainability | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP package  |
-| 14 | Model Monitoring | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP \ |
+| 12 | Solution for Online/On-demand Scoring  | Yes | Vertex AI online serving  |  | Requires MLEAP   |
+| 13 | Explainability | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP   |
+| 14 | Model Monitoring | Yes | with<br>Vertex AI online/batch serving  |  | Requires MLEAP |
 
 <hr>
 
