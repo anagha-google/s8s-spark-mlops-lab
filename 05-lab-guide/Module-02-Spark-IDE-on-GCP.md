@@ -34,10 +34,10 @@ We will analyze Chicago Crimes in BigQuery from a Jupyer Notebook on Vertex AI W
 
 **Goals:**
 1. Understand how to create and attach a Dataproc Serverless Spark interactive session to your Jupyter notebook  
-2. Learn how to switch the Dataproc Serverless Spark interactive session created, between notebooks
+2. Learn how to switch the Dataproc Serverless Spark interactive session created, between Jupyter notebooks
 3. Learn to navigate Dataproc UI for the Serverless Spark interactive session 
 4. Browse the Spark UI of the persistent Spark History Server, for the Serverless Spark interactive session 
-5. Learn how to anayze data in BigQuery using the BigQuery Spark connector.
+5. Learn how to analyze data in BigQuery using the BigQuery Spark connector.
 
 **Pre-requisite:**
 1. Ensure that any preview features are allow-listed by product engineering, ahead of time
