@@ -63,7 +63,7 @@ https://cloud.google.com/composer/docs/composer-2/run-dataproc-workloads
 ## 6. Review of the Apache Airflow DAG for batch scoring
 
 The latest version of the source code is here-<br>
-https://github.com/anagha-google/s8s-spark-mlops/blob/main/02-scripts/airflow/pipeline.py<br>
+https://github.com/anagha-google/s8s-spark-mlops-lab/blob/main/02-scripts/airflow/pipeline.py<br>
 
 Review the code and understand the flow.
 
