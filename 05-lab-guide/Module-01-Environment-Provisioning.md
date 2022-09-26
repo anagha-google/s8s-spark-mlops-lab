@@ -37,12 +37,12 @@ mkdir gcp-spark-mllib-workshop
 ### 2.2. Clone the workshop git repo
 ```
 cd ~/gcp-spark-mllib-workshop
-git clone https://github.com/anagha-google/s8s-spark-mlops.git
+git clone https://github.com/anagha-google/s8s-spark-mlops-lab.git
 ```
 
 ### 2.3. Navigate to the Terraform provisioning directory
 ```
-cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/00-env-setup
 ```
 
 ### 2.4. Provision the environment
@@ -85,15 +85,15 @@ echo "CODE_BUCKET=$CODE_BUCKET"
 ### 2.4.2. Initialize Terraform
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
-cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/00-env-setup
 
 terraform init
 ```
 
 #### 2.4.3. Review the Terraform deployment plan
-Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/00-env-setup
 ```
-cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/00-env-setup
 
 terraform plan \
   -var="project_id=${PROJECT_ID}" \
@@ -113,7 +113,7 @@ terraform plan \
 #### 2.4.4. Provision the environment
 Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
 ```
-cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+cd ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/00-env-setup
 
 terraform apply \
   -var="project_id=${PROJECT_ID}" \
@@ -159,7 +159,7 @@ Workaround: Not applicable. It just takes 90 seconds or less to destroy and 90 s
 ### 5.1. For selective replacement of specific services/units of deployment [DO NOT RUN THIS, ITS JUST FYI]
 
 This is not needed...and is informational only.<br>
-Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup<br>
+Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/00-env-setup<br>
 If -target does not work, try -replace
 ```
 #terraform apply -target=google_storage_bucket_object.upload_cc2_dag_to_airflow_dag_bucket \
@@ -182,7 +182,7 @@ If -target does not work, try -replace
 
 You can (a) shutdown the project altogether in GCP Cloud Console or (b) use Terraform to destroy. Use (b) at your own risk as its a little glitchy while (a) is guaranteed to stop the billing meter pronto.
 <br>
-Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops/00-env-setup
+Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/00-env-setup
 ```
 #terraform destroy \
   -var="project_id=${PROJECT_ID}" \
