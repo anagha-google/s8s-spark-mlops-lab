@@ -85,11 +85,11 @@ The Cloud Function is already deployed in your environment. The folowing is the 
 ### 7.3. Source code - requirements.txt
 
 The latest requirements.txt is avialable here-<br>
-https://github.com/anagha-google/s8s-spark-mlops/blob/main/02-scripts/cloud-functions/requirements.txt
+https://github.com/anagha-google/s8s-spark-mlops-lab/blob/main/02-scripts/cloud-functions/requirements.txt
 
 ### 7.4. Source code - main.py
 The latest source code is avialable here-<br>
-https://github.com/anagha-google/s8s-spark-mlops/blob/main/02-scripts/cloud-functions/main.py
+https://github.com/anagha-google/s8s-spark-mlops-lab/blob/main/02-scripts/cloud-functions/main.py
 <hr>
 
 ## 8. Execute the Cloud Function and monitor for pipeline execution through completion
