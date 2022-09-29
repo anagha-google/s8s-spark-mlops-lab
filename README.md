@@ -65,9 +65,16 @@ Fully managed, autoscalable, secure Spark jobs as a service that eliminates admi
 - Try out our other Serverless Spark centric hands on labs [here](https://github.com/GoogleCloudPlatform/serverless-spark-workshop)
 
 ### 8.3. Operationalizing Spark Batch Scoring
+There are multiple options. 
 
+#### 8.3.1. Directly from within Spark
 ![README](06-images/landing-page-04.png)   
 <br><br>
+
+#### 8.3.2. Through Vertex AI serving
+Vertex AI supports operationalizing batch serving of Spark ML Models in conjunction with MLEAP.<br>
+ARCHITECTURE DIAGRAM TO BE ADDED<br>
+CODE MODULE - Work in progress<br>
 
 <hr>
 
