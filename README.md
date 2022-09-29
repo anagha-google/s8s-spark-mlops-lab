@@ -52,7 +52,7 @@ Telco Customer Churn Prediction with a [Kaggle dataset](https://www.kaggle.com/d
 About Dataproc Serverless Spark Interactive:
 Fully managed, autoscalable, secure Spark infrastructure as a service for use with Jupyter notebooks on Vertex AI Workbench managed notebooks. Use as an interactive Spark IDE, for accelerating development and speed to production.
 
-### 8.2. Operationalizing Spark model development
+### 8.2. Operationalizing Spark Model Training
 
 ![README](06-images/landing-page-03.png)   
 <br><br>
@@ -64,7 +64,7 @@ Fully managed, autoscalable, secure Spark jobs as a service that eliminates admi
 - Want Google Cloud to train you on Serverless Spark for free, reach out to us [here](https://forms.gle/8ekUAFYd5xXvi2Hy9)
 - Try out our other Serverless Spark centric hands on labs [here](https://github.com/GoogleCloudPlatform/serverless-spark-workshop)
 
-### 8.3. Operationalizing Spark batch scoring
+### 8.3. Operationalizing Spark Batch Scoring
 
 ![README](06-images/landing-page-04.png)   
 <br><br>
