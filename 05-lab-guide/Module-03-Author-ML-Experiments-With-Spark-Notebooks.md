@@ -204,25 +204,49 @@ This sub-module demonstrates hyperparameter tuning with Spark MLLib in an effort
 ![M3](../06-images/module-3-28.png)   
 <br><br>
 
-### 7.2. Run the model tuning notebook
-Switch the serverless Spark interactive kernel to this notebook and run the entire notebok. It takes ~30 minutes to complete. If it fails midway, rerun the entire notebook.
+### 7.2. Create a new Serverless Spark Interactive Session through the CLI
+We need this to be able to pass multiple packages (BQ + MLEAP)...
+This is just to demonstrate session creation via CLI.
+
+```
+PROJECT_ID=`gcloud config list --format "value(core.project)" 2>/dev/null`
+PROJECT_NBR=`gcloud projects describe $PROJECT_ID | grep projectNumber | cut -d':' -f2 |  tr -d "'" | xargs`
+SESSION_NAME="s8s-spark-session-$RANDOM-mleap-included"
+REGION="us-central1" # REPLACE WITH YOUR REGION
+HISTORY_SERVER_NAME="s8s-sphs-${PROJECT_NBR}"
+SUBNET="spark-snet"
+NOTEBOOK_BUCKET="gs://s8s_notebook_bucket-${PROJECT_NBR}"
+CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
+
+gcloud beta dataproc sessions create spark $SESSION_NAME  \
+--project=${PROJECT_ID} \
+--location=${REGION} \
+--property=spark.jars=gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar \
+--property=spark.jars.packages="ml.combust.mleap:mleap-spark_2.12:0.20.0" \
+--history-server-cluster=projects/$PROJECT_ID/regions/$REGION/clusters/$HISTORY_SERVER_NAME \
+--container-image=${CONTAINER_IMAGE_URI} \
+--subnet=$SUBNET 
+```
+
+### 7.3. Run the model hyperparameter tuning notebook
+Pick the serverless Spark interactive kernel created in previous step and attach to the hyperparameter tuning notebook and run the entire notebok. It takes ~30 minutes to complete. 
 
 ![M3](../06-images/module-3-29.png)   
 <br><br>
 
-### 7.3. Review the model persisted in GCS
+### 7.4. Review the model persisted in GCS
 Notice that Spark Mllib creates a bestModel directory and persists the tuned model there. We will use the model in the bestModel directory for batch scoring.
 
 ![M3](../06-images/module-3-31.png)   
 <br><br>
 
-### 7.4. Review the model metrics persisted in GCS
+### 7.5. Review the model metrics persisted in GCS
 Again, this for the Vertex AI pipeline which we will cover in the module after the next.
 
 ![M3](../06-images/module-3-30.png)   
 <br><br>
 
-### 7.5. Review the model metrics persisted in BigQuery
+### 7.6. Review the model metrics persisted in BigQuery
 
 Run the below query in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
