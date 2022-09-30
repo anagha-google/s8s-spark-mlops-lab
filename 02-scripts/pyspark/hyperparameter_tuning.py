@@ -93,7 +93,7 @@ def fnMain(logger, args):
     metricsBucketUri = f"gs://s8s_metrics_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
     scratchBucketUri = f"s8s-spark-bucket-{projectNbr}/{appBaseName}/pipelineId-{pipelineID}/{appNameSuffix}/"
     pipelineExecutionDt = datetime.now().strftime("%Y%m%d%H%M%S")
-    mleapBundleBucketUri = f"gs://s8s_bundle_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
+    mleapBundleBucketUri = f"gs://s8s_bundle_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}/bundle"
 
     # Other variables, constants
     SPLIT_SEED = 6
@@ -321,7 +321,7 @@ def fnMain(logger, args):
         
         # }}
         # ........................................................
-        # MODEL MLEAP BUNDLE
+        # MODEL MLEAP BUNDLE CREATION
         # ........................................................
         # 15a. Serialize model to MLEAP bundle
         pipelineModel.bestModel.serializeToBundle(f'jar:file:/tmp/bundle.zip', predictionsDF)
@@ -335,6 +335,34 @@ def fnMain(logger, args):
 
         # 15c. Persist bundle to GCS
         common_utils.fnPersistToGCS(bundleBucket, '/tmp/bundle.zip', mleapBundleFilePath)
+
+        # ........................................................
+        # LOG THE MODEL VERSION TO THE BIGQUERY MODEL TRACKER TABLE
+        # ........................................................
+
+        # 16a. Create a dict with model assets
+        modelTrackerDict = [{ "model_nm": "CUSTOMER_CHURN_PREDICTION", 
+                            "pipeline_id": pipelineID, 
+                            "model_version": pipelineID, 
+                            "pipeline_execution_dt": pipelineExecutionDt,
+                            "model_gcs_uri": modelBucketUri,
+                            "model_bundle_gcs_uri": mleapBundleBucketUri,
+                            "model_metrics_gcs_uri": metricsBucketUri,
+                            "model_training_bq_source": bigQuerySourceTableFQN,
+                            "model_metrics_bq": bigQueryModelMetricsTableFQN,
+                            "model_test_results_bq": bigQueryModelTestResultsTableFQN
+                            }]
+        print(modelTrackerDict)
+
+        # 16b. Convert dict to Spark dataframe
+        modelTrackerDF = spark.createDataFrame(modelTrackerDict) 
+        modelTrackerDF.show()
+
+        # 16c. Publish to BigQuery
+        modelTrackerDF.write.format('bigquery') \
+        .mode("overwrite")\
+        .option('table', bigQueryModelMetadataTableFQN) \
+        .save()
 
 
     except RuntimeError as coreError:
