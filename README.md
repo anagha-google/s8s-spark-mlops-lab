@@ -130,6 +130,6 @@ If you have any questions or if you found any problems with this repository, ple
 ## 15. Release History
 | Date | Details | 
 | -- | :--- | 
-| 20220930 |  Added serializing model to MLEAP bundle<br>Affects:<br>1. Hyperparameter tuning notebook & PySpark script<br>2. VAI pipeline notebook |
+| 20220930 |  Added serializing model to MLEAP bundle<br>Affects:<br>1. Terraform main.tf<br>2. Hyperparameter tuning notebook<br>3. Hyperparameter tuning PySpark script<br>4. VAI pipeline notebook<br>5. VAI Json Template |
 
 
