@@ -89,11 +89,7 @@
                     "componentInputParameter": "pipelineparam--common_utils_py_fqn"
                   },
                   "runtime_config_properties": {
-                    "runtimeValue": {
-                      "constantValue": {
-                        "stringValue": "{}"
-                      }
-                    }
+                     "componentInputParameter": "pipelineparam--hyperparameter_tuning_runtime_config_properties"
                   },
                   "runtime_config_version": {
                     "runtimeValue": {
@@ -138,6 +134,9 @@
             },
             "pipelineparam--hyperparameter_tuning_pyspark_batch_id": {
               "type": "STRING"
+            },
+            "pipelineparam--hyperparameter_tuning_runtime_config_properties": {
+                "type": "STRING"
             },
             "pipelineparam--location": {
               "type": "STRING"
@@ -631,6 +630,9 @@
                 "pipelineparam--hyperparameter_tuning_pyspark_batch_id": {
                   "componentInputParameter": "hyperparameter_tuning_pyspark_batch_id"
                 },
+                "pipelineparam--hyperparameter_tuning_runtime_config_properties": {
+                    "componentInputParameter": "hyperparameter_tuning_runtime_config_properties"
+                },
                 "pipelineparam--location": {
                   "componentInputParameter": "location"
                 },
@@ -972,6 +974,9 @@
           "hyperparameter_tuning_pyspark_batch_id": {
             "type": "STRING"
           },
+          "hyperparameter_tuning_runtime_config_properties": {
+              "type": "STRING"
+          },
           "location": {
             "type": "STRING"
           },
@@ -1058,6 +1063,12 @@
       },
       "hyperparameter_tuning_pyspark_batch_id": {
         "stringValue": "customer-churn-model-hyperparameter-tuning-YOUR_USER_DEFINED_EXECUTION_ID"
+      },
+      "hyperparameter_tuning_runtime_config_properties": {
+          "stringValue": "{\"spark.jars.packages\": \"ml.combust.mleap:mleap-spark-base_2.12:0.20.0,ml.combust.mleap:mleap-spark_2.12:0.20.0\"}"
+      },
+      "hyperparameter_tuning_runtime_config_properties": {
+          "stringValue": "{\"spark.jars.packages\": \"ml.combust.mleap:mleap-spark-base_2.12:0.20.0,ml.combust.mleap:mleap-spark_2.12:0.20.0\"}"
       },
       "location": {
         "stringValue": "YOUR_GCP_LOCATION"
