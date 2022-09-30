@@ -313,7 +313,7 @@ gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --service-account $UMSA_FQN \
 --properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
 --container-image=${CONTAINER_IMAGE_URI} \
--- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True --modelVersion=${PIPELINE_ID}
+-- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True 
 ```
 
 ### 10.2. Review the batch predictions in BigQuery
