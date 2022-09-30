@@ -259,7 +259,7 @@ The following is the author's output-
 <br><br>
 
 
-### 7.6. Review the model test results in BigQuery
+### 7.7. Review the model test results in BigQuery
 
 Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause if you are running the experiments multiple times.
 ```
@@ -280,7 +280,7 @@ The following is the author's output-
 ![M3](../06-images/module-3-33.png)   
 <br><br>
 
-### 7.7. Validate availabity of model mleap bundle in Cloud Storage
+### 7.8. Validate availabity of model mleap bundle in Cloud Storage
 
 The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
 ```
@@ -292,7 +292,7 @@ echo $PIPELINE_ID
 
 
 
-### 7.8. Review the model asset tracker table in BigQuery
+### 7.9. Review the model asset tracker table in BigQuery
 This table has the latest model artifact specifics across storage systems.<br>
 The following is the table definition-
 ![M4](../06-images/module-4-101.png)   
