@@ -680,6 +680,17 @@ resource "google_storage_bucket" "s8s_metrics_bucket_creation" {
   ]
 }
 
+resource "google_storage_bucket" "s8s_bundle_bucket_creation" {
+  project                           = local.project_id 
+  name                              = local.s8s_bundle_bucket
+  location                          = local.location
+  uniform_bucket_level_access       = true
+  force_destroy                     = true
+  depends_on = [
+      time_sleep.sleep_after_network_and_firewall_creation
+  ]
+}
+
 resource "google_storage_bucket" "s8s_vai_pipeline_bucket_creation" {
   project                           = local.project_id 
   name                              = local.s8s_pipeline_bucket
@@ -706,7 +717,8 @@ resource "time_sleep" "sleep_after_bucket_creation" {
     google_storage_bucket.s8s_spark_bucket_creation,
     google_storage_bucket.s8s_model_bucket_creation,
     google_storage_bucket.s8s_metrics_bucket_creation,
-    google_storage_bucket.s8s_vai_pipeline_bucket_creation
+    google_storage_bucket.s8s_vai_pipeline_bucket_creation,
+    google_storage_bucket.s8s_bundle_bucket_creation
   ]
 }
 
@@ -1137,7 +1149,6 @@ resource "google_composer_environment" "cloud_composer_env_creation" {
         AIRFLOW_VAR_PHS_SERVER = "${local.s8s_spark_sphs_nm}"
         AIRFLOW_VAR_CONTAINER_IMAGE_URI = "gcr.io/${local.project_id}/customer_churn_image:${local.SPARK_CONTAINER_IMG_TAG}"
         AIRFLOW_VAR_BQ_CONNECTOR_JAR_URI = "${local.bq_connector_jar_gcs_uri}"
-        AIRFLOW_VAR_MODEL_VERSION = "REPLACE_ME"
         AIRFLOW_VAR_DISPLAY_PRINT_STATEMENTS = "True"
         AIRFLOW_VAR_BQ_DATASET = "${local.bq_datamart_ds}"
         AIRFLOW_VAR_UMSA_FQN = "${local.umsa_fqn}"
