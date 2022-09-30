@@ -127,3 +127,9 @@ If you have any questions or if you found any problems with this repository, ple
 
 <hr>
 
+## 15. Release History
+| Date | Details | 
+| -- | :--- | 
+| 20220930 |  Added serializing model to MLEAP bundle<br>Affects:<br>1. Hyperparameter tuning notebook & PySpark script<br>2. VAI pipeline notebook |
+
+
