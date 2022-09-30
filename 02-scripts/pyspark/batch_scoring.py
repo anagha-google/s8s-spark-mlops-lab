@@ -149,12 +149,13 @@ def fnMain(logger, args):
             .load(bigQueryModelAssetTrackerTableFQN)
 
         modelVersion=modelAssetSpecsDF.first()["model_version"]
+        modelGcsUriFromAssetTracker=modelAssetSpecsDF.first()["model_gcs_uri"]
         print(f"The model version is: {modelVersion}")
+        print(f"The model GCS URI is: {modelGcsUriFromAssetTracker}")
 
         # 11b. Load the pre-trained, persisted model in GCS
-        modelBucketUri = f"gs://s8s_model_bucket-{projectNbr}/{modelBaseNm}/hyperparameter-tuning/{modelVersion}"
-        print(f'....Scoring: Load model out of bucket at {modelBucketUri} into memory') 
-        model = PipelineModel.load(f"{modelBucketUri}/bestModel/")
+        print(f'....Scoring: Load model out of bucket at {modelGcsUriFromAssetTracker} into memory') 
+        model = PipelineModel.load(f"{modelGcsUriFromAssetTracker}/bestModel/")
 
         # 12. Batch scoring
         print('....Scoring: Execute model.transform') 
