@@ -280,6 +280,36 @@ The following is the author's output-
 ![M3](../06-images/module-3-33.png)   
 <br><br>
 
+### 7.7. Validate availabity of model mleap bundle in Cloud Storage
+
+The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
+```
+echo $PIPELINE_ID
+```
+
+![M4](../06-images/module-4-100.png)   
+<br><br>
+
+
+
+### 7.8. Review the model asset tracker table in BigQuery
+This table has the latest model artifact specifics across storage systems.<br>
+The following is the table definition-
+![M4](../06-images/module-4-101.png)   
+<br><br>
+
+
+Run the below query in BigQuery to view assets specific to your execution-
+```
+SELECT  *
+ FROM `customer_churn_ds.model_asset_tracker` 
+```
+
+
+Author's sample-
+![M4](../06-images/module-4-102.png)   
+<br><br>
+
 
 <hr>
 
