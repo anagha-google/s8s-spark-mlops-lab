@@ -37,14 +37,12 @@ bqConnectorJarUri=Variable.get("bq_connector_jar_uri")
 pipelineID = randomVal
 projectID = models.Variable.get("project_id")
 projectNbr = models.Variable.get("project_nbr")
-modelVersion=Variable.get("model_version")
 displayPrintStatements=Variable.get("display_print_statements")
 # +
 # d) Arguments array
 batchScoringArguments = [f"--pipelineID={pipelineID}", \
         f"--projectID={projectID}", \
         f"--projectNbr={projectNbr}", \
-        f"--modelVersion={modelVersion}", \
         f"--displayPrintStatements={displayPrintStatements}" ]
 # +
 # e) PySpark script to execute
