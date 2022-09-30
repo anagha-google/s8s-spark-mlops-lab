@@ -32,11 +32,6 @@ def fnParseArguments():
         type=str,
         required=True)
     argsParser.add_argument(
-        '--modelVersion',
-        help='Model version to use for scoring',
-        type=str,
-        required=True)
-    argsParser.add_argument(
         '--projectNbr',
         help='The project number',
         type=str,
@@ -59,7 +54,6 @@ def fnMain(logger, args):
 
     # 1a. Arguments
     pipelineID = args.pipelineID
-    modelVersion = args.modelVersion
     projectNbr = args.projectNbr
     projectID = args.projectID
     displayPrintStatements = args.displayPrintStatements
@@ -70,9 +64,9 @@ def fnMain(logger, args):
     appName = f"{appBaseName}-{appNameSuffix}"
     modelBaseNm = appBaseName
     bqDatasetNm = f"{projectID}.customer_churn_ds"
-    modelBucketUri = f"gs://s8s_model_bucket-{projectNbr}/{modelBaseNm}/hyperparameter-tuning/{modelVersion}"
     scoreDatasetBucketFQN = f"gs://s8s_data_bucket-{projectNbr}/customer_churn_score_data.csv"
     bigQueryOutputTableFQN = f"{bqDatasetNm}.batch_predictions"
+    bigQueryModelAssetTrackerTableFQN = f"{bqDatasetNm}.model_asset_tracker"
     scratchBucketUri = f"s8s-spark-bucket-{projectNbr}/{appBaseName}/pipelineId-{pipelineID}/{appNameSuffix}/"
     pipelineExecutionDt = datetime.now().strftime("%Y%m%d%H%M%S")
 
@@ -84,15 +78,10 @@ def fnMain(logger, args):
         print(" ")
         print("INPUT-")
         print(f"....pipelineID={pipelineID}")
-        print(f"....modelVersion={modelVersion}")
         print(f"....projectNbr={projectNbr}")
         print(f"....projectID={projectID}")
         print(f"....displayPrintStatements={displayPrintStatements}")
         print(" ")
-        print("OUTPUT-")
-        print(f"....BigQuery Table={bigQueryOutputTableFQN}")
-        print(f"SELECT * FROM {bigQueryOutputTableFQN} WHERE model_version='{modelVersion}' AND pipeline_id='{pipelineID}' AND pipeline_execution_dt='{pipelineExecutionDt}' LIMIT 10" )
-   
 
     try:
         # 2. Spark Session creation
@@ -154,9 +143,18 @@ def fnMain(logger, args):
             print(scorableDF.count())
             scorableDF.show(2)
 
-        # 11. Load the pre-trained, persisted model in GCS
-        print('....Scoring: Load model out of GCS into memory') 
-        model = PipelineModel.load(f"{modelBucketUri}/bestModel/") 
+        # 11a. Determine the version of the model available in the Asset Tracker table
+        modelAssetSpecsDF=spark.read \
+            .format('bigquery') \
+            .load(bigQueryModelAssetTrackerTableFQN)
+
+        modelVersion=modelAssetSpecsDF.first()["model_version"]
+        print(f"The model version is: {modelVersion}")
+
+        # 11b. Load the pre-trained, persisted model in GCS
+        modelBucketUri = f"gs://s8s_model_bucket-{projectNbr}/{modelBaseNm}/hyperparameter-tuning/{modelVersion}"
+        print(f'....Scoring: Load model out of bucket at {modelBucketUri} into memory') 
+        model = PipelineModel.load(f"{modelBucketUri}/bestModel/")
 
         # 12. Batch scoring
         print('....Scoring: Execute model.transform') 
@@ -176,7 +174,10 @@ def fnMain(logger, args):
         .option('table', bigQueryOutputTableFQN) \
         .save()
 
-
+        print("VALIDATE RESULTS AT-")
+        print(f"....BigQuery Table={bigQueryOutputTableFQN}")
+        print(f"SELECT * FROM {bigQueryOutputTableFQN} WHERE model_version='{modelVersion}' AND pipeline_id='{pipelineID}' AND pipeline_execution_dt='{pipelineExecutionDt}' LIMIT 10" )
+   
     except RuntimeError as coreError:
             logger.error(coreError)
     else:
