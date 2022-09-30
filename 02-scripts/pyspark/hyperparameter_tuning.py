@@ -5,8 +5,9 @@
 # Classification model for the customer churn prediction experiment-
 # 1. Reads source data from BigQuery as a source,
 # 2. Writes model to GCS
-# 3. Captures and persists model metrics to GCS and BigQuery
+# 3. Parses and persists model metrics to GCS and BigQuery
 # 4. Writes model test results to BigQuery
+# 5. Serializes the best model into a mleap bundle persists to GCS
 # ............................................................
 
 from pyspark.sql import SparkSession
@@ -31,6 +32,8 @@ from urllib.parse import urlparse, urljoin
 from datetime import datetime
 import sys, logging, argparse
 import common_utils
+import mleap.pyspark
+from mleap.pyspark.spark_support import SimpleSparkSerializer
 
 
 def fnParseArguments():
@@ -83,12 +86,14 @@ def fnMain(logger, args):
     bqDatasetNm = f"{projectID}.customer_churn_ds"
     operation = appNameSuffix
     bigQuerySourceTableFQN = f"{bqDatasetNm}.training_data"
+    bigQueryModelMetadataTableFQN = f"{bqDatasetNm}.model_asset_tracker"
     bigQueryModelTestResultsTableFQN = f"{bqDatasetNm}.test_predictions"
     bigQueryModelMetricsTableFQN = f"{bqDatasetNm}.model_metrics"
     modelBucketUri = f"gs://s8s_model_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
     metricsBucketUri = f"gs://s8s_metrics_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
     scratchBucketUri = f"s8s-spark-bucket-{projectNbr}/{appBaseName}/pipelineId-{pipelineID}/{appNameSuffix}/"
     pipelineExecutionDt = datetime.now().strftime("%Y%m%d%H%M%S")
+    mleapBundleBucketUri = f"gs://s8s_bundle_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
 
     # Other variables, constants
     SPLIT_SEED = 6
@@ -229,7 +234,7 @@ def fnMain(logger, args):
         predictionsWithPipelineIdDF = predictionsDF.withColumn("pipeline_id", lit(pipelineID).cast("string")) \
                                         .withColumn("model_version", lit(pipelineID).cast("string")) \
                                         .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
-                                        .withColumn("operation", lit(operation)) 
+                                        .withColumn("operation", lit(appNameSuffix)) 
 
         predictionsWithPipelineIdDF.write.format('bigquery') \
         .mode("append")\
@@ -277,19 +282,18 @@ def fnMain(logger, args):
             return metricsDictionary
 
         # 14b. Capture & display metrics subset
-        modelMetrics = fnParseModelMetrics(predictionsDF, "label", "test", True)
-        for m, v in modelMetrics.items():
+        hyperParameterTunedModelMetricsSubset = fnParseModelMetrics(predictionsDF, "label", "test", True)
+        for m, v in hyperParameterTunedModelMetricsSubset.items():
             print(f'{m}: {v}')
 
         # 14c. Persist metrics subset to BigQuery
-        metricsDF = spark.createDataFrame(modelMetrics.items(), ["metric_nm", "metric_value"]) 
+        metricsDF = spark.createDataFrame(hyperParameterTunedModelMetricsSubset.items(), ["metric_nm", "metric_value"]) 
         metricsWithPipelineIdDF = metricsDF.withColumn("pipeline_id", lit(pipelineID).cast("string")) \
                                         .withColumn("model_version", lit(pipelineID).cast("string")) \
                                         .withColumn("pipeline_execution_dt", lit(pipelineExecutionDt)) \
                                         .withColumn("operation", lit(appNameSuffix)) 
 
         metricsWithPipelineIdDF.show()
-
         metricsWithPipelineIdDF.write.format('bigquery') \
         .mode("append")\
         .option('table', bigQueryModelMetricsTableFQN) \
@@ -297,7 +301,7 @@ def fnMain(logger, args):
 
         # 14d. Persist metrics subset to GCS
         blobName = f"{modelBaseNm}/{appNameSuffix}/{modelVersion}/subset/metrics.json"
-        common_utils.fnPersistMetrics(urlparse(metricsBucketUri).netloc, modelMetrics, blobName)
+        common_utils.fnPersistMetrics(urlparse(metricsBucketUri).netloc, hyperParameterTunedModelMetricsSubset, blobName)
 
         # 14e. Persist metrics in full to GCS
         # (The version persisted to BQ does not have True, Score and Prediction needed for Confusion Matrix
@@ -314,6 +318,24 @@ def fnMain(logger, args):
         # 14e.3. Print
         for m, v in modelMetricsWithTSP.items():
             print(f'{m}: {v}')
+        
+        # }}
+        # ........................................................
+        # MODEL MLEAP BUNDLE
+        # ........................................................
+        # 15a. Serialize model to MLEAP bundle
+        pipelineModel.bestModel.serializeToBundle(f'jar:file:/tmp/bundle.zip', predictionsDF)
+
+        # 15b. Bucket to persist bundle to GCS
+        mleapBundleFilePath = urlparse(mleapBundleBucketUri).path.strip('/')
+        bundleBucket = urlparse(mleapBundleBucketUri).netloc
+
+        print(f"mleapBundleFilePath={mleapBundleFilePath}")
+        print(f"bundleBucket={bundleBucket}")
+
+        # 15c. Persist bundle to GCS
+        common_utils.fnPersistToGCS(bundleBucket, '/tmp/bundle.zip', mleapBundleFilePath)
+
 
     except RuntimeError as coreError:
             logger.error(coreError)
