@@ -235,7 +235,7 @@ gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
 <br><br>
 
 
-### 9.3. Validate availabity of artifacts in Cloud Storage
+### 9.3. Validate availabity of model metrics in Cloud Storage
 
 The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
 ```
@@ -254,7 +254,7 @@ SELECT * FROM `customer_churn_ds.model_metrics`
 ```
 
 ### 9.5. Review the model test results in BigQuery
-Run the below queries in BigQuery. Be sure to add pipeline_id to the where clause.
+Run the below query in BigQuery. Be sure to add pipeline_id to the where clause.
 
 Query the predictions-
 ```
@@ -263,6 +263,40 @@ SELECT churn, prediction, *
  WHERE operation='hyperparameter-tuning'
  AND PIPELINE_ID='REPLACE_WITH_YOUR_PIPELINE_ID' 
 ```
+
+
+### 9.6. Validate availabity of model mleap bundle in Cloud Storage
+
+The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
+```
+echo $PIPELINE_ID
+```
+
+![M4](../06-images/module-4-100.png)   
+<br><br>
+
+
+
+### 9.7. Review the model asset tracker table in BigQuery
+This table has the latest model artifact specifics across storage systems.<br>
+The following is the table definition-
+![M4](../06-images/module-4-101.png)   
+<br><br>
+
+
+Run the below query in BigQuery to view assets specific to your execution-
+
+Query the predictions-
+```
+SELECT  *
+ FROM `customer_churn_ds.model_asset_tracker` 
+```
+
+
+Author's sample-
+![M4](../06-images/module-4-102.png)   
+<br><br>
+
 <hr>
 
 ## 10. Batch scoring
