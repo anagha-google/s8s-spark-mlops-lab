@@ -170,7 +170,7 @@ As the job progresses, the output is printed to the terminal.
 <br><br>
 
 
-### 8.3. Validate availabity of artifacts in Cloud Storage
+### 8.3. Validate availabity of model metrics in Cloud Storage
 
 The ID generated in the variables section for the author is 29657. You can locate artifacts by identifying your PIPELINE_ID.
 ```
@@ -285,8 +285,6 @@ The following is the table definition-
 
 
 Run the below query in BigQuery to view assets specific to your execution-
-
-Query the predictions-
 ```
 SELECT  *
  FROM `customer_churn_ds.model_asset_tracker` 
