@@ -111,7 +111,7 @@ Shut down/delete resources when done to avoid unnecessary billing.
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
 | 2. | Dr. Thomas Abraham<br>Brian Kang | ML consultation, testing, best practices and feedback |
-| 3. |Rob Vogelbacher<br>Proshanta Saha| ML consultation |
+| 3. | Rob Vogelbacher<br>Proshanta Saha| ML consultation |
 | 4. | Ivan Nardini<br>Win Woo | ML consultation, inspiration through [samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb) and [blogs](https://medium.com/google-cloud/sparkling-vertex-ai-pipeline-cfe6e19334f7) |
 
 
