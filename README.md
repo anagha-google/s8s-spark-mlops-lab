@@ -99,7 +99,7 @@ Complete the lab modules in a sequential manner. For a better lab experience, re
 | 07 |  [Create a Cloud Scheduler job that invokes the Cloud Function you created](05-lab-guide/Module-07-Schedule-VertexAI-Pipeline.md)| 15 minutes |
 | 08 |  [Author a Cloud Composer Airflow DAG for batch scoring and schedule it](05-lab-guide/Module-08-Orchestrate-Batch-Scoring.md)| 15 minutes |
 
-Although the ML usecase in this lab does not need a custom container image, the lab includes [container image creation](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md#11-creating-a-custom-container-image) and usage for the purpose of education.
+The lab includes custom [container image creation](05-lab-guide/Module-04-Author-ML-PySpark-Scripts.md#11-creating-a-custom-container-image) and usage.
 
 ## 11. Dont forget to 
 Shut down/delete resources when done to avoid unnecessary billing.
@@ -111,7 +111,7 @@ Shut down/delete resources when done to avoid unnecessary billing.
 | -- | :--- | :--- |
 | 1. | Anagha Khanolkar | Creator |
 | 2. | Dr. Thomas Abraham<br>Brian Kang | ML consultation, testing, best practices and feedback |
-| 3. |Rob Vogelbacher<br>Proshanta Saha| ML consultation |
+| 3. | Rob Vogelbacher<br>Proshanta Saha| ML consultation |
 | 4. | Ivan Nardini<br>Win Woo | ML consultation, inspiration through [samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb) and [blogs](https://medium.com/google-cloud/sparkling-vertex-ai-pipeline-cfe6e19334f7) |
 
 
@@ -126,4 +126,10 @@ Community contribution to improve the lab is very much appreciated. <br>
 If you have any questions or if you found any problems with this repository, please report through GitHub issues.
 
 <hr>
+
+## 15. Release History
+| Date | Details | 
+| -- | :--- | 
+| 20220930 |  Added serializing model to MLEAP bundle<br>Affects:<br>1. Terraform main.tf<br>2. Hyperparameter tuning notebook<br>3. Hyperparameter tuning PySpark script<br>4. VAI pipeline notebook<br>5. VAI Json Template |
+
 
