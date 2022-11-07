@@ -93,7 +93,7 @@ def fnMain(logger, args):
     metricsBucketUri = f"gs://s8s_metrics_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}"
     scratchBucketUri = f"s8s-spark-bucket-{projectNbr}/{appBaseName}/pipelineId-{pipelineID}/{appNameSuffix}/"
     pipelineExecutionDt = datetime.now().strftime("%Y%m%d%H%M%S")
-    mleapBundleBucketUri = f"gs://s8s_bundle_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}/model"
+    mleapBundleBucketUri = f"gs://s8s_bundle_bucket-{projectNbr}/{modelBaseNm}/{operation}/{modelVersion}/bundle"
 
     # Other variables, constants
     SPLIT_SEED = 6
@@ -324,7 +324,7 @@ def fnMain(logger, args):
         # MODEL MLEAP BUNDLE CREATION
         # ........................................................
         # 15a. Serialize model to MLEAP bundle
-        pipelineModel.bestModel.serializeToBundle(f'jar:file:/tmp/bundle.zip', predictionsDF)
+        pipelineModel.bestModel.serializeToBundle(f'jar:file:/tmp/model.zip', predictionsDF)
 
         # 15b. Bucket to persist bundle to GCS
         mleapBundleFilePath = urlparse(mleapBundleBucketUri).path.strip('/')
