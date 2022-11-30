@@ -334,7 +334,7 @@ def fnMain(logger, args):
         print(f"bundleBucket={bundleBucket}")
 
         # 15c. Persist bundle to GCS
-        common_utils.fnPersistToGCS(bundleBucket, '/tmp/bundle.zip', mleapBundleFilePath)
+        common_utils.fnPersistToGCS(bundleBucket, '/tmp/model.zip', mleapBundleFilePath)
 
         # ........................................................
         # LOG THE MODEL VERSION TO THE BIGQUERY MODEL TRACKER TABLE
