@@ -66,7 +66,7 @@ BQ_CONNECTOR_JAR_GS_URI="gs://spark-lib/bigquery/spark-bigquery-with-dependencie
 BQ_CONNECTOR_PACKAGES="com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2"
 PIPELINE_ID=$RANDOM
 LOCATION=us-central1
-MLEAP_PACKAGE_COORDS="ml.combust.mleap:mleap-spark_2.12:0.20.0"
+MLEAP_PACKAGE_COORDS="ml.combust.mleap:mleap-spark-base_2.12:0.20.0,ml.combust.mleap:mleap-spark_2.12:0.20.0"
 ```
 
 The PIPELINE_ID is particularly important as we will use it for traceablity/lineage.
