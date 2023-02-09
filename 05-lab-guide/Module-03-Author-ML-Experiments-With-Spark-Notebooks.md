@@ -226,7 +226,7 @@ gcloud beta dataproc sessions create spark $SESSION_NAME  \
 --history-server-cluster=projects/$PROJECT_ID/regions/$REGION/clusters/$HISTORY_SERVER_NAME \
 --container-image=${CONTAINER_IMAGE_URI} \
 --subnet=$SUBNET \
---version 1.0.15 
+--version 1.1.0
 ```
 
 ### 7.3. Run the model hyperparameter tuning notebook
