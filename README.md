@@ -114,6 +114,8 @@ Shut down/delete resources when done to avoid unnecessary billing.
 | 3. | Rob Vogelbacher<br>Proshanta Saha| ML consultation |
 | 4. | Ivan Nardini<br>Win Woo | ML consultation, inspiration through [samples](https://github.com/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/pipelines/google_cloud_pipeline_components_dataproc_tabular.ipynb) and [blogs](https://medium.com/google-cloud/sparkling-vertex-ai-pipeline-cfe6e19334f7) |
 
+The source code was evolvedby the creator from a base developed by a partner for Google Cloud.
+
 
 <hr>
 
