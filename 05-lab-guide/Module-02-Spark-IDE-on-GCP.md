@@ -128,6 +128,9 @@ Note that the varibles run in Cloud shell have all the values you need to create
 <br><br>
 
 
+![UMNBS](../06-images/module-2-07.png)   
+<br><br>
+
 
 Paste the value-
 ```
