@@ -90,7 +90,7 @@ gs://$CODE_BUCKET/pyspark/preprocessing.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
+--version 1.1 \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
@@ -153,7 +153,7 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
+--version 1.1 \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
@@ -224,7 +224,8 @@ gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---properties=^::^"spark.jars.packages=${BQ_CONNECTOR_PACKAGES},${MLEAP_PACKAGE_COORDS}" \
+--version 1.1 \
+--properties=^::^"${MLEAP_PACKAGE_COORDS}" \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
@@ -311,7 +312,7 @@ gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---properties "spark.jars.packages=${BQ_CONNECTOR_PACKAGES}" \
+--version 1.1 \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True 
 ```
