@@ -128,14 +128,6 @@ Note that the varibles run in Cloud shell have all the values you need to create
 <br><br>
 
 
-![UMNBS](../06-images/module-2-07.png)   
-<br><br>
-
-
-Paste the value-
-```
-spark.jars.packages=com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2
-```
 
 ![UMNBS](../06-images/module-2-08.png)   
 <br><br>
