@@ -1172,7 +1172,7 @@ resource "google_composer_environment" "cloud_composer_env_creation" {
         AIRFLOW_VAR_DISPLAY_PRINT_STATEMENTS = "True"
         AIRFLOW_VAR_BQ_DATASET = "${local.bq_datamart_ds}"
         AIRFLOW_VAR_UMSA_FQN = "${local.umsa_fqn}"
-        AIRFLOW_DATAPROC_RUNTIME_VERSION = "${local.dataproc_runtime_version}"
+        AIRFLOW_VAR_DATAPROC_RUNTIME_VERSION = "${local.dataproc_runtime_version}"
       }
     }
 
