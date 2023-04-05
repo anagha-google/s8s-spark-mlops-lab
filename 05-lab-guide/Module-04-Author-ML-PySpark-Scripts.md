@@ -65,7 +65,7 @@ CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
 PIPELINE_ID=$RANDOM
 LOCATION=us-central1
 MLEAP_PACKAGE_COORDS="ml.combust.mleap:mleap-spark-base_2.12:0.20.0,ml.combust.mleap:mleap-spark_2.12:0.20.0"
-SPARK_RUNTIME_VERSION=1.1
+DATAPROC_RUNTIME_VERSION=1.1
 ```
 
 The PIPELINE_ID is particularly important as we will use it for traceablity/lineage.
@@ -89,7 +89,7 @@ gs://$CODE_BUCKET/pyspark/preprocessing.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version $SPARK_RUNTIME_VERSION \
+--version $DATAPROC_RUNTIME_VERSION \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
@@ -152,7 +152,7 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version $SPARK_RUNTIME_VERSION \
+--version $DATAPROC_RUNTIME_VERSION \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
@@ -223,7 +223,7 @@ gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version $SPARK_RUNTIME_VERSION \
+--version $DATAPROC_RUNTIME_VERSION \
 --properties=^::^"spark.jars.packages=${MLEAP_PACKAGE_COORDS}" \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
@@ -311,7 +311,7 @@ gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version $SPARK_RUNTIME_VERSION \
+--version $DATAPROC_RUNTIME_VERSION \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True 
 ```
