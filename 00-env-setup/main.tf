@@ -57,6 +57,7 @@ SPARK_CONTAINER_IMG_TAG     = "${var.spark_container_image_tag}"
 dpms_nm                     = "s8s-dpms-${local.project_nbr}"
 bq_connector_jar_gcs_uri    = "${var.bq_connector_jar_gcs_uri}"
 cloud_scheduler_timezone    = "${var.cloud_scheduler_time_zone}"
+dataproc_runtime_version    = "${var.dataproc_runtime_version}"
 }
 
 /******************************************
@@ -1171,6 +1172,7 @@ resource "google_composer_environment" "cloud_composer_env_creation" {
         AIRFLOW_VAR_DISPLAY_PRINT_STATEMENTS = "True"
         AIRFLOW_VAR_BQ_DATASET = "${local.bq_datamart_ds}"
         AIRFLOW_VAR_UMSA_FQN = "${local.umsa_fqn}"
+        AIRFLOW_DATAPROC_RUNTIME_VERSION = "${local.dataproc_runtime_version}"
       }
     }
 
