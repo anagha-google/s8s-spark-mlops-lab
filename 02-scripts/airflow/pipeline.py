@@ -32,6 +32,7 @@ containerImageUri=Variable.get("container_image_uri")
 bqDataset=Variable.get("bq_dataset")
 umsaFQN=Variable.get("umsa_fqn")
 bqConnectorJarUri=Variable.get("bq_connector_jar_uri")
+dataprocRunTimeVersion=Variable.get("dataproc_runtime")
 # +
 # c) For the Spark application
 pipelineID = randomVal
@@ -62,7 +63,8 @@ s8sSparkBatchConfig = {
         "jar_file_uris": [ bqConnectorJarUri ]
     },
     "runtime_config": {
-        "container_image": containerImageUri
+        "container_image": containerImageUri,
+        "version": dataprocRunTimeVersion
     },
     "environment_config":{
         "execution_config":{
