@@ -45,7 +45,11 @@ def process_request(request):
 
    # e) VAI pipeline root for logs
    VAI_PIPELINE_ROOT_LOG_DIR = os.environ.get("VAI_PIPELINE_ROOT_LOG_DIR")
-   print("VAI_PIPELINE_ROOT_LOG_DIR is {}".format(VAI_PIPELINE_ROOT_LOG_DIR))   
+   print("VAI_PIPELINE_ROOT_LOG_DIR is {}".format(VAI_PIPELINE_ROOT_LOG_DIR))  
+   
+   # f) DATAPROC SERVERLESS RUNTIME VERSION
+   DATAPROC_RUNTIME_VERSION = os.environ.get("DATAPROC_RUNTIME_VERSION")
+   print("DATAPROC_RUNTIME_VERSION is {}".format(DATAPROC_RUNTIME_VERSION))  
 
    # ........................................
    # Create local scratch directory in /tmp
@@ -85,7 +89,7 @@ def process_request(request):
    downloadVaiPipelineTemplateInGCS(VAI_PIPELINE_JSON_TEMPLATE_GCS_FILE_FQN,localTemplatePipelineJsonFileFQN)
 
    # b) Create custom VAI pipeline JSON
-   createCustomVaiPipelineJson(vaiPipelineExecutionInstanceID,localTemplatePipelineJsonFileFQN,localCustomPipelineJsonFileFQN)
+   createCustomVaiPipelineJson(vaiPipelineExecutionInstanceID,localTemplatePipelineJsonFileFQN,localCustomPipelineJsonFileFQN,DATAPROC_RUNTIME_VERSION)
 
    # c) Push custom VAI pipeline JSON to GCS execution directory
    pushLocalFileToGCS(urlparse(VAI_PIPELINE_JSON_EXEC_DIR_URI).netloc, localCustomPipelineJsonFileFQN, "executions/{}".format(pipelineFileName))
@@ -122,14 +126,17 @@ def downloadVaiPipelineTemplateInGCS(gcsFQVaiPipelineTemplateJsonFileUri, fileTo
    print("Downloaded template to {}".format(fileToDownloadToLocally))
 #}}
 
-def createCustomVaiPipelineJson(pipelineID, templatePipelineJsonLocalFile, customPipelineJsonLocalFile):
+def createCustomVaiPipelineJson(pipelineID, templatePipelineJsonLocalFile, customPipelineJsonLocalFile, dataprocRuntimeVersion):
 #{{
-    searchText = "YOUR_USER_DEFINED_EXECUTION_ID"
-    replaceText = str(pipelineID)
+    searchTextPipelineID = "YOUR_USER_DEFINED_EXECUTION_ID"
+    replaceTextPipelineID = str(pipelineID)
+    searchTextDataprocRuntimeVersion = "YOUR_DATAPROC_RUNTIME_VERSION"
+    replaceTextDataprocRuntimeVersion = str(dataprocRuntimeVersion)
   
     with open(templatePipelineJsonLocalFile, 'r') as templateFileHandle:
         templateContent = templateFileHandle.read()
-        customContent = templateContent.replace(searchText, replaceText)
+        customContent = templateContent.replace(searchTextPipelineID, replaceTextPipelineID)
+        customContent = customContent.replace(searchTextDataprocRuntimeVersion, replaceTextDataprocRuntimeVersion)
     
     with open(customPipelineJsonLocalFile, 'w') as customFileHandle:
         customFileHandle.write(customContent)
