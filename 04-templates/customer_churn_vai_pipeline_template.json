@@ -91,13 +91,6 @@
                   "runtime_config_properties": {
                      "componentInputParameter": "pipelineparam--hyperparameter_tuning_runtime_config_properties"
                   },
-                  "runtime_config_version": {
-                    "runtimeValue": {
-                      "constantValue": {
-                        "stringValue": ""
-                      }
-                    }
-                  },
                   "service_account": {
                     "componentInputParameter": "pipelineparam--service_account"
                   },
