@@ -1308,6 +1308,7 @@ resource "google_cloudfunctions2_function" "deploy_gcf_vai_pipeline_trigger" {
         GCP_LOCATION = local.location
         PROJECT_ID = local.project_id
         VAI_PIPELINE_ROOT_LOG_DIR = "gs://s8s_model_bucket-${local.project_nbr}/customer-churn-model/pipelines"
+        DATAPROC_RUNTIME_VERSION = "${local.dataproc_runtime_version}"
     }
     service_account_email = "s8s-lab-sa@${local.project_id}.iam.gserviceaccount.com"
   }
