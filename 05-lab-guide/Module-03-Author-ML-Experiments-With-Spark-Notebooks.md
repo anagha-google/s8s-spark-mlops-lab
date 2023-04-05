@@ -221,7 +221,6 @@ CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
 gcloud beta dataproc sessions create spark $SESSION_NAME  \
 --project=${PROJECT_ID} \
 --location=${REGION} \
---property=spark.jars=gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar \
 --property=spark.jars.packages="ml.combust.mleap:mleap-spark_2.12:0.20.0" \
 --history-server-cluster=projects/$PROJECT_ID/regions/$REGION/clusters/$HISTORY_SERVER_NAME \
 --container-image=${CONTAINER_IMAGE_URI} \
