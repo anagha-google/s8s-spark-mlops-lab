@@ -62,11 +62,10 @@ DATA_BUCKET=s8s_data_bucket-${PROJECT_NBR}
 CODE_BUCKET=s8s_code_bucket-${PROJECT_NBR}
 MODEL_BUCKET=s8s_model_bucket-${PROJECT_NBR}
 CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
-BQ_CONNECTOR_JAR_GS_URI="gs://spark-lib/bigquery/spark-bigquery-with-dependencies_2.12-0.22.2.jar"
-BQ_CONNECTOR_PACKAGES="com.google.cloud.spark:spark-bigquery-with-dependencies_2.12:0.25.2"
 PIPELINE_ID=$RANDOM
 LOCATION=us-central1
 MLEAP_PACKAGE_COORDS="ml.combust.mleap:mleap-spark-base_2.12:0.20.0,ml.combust.mleap:mleap-spark_2.12:0.20.0"
+SPARK_RUNTIME_VERSION=1.1
 ```
 
 The PIPELINE_ID is particularly important as we will use it for traceablity/lineage.
@@ -90,7 +89,7 @@ gs://$CODE_BUCKET/pyspark/preprocessing.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version 1.1 \
+--version $SPARK_RUNTIME_VERSION \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
@@ -153,7 +152,7 @@ gs://$CODE_BUCKET/pyspark/model_training.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version 1.1 \
+--version $SPARK_RUNTIME_VERSION \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
@@ -224,7 +223,7 @@ gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version 1.1 \
+--version $SPARK_RUNTIME_VERSION \
 --properties=^::^"spark.jars.packages=${MLEAP_PACKAGE_COORDS}" \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
@@ -312,7 +311,7 @@ gs://$CODE_BUCKET/pyspark/batch_scoring.py \
 --subnet projects/$PROJECT_ID/regions/$LOCATION/subnetworks/$SPARK_SERVERLESS_SUBNET \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
---version 1.1 \
+--version $SPARK_RUNTIME_VERSION \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True 
 ```
