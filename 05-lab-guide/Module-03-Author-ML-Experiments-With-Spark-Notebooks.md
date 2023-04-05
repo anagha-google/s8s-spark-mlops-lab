@@ -217,6 +217,7 @@ HISTORY_SERVER_NAME="s8s-sphs-${PROJECT_NBR}"
 SUBNET="spark-snet"
 NOTEBOOK_BUCKET="gs://s8s_notebook_bucket-${PROJECT_NBR}"
 CONTAINER_IMAGE_URI="gcr.io/$PROJECT_ID/customer_churn_image:1.0.0"
+DATAPROC_RUNTIME_VERSION="1.1"
 
 gcloud beta dataproc sessions create spark $SESSION_NAME  \
 --project=${PROJECT_ID} \
@@ -225,7 +226,7 @@ gcloud beta dataproc sessions create spark $SESSION_NAME  \
 --history-server-cluster=projects/$PROJECT_ID/regions/$REGION/clusters/$HISTORY_SERVER_NAME \
 --container-image=${CONTAINER_IMAGE_URI} \
 --subnet=$SUBNET \
---version 1.1.0
+--version $DATAPROC_RUNTIME_VERSION
 ```
 
 ### 7.3. Run the model hyperparameter tuning notebook
