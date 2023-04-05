@@ -225,7 +225,7 @@ gs://$CODE_BUCKET/pyspark/hyperparameter_tuning.py \
 --history-server-cluster=projects/$PROJECT_ID/regions/$LOCATION/clusters/$PERSISTENT_HISTORY_SERVER_NM \
 --service-account $UMSA_FQN \
 --version 1.1 \
---properties=^::^"${MLEAP_PACKAGE_COORDS}" \
+--properties=^::^"spark.jars.packages=${MLEAP_PACKAGE_COORDS}" \
 --container-image=${CONTAINER_IMAGE_URI} \
 -- --pipelineID=${PIPELINE_ID} --projectNbr=$PROJECT_NBR --projectID=$PROJECT_ID --displayPrintStatements=True
 ```
