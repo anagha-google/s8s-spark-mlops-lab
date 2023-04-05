@@ -9,6 +9,10 @@
 # 4. Writes model test results to BigQuery
 # 5. Serializes the best model into a mleap bundle persists to GCS
 # ............................................................
+# Revision history:
+# ............................................................
+# 20230404: Commented out MLEAP bundle serialization issue due to Breeze lib compat with Dataproc s8s runtime 1.1.1
+# ............................................................
 
 from pyspark.sql import SparkSession
 from pyspark.ml import Pipeline
@@ -324,17 +328,19 @@ def fnMain(logger, args):
         # MODEL MLEAP BUNDLE CREATION
         # ........................................................
         # 15a. Serialize model to MLEAP bundle
-        pipelineModel.bestModel.serializeToBundle(f'jar:file:/tmp/model.zip', predictionsDF)
+        #pipelineModel.bestModel.serializeToBundle(f'jar:file:/tmp/model.zip', predictionsDF)
 
         # 15b. Bucket to persist bundle to GCS
+        '''
         mleapBundleFilePath = urlparse(mleapBundleBucketUri).path.strip('/')
         bundleBucket = urlparse(mleapBundleBucketUri).netloc
 
         print(f"mleapBundleFilePath={mleapBundleFilePath}")
         print(f"bundleBucket={bundleBucket}")
+        '''
 
         # 15c. Persist bundle to GCS
-        common_utils.fnPersistToGCS(bundleBucket, '/tmp/model.zip', mleapBundleFilePath)
+        #common_utils.fnPersistToGCS(bundleBucket, '/tmp/model.zip', mleapBundleFilePath)
 
         # ........................................................
         # LOG THE MODEL VERSION TO THE BIGQUERY MODEL TRACKER TABLE
@@ -342,8 +348,8 @@ def fnMain(logger, args):
 
         # 16a. Create a dict with model assets
         modelTrackerDict = [{ "model_nm": "CUSTOMER_CHURN_PREDICTION", 
-                            "pipeline_id": pipelineID, 
-                            "model_version": pipelineID, 
+                            "pipeline_id": str(pipelineID), 
+                            "model_version": str(pipelineID), 
                             "pipeline_execution_dt": pipelineExecutionDt,
                             "model_gcs_uri": modelBucketUri,
                             "model_bundle_gcs_uri": mleapBundleBucketUri,
