@@ -32,7 +32,7 @@ containerImageUri=Variable.get("container_image_uri")
 bqDataset=Variable.get("bq_dataset")
 umsaFQN=Variable.get("umsa_fqn")
 bqConnectorJarUri=Variable.get("bq_connector_jar_uri")
-dataprocRunTimeVersion=Variable.get("dataproc_runtime")
+dataprocRunTimeVersion=Variable.get("dataproc_runtime_version")
 # +
 # c) For the Spark application
 pipelineID = randomVal
