@@ -126,6 +126,9 @@
             "pipelineparam--container_image": {
               "type": "STRING"
             },
+            "pipelineparam--dataproc_runtime_version": {
+              "type": "STRING"
+            },
             "pipelineparam--fnevaluatemodel-threshold_metric": {
               "type": "DOUBLE"
             },
