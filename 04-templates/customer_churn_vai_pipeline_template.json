@@ -101,6 +101,9 @@
                   "service_account": {
                     "componentInputParameter": "pipelineparam--service_account"
                   },
+                  "runtime_config_version": {
+                    "componentInputParameter": "pipelineparam--dataproc_runtime_version"
+                  },
                   "spark_history_dataproc_cluster": {
                     "componentInputParameter": "pipelineparam--spark_phs_nm"
                   },
