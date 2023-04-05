@@ -338,7 +338,7 @@ When you have a lot of dependencies that cant be supplied at runtime or have a c
 ### 11.3. Dos and Donts, what's supported and what's coming
 1. Spark and Java should not be included in the image
 2. Push your custom container image into Google Container Registry
-3. Support for Google Artifact Registry is in the roadmap
+3. Support for Google Artifact Registry (preferred registry) has landed. The sample below will be updated soon to refelct GAR.
 
 ### 11.4. How to create a custom image
 This is FYI only.<br>
