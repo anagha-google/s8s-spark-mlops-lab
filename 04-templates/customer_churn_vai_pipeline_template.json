@@ -974,6 +974,9 @@
           "data_preprocessing_pyspark_batch_id": {
             "type": "STRING"
           },
+          "dataproc_runtime_version": {
+            "type": "STRING"
+          },
           "hyperparameter_tuning_args": {
             "type": "STRING"
           },
@@ -1063,6 +1066,9 @@
       },
       "data_preprocessing_pyspark_batch_id": {
         "stringValue": "customer-churn-model-preprocessing-YOUR_USER_DEFINED_EXECUTION_ID"
+      },
+      "dataproc_runtime_version": {
+        "stringValue": "1.1"
       },
       "hyperparameter_tuning_args": {
         "stringValue": "[\"--pipelineID=YOUR_USER_DEFINED_EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
