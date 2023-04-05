@@ -71,6 +71,7 @@ YOUR_GCP_REGION="us-central1"
 YOUR_GCP_ZONE="us-central1-a"
 YOUR_GCP_MULTI_REGION="US"
 CLOUD_SCHEDULER_TIME_ZONE="America/Chicago"
+DATAPROC_RUNTIME_VERSION="1.1"
 
 echo "PROJECT_ID=$PROJECT_ID"
 echo "PROJECT_NBR=$PROJECT_NBR"
@@ -80,6 +81,7 @@ echo "PERSISTENT_HISTORY_SERVER_NM=$PERSISTENT_HISTORY_SERVER_NM"
 echo "UMSA_FQN=$UMSA_FQN"
 echo "DATA_BUCKET=$DATA_BUCKET"
 echo "CODE_BUCKET=$CODE_BUCKET"
+echo "DATAPROC_RUNTIME_VERSION=$DATAPROC_RUNTIME_VERSION"
 ```
 
 ### 2.4.2. Initialize Terraform
@@ -107,7 +109,9 @@ terraform plan \
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
-  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}"
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
+  -var="dataproc_runtime_version=${DATAPROC_RUNTIME_VERSION}" 
+  
 ```
 
 #### 2.4.4. Provision the environment
@@ -127,7 +131,8 @@ terraform apply \
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
-  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}"  \
+  -var="dataproc_runtime_version=${DATAPROC_RUNTIME_VERSION}" \
   --auto-approve
 ```
 
@@ -174,7 +179,8 @@ If -target does not work, try -replace
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
-  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}"  \
+  -var="dataproc_runtime_version=${DATAPROC_RUNTIME_VERSION}" \
   --auto-approve
 ```
 
@@ -196,7 +202,8 @@ Needs to run in cloud shell from ~/gcp-spark-mllib-workshop/s8s-spark-mlops-lab/
   -var="gcp_zone=${YOUR_GCP_ZONE}" \
   -var="gcp_multi_region=${YOUR_GCP_MULTI_REGION}" \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
-  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}" \
+  -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}"  \
+  -var="dataproc_runtime_version=${DATAPROC_RUNTIME_VERSION}" \
   --auto-approve
  ```
 
