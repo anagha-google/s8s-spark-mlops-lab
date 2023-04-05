@@ -12,6 +12,7 @@
 # Revision history:
 # ............................................................
 # 20230404: Commented out MLEAP bundle serialization issue due to Breeze lib compat with Dataproc s8s runtime 1.1.1
+# 20230404: Modified 16a - typecast pipelineID and modelVersion to string
 # ............................................................
 
 from pyspark.sql import SparkSession
