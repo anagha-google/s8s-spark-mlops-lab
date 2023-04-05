@@ -1061,7 +1061,7 @@
         "stringValue": "customer-churn-model-preprocessing-YOUR_USER_DEFINED_EXECUTION_ID"
       },
       "dataproc_runtime_version": {
-        "stringValue": "1.1"
+        "stringValue": "YOUR_DATAPROC_RUNTIME_VERSION"
       },
       "hyperparameter_tuning_args": {
         "stringValue": "[\"--pipelineID=YOUR_USER_DEFINED_EXECUTION_ID\", \"--projectID=YOUR_PROJECT_ID\", \"--projectNbr=YOUR_PROJECT_NBR\", \"--displayPrintStatements=True\"]"
