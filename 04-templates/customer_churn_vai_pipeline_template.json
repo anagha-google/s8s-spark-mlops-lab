@@ -621,6 +621,9 @@
                 "pipelineparam--container_image": {
                   "componentInputParameter": "container_image"
                 },
+                "pipelineparam--dataproc_runtime_version": {
+                  "componentInputParameter": "dataproc_runtime_version"
+                },
                 "pipelineparam--fnevaluatemodel-threshold_metric": {
                   "taskOutputParameter": {
                     "outputParameterKey": "threshold_metric",
@@ -879,6 +882,9 @@
                       "stringValue": ""
                     }
                   }
+                },
+                "runtime_config_version": {
+                  "componentInputParameter": "dataproc_runtime_version"
                 },
                 "service_account": {
                   "componentInputParameter": "service_account"
