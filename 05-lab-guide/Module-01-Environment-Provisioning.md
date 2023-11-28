@@ -133,7 +133,7 @@ terraform apply \
   -var="bq_connector_jar_gcs_uri=${BQ_CONNECTOR_JAR_GCS_URI}" \
   -var="cloud_scheduler_time_zone=${CLOUD_SCHEDULER_TIME_ZONE}"  \
   -var="dataproc_runtime_version=${DATAPROC_RUNTIME_VERSION}" \
-  --auto-approve
+  --auto-approve >> provisioning.output
 ```
 
 <hr>
